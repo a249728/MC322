@@ -1,1 +1,1 @@
-Aqui iremos adicionar informações sobre nossos projetos ou coisas relacionadas às entregas de MC322
+Aqui iremos adicionar informações sobre nossos projetos ou entregas de MC322
