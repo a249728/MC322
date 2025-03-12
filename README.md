@@ -2,7 +2,7 @@
 
 Este repositório contém as entregas para a disciplina **MC322**. O objetivo é documentar o desenvolvimento dos projetos e manter um registro das implementações realizadas.  
 
-## Lab 1 – Simulação de Robô  
+## Lab 1 - Robôs e Ambiente  
 
 Este laboratório envolve a implementação dos estágios iniciais de um Simulador de Robôs por três arquivos principais:  
 
