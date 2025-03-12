@@ -4,10 +4,12 @@ public class Main {
         Robo C3PO = new Robo("C3PO", 0, 0);
         Robo R2D2 = new Robo("R2D2", 0, 0);
 
-        C3PO.mover(3, 0);
-        R2D2.mover(2, 2);
+        moverRobo(C3PO, 3, 0);
+        moverRobo(R2D2, 2, 2);
+    }
 
-        System.out.println(C3PO.exibirPosicao());
-        System.out.println(R2D2.exibirPosicao());
+    public static void moverRobo(Robo robo, int x, int y) {
+        robo.mover(x, y);
+        System.out.println("O robo " + robo.retornarNome() + " moveu para a posição: " + robo.exibirPosicao());
     }
 }
