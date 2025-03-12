@@ -1,5 +1,4 @@
 public class Main {
-
     public static void main(String[] args) {
         Robo C3PO = new Robo("C3PO", 0, 0);
         Robo R2D2 = new Robo("R2D2", 0, 0);
