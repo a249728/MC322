@@ -14,8 +14,8 @@ public class Robo {
         this.posicaoY += deltaY;
     }
 
-    public String exibirPosicao() {
-        return "(" + this.posicaoX + ", " + this.posicaoY + ")";
+    public int[] exibirPosicao() {
+        return new int[] { this.posicaoX, this.posicaoY };
     }
 
     public String retornarNome() {
