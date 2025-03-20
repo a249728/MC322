@@ -1,28 +1,32 @@
 public class Main {
     public static void main(String[] args) {
         // Cria dois robos
-        Robo C3PO = new Robo("C3PO", 0, 0);
-        Robo R2D2 = new Robo("R2D2", 0, 0);
+        Robo Rex = new Robo("Rex", 500, 500, "Norte");
+        RoboTerrestre Mouse = new RoboTerrestre("Mouse", 0, 0, "Norte", 100);
+        RoboAereo Unicornio = new RoboAereo("Unicornio", 0, 0, "Norte", 0, 100);
 
         // Cria um ambiente
-        Ambiente Millennium_Falcon = new Ambiente(3, 3);
-        System.out.println("Criando o ambiente Millennium Falcon de dimensões 3x3");
+        Ambiente Ilha_Base = new Ambiente(500, 500, 500);
+        System.out.println("Criando o ambiente Ilha Base de dimensões 500x500x500");
 
         // Exibe a posicao inicial dos robos criados
-        imprimirPosicao(C3PO);
-        imprimirPosicao(R2D2);
+        imprimirPosicao(Rex);
+        imprimirPosicao(Mouse);
+        imprimirPosicaoAereo(Unicornio);
 
         // Checa se os robos estão inicialmente dentro dos limites do ambiente
-        checarLimites(Millennium_Falcon, C3PO);
-        checarLimites(Millennium_Falcon, R2D2);
+        checarLimites(Ilha_Base, Rex);
+        checarLimites(Ilha_Base, Mouse);
+        checarLimitesAereo(Ilha_Base, Unicornio);
 
-        // Move os dois robos criados
-        moverRobo(C3PO, 3, 0);
-        moverRobo(R2D2, 2, 2);
+        // Move os robos criados
+        moverRobo(Rex, 3, 0);
+        //moverRoboTerrestre(Mouse, 2, 2, 50);
+        //moverRoboAereo(Unicornio, 50, 50, 50);
 
         // Checa se os robos estao dentro dos limites do ambiente apos o movimento
-        checarLimites(Millennium_Falcon, C3PO);
-        checarLimites(Millennium_Falcon, R2D2);
+        // checarLimites(Millennium_Falcon, C3PO);
+        // checarLimites(Millennium_Falcon, R2D2);
     }
 
     public static void moverRobo(Robo robo, int dx, int dy) {
@@ -33,7 +37,7 @@ public class Main {
     }
 
     public static void checarLimites(Ambiente amb, Robo robo) {
-        // Checa se as atuais coordenadas do robo indicam que ele esta dentro dos limites do ambiente e imprime o resultado
+        // Checa se as atuais coordenadas do robo base/terrestre indicam que ele esta dentro dos limites do ambiente e imprime o resultado
         int coord[] = robo.exibirPosicao();
         if (amb.dentroDosLimites(coord[0], coord[1])) {
             System.out.println("O robo " + robo.retornarNome() + " esta dentro dos limites do ambiente");
@@ -43,9 +47,28 @@ public class Main {
         }
     }
 
+    public static void checarLimitesAereo(Ambiente amb, RoboAereo robo) {
+        // Checa se as atuais coordenadas do robo aereo indicam que ele esta dentro dos limites do ambiente e imprime o resultado
+        int coord_xy[] = robo.exibirPosicao();
+        int z = robo.exibirAltura();
+        if (amb.dentroDosLimitesAereo(coord_xy[0], coord_xy[1], z)) {
+            System.out.println("O robo aereo " + robo.retornarNome() + " esta dentro dos limites do ambiente");
+        }
+        else {
+            System.out.println("O robo aereo " + robo.retornarNome() + " nao esta dentro dos limites do ambiente");
+        }
+    }
+
     public static void imprimirPosicao(Robo robo) {
-        // Imprime as atuais coordenadas do robo
+        // Imprime as atuais coordenadas do robo base/terrestre
         int coord[] = robo.exibirPosicao();
         System.out.println("O robo " + robo.retornarNome() + " esta na posicao (" + coord[0] + ", " + coord[1] + ")");
+    }
+
+    public static void imprimirPosicaoAereo(RoboAereo robo) {
+        // Imprime as atuais coordenadas do robo aereo
+        int coord_xy[] = robo.exibirPosicao();
+        int z = robo.exibirAltura();
+        System.out.println("O robo aereo " + robo.retornarNome() + " esta na posicao (" + coord_xy[0] + ", " + coord_xy[1] + ", " + z + ")");
     }
 }

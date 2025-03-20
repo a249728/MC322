@@ -10,7 +10,7 @@ public class Robo {
         this.nome = n;
         this.posicaoX = x;
         this.posicaoY = y;
-        this.direcao=dir;
+        this.direcao = dir;
     }
 
     public void mover(int deltaX, int deltaY) {
