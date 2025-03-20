@@ -9,14 +9,25 @@ public class RoboAereo extends Robo {
     }
 
     public void subir(int deltaZ) {
-        if (altitude + deltaZ <= altitudeMaxima) {
-            altitude += altitudeMaxima;
-        }
+        this.altitude += deltaZ;
     }
 
     public void descer(int deltaZ) {
-        if (altitude - deltaZ >= 0) {
-            altitude -= altitudeMaxima;
+        this.altitude -= deltaZ;
+    }
+
+    public boolean moverAereo(int deltaX, int deltaY, int deltaZ) {
+        if (this.altitude + deltaZ <= altitudeMaxima) {
+            if (super.mover(deltaX, deltaY)) {
+                this.altitude += deltaZ;
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
         }
     }
 

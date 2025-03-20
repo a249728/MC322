@@ -20,20 +20,48 @@ public class Main {
         checarLimitesAereo(Ilha_Base, Unicornio);
 
         // Move os robos criados
-        moverRobo(Rex, 3, 0);
-        //moverRoboTerrestre(Mouse, 2, 2, 50);
-        //moverRoboAereo(Unicornio, 50, 50, 50);
+        moverRobo(Rex, -3, 0);
+        moverRoboTerrestre(Mouse, 400, 560, 50);
+        moverRoboAereo(Unicornio, 50, 50, 101);
 
         // Checa se os robos estao dentro dos limites do ambiente apos o movimento
-        // checarLimites(Millennium_Falcon, C3PO);
-        // checarLimites(Millennium_Falcon, R2D2);
+        checarLimites(Ilha_Base, Rex);
+        checarLimites(Ilha_Base, Mouse);
+        checarLimitesAereo(Ilha_Base, Unicornio);
     }
 
     public static void moverRobo(Robo robo, int dx, int dy) {
+        // Utiliza do metodo mover para atualizar as posicoes do robo base e imprime as novas coordenadas adquiridas
+        if (robo.mover(dx, dy)) {
+            int coord[] = robo.exibirPosicao();
+            System.out.println("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord[0] + ", " + coord[1] + ")");
+        }
+        else {
+            System.out.println("O robo " + robo.retornarNome() + " não se moveu");
+        }
+    }
+
+    public static void moverRoboTerrestre(RoboTerrestre robo, int dx, int dy, int v) {
         // Utiliza do metodo mover para atualizar as posicoes do robo e imprime as novas coordenadas adquiridas
-        robo.mover(dx, dy);
-        int coord[] = robo.exibirPosicao();
-        System.out.println("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord[0] + ", " + coord[1] + ")");
+        if (robo.moverTerrestre(dx, dy, v)) {
+            int coord[] = robo.exibirPosicao();
+            System.out.println("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord[0] + ", " + coord[1] + ")");
+        }
+        else {
+            System.out.println("O robo " + robo.retornarNome() + " não se moveu");
+        }
+    }
+
+    public static void moverRoboAereo(RoboAereo robo, int dx, int dy, int dz) {
+        // Utiliza do metodo mover para atualizar as posicoes do robo base e imprime as novas coordenadas adquiridas
+        if (robo.moverAereo(dx, dy, dz)) {
+            int coord_xy[] = robo.exibirPosicao();
+            int z = robo.exibirAltura();
+            System.out.println("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord_xy[0] + ", " + coord_xy[1] + ", " + z + ")");
+        }
+        else {
+            System.out.println("O robo " + robo.retornarNome() + " não se moveu");
+        }
     }
 
     public static void checarLimites(Ambiente amb, Robo robo) {
@@ -55,7 +83,7 @@ public class Main {
             System.out.println("O robo aereo " + robo.retornarNome() + " esta dentro dos limites do ambiente");
         }
         else {
-            System.out.println("O robo aereo " + robo.retornarNome() + " nao esta dentro dos limites do ambiente");
+            System.out.println("O robo " + robo.retornarNome() + " nao esta dentro dos limites do ambiente");
         }
     }
 
@@ -69,6 +97,6 @@ public class Main {
         // Imprime as atuais coordenadas do robo aereo
         int coord_xy[] = robo.exibirPosicao();
         int z = robo.exibirAltura();
-        System.out.println("O robo aereo " + robo.retornarNome() + " esta na posicao (" + coord_xy[0] + ", " + coord_xy[1] + ", " + z + ")");
+        System.out.println("O robo " + robo.retornarNome() + " esta na posicao (" + coord_xy[0] + ", " + coord_xy[1] + ", " + z + ")");
     }
 }

@@ -13,10 +13,16 @@ public class Robo {
         this.direcao = dir;
     }
 
-    public void mover(int deltaX, int deltaY) {
+    public boolean mover(int deltaX, int deltaY) {
         // Atualiza as coordenadas do robo adicionando a variacao de posicao desejada
-        this.posicaoX += deltaX;
-        this.posicaoY += deltaY;
+        if (this.posicaoX + deltaX >= 0 && this.posicaoY + deltaY >= 0) {
+            this.posicaoX += deltaX;
+            this.posicaoY += deltaY;
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public int[] exibirPosicao() {

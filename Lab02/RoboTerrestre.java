@@ -6,9 +6,15 @@ public class RoboTerrestre extends Robo {
         this.velocidadeMaxima = vmax;
     }
 
-    public void mover(int deltaX, int deltaY, int v) {
-        if (v <= velocidadeMaxima) {
-            super.mover(deltaX, deltaY);
+    public boolean moverTerrestre(int deltaX, int deltaY, int v) {
+        if (v <= this.velocidadeMaxima) {
+            if (super.mover(deltaX, deltaY)) {
+                return true;
+            }
+            return false;
+        }
+        else {
+            return false;
         }
     }
 }
