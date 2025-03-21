@@ -3,7 +3,7 @@ public class Ambiente {
     private int comprimento;
     private int largura;
     private int altura;
-    public static Robo[] robosAtivos = new Robo[0];
+    public Robo[] robosAtivos = new Robo[0];
 
     public Ambiente(int c, int l, int a) {
         // Metodo construtor da classe
@@ -21,7 +21,7 @@ public class Ambiente {
     }
 
     public boolean dentroDosLimitesAereo(int x, int y, int z) {
-        // Retorna um valor booleano correspondente a se as coordenadas fornecidas estao ou nao incluidas nos limites do ambiente
+        // Retorna um valor booleano correspondente a se as coordenadas fornecidas estao ou nao incluidas nos limites do ambiente (considerando eixo z)
         if (x < this.comprimento && y < this.largura && z < this.altura) {
             return true;
         }
@@ -29,6 +29,7 @@ public class Ambiente {
     }
 
     public void adicionarRobo(Robo arr[], Robo robo) {
+        // Adiciona um Robo ativo ao array (o qual pode servir de obstaculo para o movimento de outros robos)
         Robo novoArr[] = new Robo[arr.length + 1];
 
         for (int i = 0; i < arr.length; i++) {
