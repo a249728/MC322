@@ -7,7 +7,7 @@ public class Main {
             // Cria robos e adiciona-os a lista de robos ativos no ambiente criado
             Robo Rex = new Robo("Rex", 500, 500, "Norte");
             RoboTerrestre Sasquatch = new RoboTerrestre("Sasquatch", 0, 0, "Norte", 100);
-            RoboAereo Unicornio = new RoboAereo("Unicornio", 1, 0, "Norte", 0, 100);
+            RoboAereo Unicornio = new RoboAereo("Unicornio", 0, 0, "Norte", 0, 100);
             Ilha_Base.adicionarRobo(Ilha_Base.robosAtivos, Rex);
             Ilha_Base.adicionarRobo(Ilha_Base.robosAtivos, Sasquatch);
             Ilha_Base.adicionarRobo(Ilha_Base.robosAtivos, Unicornio);
@@ -25,7 +25,7 @@ public class Main {
             // Move os robos criados
             moverRobo(Rex, -3, 0, Ilha_Base);
             moverRoboTerrestre(Sasquatch, 400, 0, 50, Ilha_Base);
-            moverRoboAereo(Unicornio, 50, 50, 100, Ilha_Base);
+            moverRoboAereo(Unicornio, 400, 0, 100, Ilha_Base);
     
             // Exibe a posicao final dos robos criados
             imprimirPosicao(Rex);
