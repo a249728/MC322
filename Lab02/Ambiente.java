@@ -3,6 +3,7 @@ public class Ambiente {
     private int comprimento;
     private int largura;
     private int altura;
+    public static Robo[] robosAtivos = new Robo[0];
 
     public Ambiente(int c, int l, int a) {
         // Metodo construtor da classe
@@ -25,5 +26,17 @@ public class Ambiente {
             return true;
         }
         return false;
+    }
+
+    public void adicionarRobo(Robo arr[], Robo robo) {
+        Robo novoArr[] = new Robo[arr.length + 1];
+
+        for (int i = 0; i < arr.length; i++) {
+            novoArr[i] = arr[i];
+        }
+
+        novoArr[arr.length] = robo;
+
+        robosAtivos = novoArr;
     }
 }

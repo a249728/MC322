@@ -1,33 +1,36 @@
 public class Main {
-    public static void main(String[] args) {
-        // Cria dois robos
-        Robo Rex = new Robo("Rex", 500, 500, "Norte");
-        RoboTerrestre Mouse = new RoboTerrestre("Mouse", 0, 0, "Norte", 100);
-        RoboAereo Unicornio = new RoboAereo("Unicornio", 0, 0, "Norte", 0, 100);
+        public static void main(String[] args) {
+            // Cria um ambiente
+            Ambiente Ilha_Base = new Ambiente(500, 500, 500);
+            System.out.println("Criando o ambiente Ilha Base de dimensões 500x500x500");
+            
+            // Cria dois robos
+            Robo Rex = new Robo("Rex", 500, 500, "Norte");
+            RoboTerrestre Mouse = new RoboTerrestre("Mouse", 0, 0, "Norte", 100);
+            RoboAereo Unicornio = new RoboAereo("Unicornio", 0, 0, "Norte", 0, 100);
+            Ilha_Base.adicionarRobo(Ambiente.robosAtivos, Rex);
+            Ilha_Base.adicionarRobo(Ambiente.robosAtivos, Mouse);
+            Ilha_Base.adicionarRobo(Ambiente.robosAtivos, Unicornio);
 
-        // Cria um ambiente
-        Ambiente Ilha_Base = new Ambiente(500, 500, 500);
-        System.out.println("Criando o ambiente Ilha Base de dimensões 500x500x500");
-
-        // Exibe a posicao inicial dos robos criados
-        imprimirPosicao(Rex);
-        imprimirPosicao(Mouse);
-        imprimirPosicaoAereo(Unicornio);
-
-        // Checa se os robos estão inicialmente dentro dos limites do ambiente
-        checarLimites(Ilha_Base, Rex);
-        checarLimites(Ilha_Base, Mouse);
-        checarLimitesAereo(Ilha_Base, Unicornio);
-
-        // Move os robos criados
-        moverRobo(Rex, -3, 0);
-        moverRoboTerrestre(Mouse, 400, 560, 50);
-        moverRoboAereo(Unicornio, 50, 50, 101);
-
-        // Checa se os robos estao dentro dos limites do ambiente apos o movimento
-        checarLimites(Ilha_Base, Rex);
-        checarLimites(Ilha_Base, Mouse);
-        checarLimitesAereo(Ilha_Base, Unicornio);
+            // Exibe a posicao inicial dos robos criados
+            imprimirPosicao(Rex);
+            imprimirPosicao(Mouse);
+            imprimirPosicaoAereo(Unicornio);
+    
+            // Checa se os robos estão inicialmente dentro dos limites do ambiente
+            checarLimites(Ilha_Base, Rex);
+            checarLimites(Ilha_Base, Mouse);
+            checarLimitesAereo(Ilha_Base, Unicornio);
+    
+            // Move os robos criados
+            moverRobo(Rex, -3, 0);
+            moverRoboTerrestre(Mouse, 400, 560, 50);
+            moverRoboAereo(Unicornio, 50, 50, 100);
+    
+            // Exibe a posicao final dos robos criados
+            imprimirPosicao(Rex);
+            imprimirPosicao(Mouse);
+            imprimirPosicaoAereo(Unicornio);
     }
 
     public static void moverRobo(Robo robo, int dx, int dy) {
