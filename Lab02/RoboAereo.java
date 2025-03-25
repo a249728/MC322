@@ -10,29 +10,41 @@ public class RoboAereo extends Robo {
         this.altitudeMaxima = zmax;
     }
 
-    public void subir(int deltaZ) {
+    public boolean subir(int delta) {
         // Atualiza a altitude do robo adicionando a variacao de posicao desejada
-        this.altitude += deltaZ;
-    }
-
-    public void descer(int deltaZ) {
-        // Atualiza a altitude do robo adicionando a variacao de posicao desejada
-        this.altitude -= deltaZ;
-    }
-
-    public boolean moverAereo(int deltaX, int deltaY, int deltaZ, Ambiente amb) {
-        // Checa se o movimento nao ultrapassa a altitude maxima e retorna true ou false dependendo se o movimento foi bem sucedido ou nao
-        if (this.altitude + deltaZ <= altitudeMaxima) {
-            if (super.mover(deltaX, deltaY, amb)) {
-                this.altitude += deltaZ;
-                return true;
-            }
-            else {
-                return false;
-            }
+        if (this.altitude + delta <= altitudeMaxima) {
+            this.altitude += delta;
+            return true;
         }
         return false;
     }
+
+    public boolean descer(int delta) {
+        // Atualiza a altitude do robo adicionando a variacao de posicao desejada
+        if (this.altitude - delta >= 0) {
+            this.altitude -= delta;
+            return true;
+        }
+        return false;
+    }
+
+    /*
+
+    public boolean identificarObstaculoAereo(int delta, String operacao, Ambiente amb) {
+        Robo obstaculos[] = amb.robosAtivos;
+        int coord[] = this.exibirPosicao();
+        if (operacao == "Subir") {
+            for (int i = 0; i < obstaculos.length; i++) {
+                int coord_obs[] = obstaculos[i].exibirPosicao(); 
+                if (coord_obs[0] == coord[0] && coord_obs[1] == coord[1] && obstaculos[i].altitude) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    */
 
     public int exibirAltura() {
         // Retorna posicao z

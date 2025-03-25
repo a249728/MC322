@@ -23,9 +23,9 @@ public class Main {
             checarLimitesAereo(Ilha_Base, Unicornio);
     
             // Move os robos criados
-            moverRobo(Rex, -3, 0, Ilha_Base);
-            moverRoboTerrestre(Sasquatch, 400, 0, 50, Ilha_Base);
-            moverRoboAereo(Unicornio, 400, 0, 100, Ilha_Base);
+            moverRobo(Rex, -3, Ilha_Base, "Norte");
+            moverRoboTerrestre(Sasquatch, 400, 50, Ilha_Base, "Leste");
+            moverRoboAereo(Unicornio, 400, 100, Ilha_Base, "Leste");
     
             // Exibe a posicao final dos robos criados
             imprimirPosicao(Rex);
@@ -33,9 +33,9 @@ public class Main {
             imprimirPosicaoAereo(Unicornio);
     }
 
-    public static void moverRobo(Robo robo, int dx, int dy, Ambiente amb) {
+    public static void moverRobo(Robo robo, int d, Ambiente amb, String nova_dir) {
         // Utiliza do metodo mover para atualizar as posicoes do robo base e imprime as novas coordenadas adquiridas
-        if (robo.mover(dx, dy, amb)) {
+        if (robo.mover(d, amb, nova_dir)) {
             int coord[] = robo.exibirPosicao();
             System.out.println("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord[0] + ", " + coord[1] + ")");
         }
@@ -44,9 +44,9 @@ public class Main {
         }
     }
 
-    public static void moverRoboTerrestre(RoboTerrestre robo, int dx, int dy, int v, Ambiente amb) {
+    public static void moverRoboTerrestre(RoboTerrestre robo, int d, int v, Ambiente amb, String nova_dir) {
         // Utiliza do metodo mover para atualizar as posicoes do robo terrestre e imprime as novas coordenadas adquiridas
-        if (robo.moverTerrestre(dx, dy, v, amb)) {
+        if (robo.moverTerrestre(d, v, amb, nova_dir)) {
             int coord[] = robo.exibirPosicao();
             System.out.println("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord[0] + ", " + coord[1] + ")");
         }
@@ -55,12 +55,22 @@ public class Main {
         }
     }
 
-    public static void moverRoboAereo(RoboAereo robo, int dx, int dy, int dz, Ambiente amb) {
+    public static void moverRoboAereo(RoboAereo robo, int d, int dz, Ambiente amb, String nova_dir) {
         // Utiliza do metodo mover para atualizar as posicoes do robo aereo e imprime as novas coordenadas adquiridas
-        if (robo.moverAereo(dx, dy, dz, amb)) {
-            int coord_xy[] = robo.exibirPosicao();
-            int z = robo.exibirAltura();
-            System.out.println("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord_xy[0] + ", " + coord_xy[1] + ", " + z + ")");
+        if (robo.mover(d, amb, nova_dir)) {
+            if (dz >= 0 && robo.subir(dz)) {
+                int coord_xy[] = robo.exibirPosicao();
+                int z = robo.exibirAltura();
+                System.out.println("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord_xy[0] + ", " + coord_xy[1] + ", " + z + ")");
+            }
+            else if (dz < 0 && robo.descer(dz)) {
+                int coord_xy[] = robo.exibirPosicao();
+                int z = robo.exibirAltura();
+                System.out.println("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord_xy[0] + ", " + coord_xy[1] + ", " + z + ")");
+            }          
+            else {
+                System.out.println("O robo " + robo.retornarNome() + " não se moveu");
+            }
         }
         else {
             System.out.println("O robo " + robo.retornarNome() + " não se moveu");
