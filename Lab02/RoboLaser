@@ -1,0 +1,14 @@
+public class RoboLaser extends RoboTerrestre{
+
+    private int alcanceLaser;
+
+    public void destruirRobo(){
+
+
+        
+    }
+
+
+
+
+}

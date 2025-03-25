@@ -20,11 +20,16 @@ public class RoboAereo extends Robo {
         this.altitude -= deltaZ;
     }
 
-    public boolean moverAereo(int deltaX, int deltaY, int deltaZ, Ambiente amb) {
+    public boolean mover(int deltaX, int deltaY, int deltaZ, Ambiente amb) {
         // Checa se o movimento nao ultrapassa a altitude maxima e retorna true ou false dependendo se o movimento foi bem sucedido ou nao
         if (this.altitude + deltaZ <= altitudeMaxima) {
             if (super.mover(deltaX, deltaY, amb)) {
-                this.altitude += deltaZ;
+                if(deltaZ>0){
+                    subir(deltaZ);
+                }
+                else{
+                    descer(deltaZ);
+                }
                 return true;
             }
             else {
