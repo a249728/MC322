@@ -27,6 +27,10 @@ public class Robo {
         this.direcao=dir;
     }
 
+    public String retornarDirecao() {
+        return this.direcao;
+    }
+
     public int[] exibirPosicao() {
         // Retorna o vetor de coordenadas xy do robo
         return new int[] { this.posicaoX, this.posicaoY };

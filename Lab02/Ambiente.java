@@ -28,8 +28,10 @@ public class Ambiente {
         return false;
     }
 
-    public void adicionarRobo(Robo arr[], Robo robo) {
+    public void adicionarRobo(Robo robo) {
         // Adiciona um Robo ativo ao array (o qual pode servir de obstaculo para o movimento de outros robos)
+        Robo arr[] = this.robosAtivos;
+
         Robo novoArr[] = new Robo[arr.length + 1];
 
         for (int i = 0; i < arr.length; i++) {
@@ -40,4 +42,35 @@ public class Ambiente {
 
         robosAtivos = novoArr;
     }
+
+public Robo acharRobo(int x, int y){
+    Robo obstaculos[] = this.robosAtivos;
+    for (int i = 0; i < obstaculos.length; i++) {
+        if (obstaculos[i].exibirPosicao()[0] == x && obstaculos[i].exibirPosicao()[1] == y) {
+            return obstaculos[i];
+        }
+    }
+    return null;
+}
+
+
+
+    public void destruirRobo(Robo robo) {
+        // Adiciona um Robo ativo ao array (o qual pode servir de obstaculo para o movimento de outros robos)
+        Robo arr[] = this.robosAtivos;
+        Robo novoArr[] = new Robo[arr.length - 1];
+
+        for (int i = 0; i < arr.length - 1; i++) {
+            if(robo == arr[i]){
+                novoArr[i] = arr[arr.length - 1];
+            }
+            else{
+               novoArr[i] = arr[i]; 
+            }
+            
+        }
+
+        robosAtivos = novoArr;
+    }
+
 }

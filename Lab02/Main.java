@@ -8,9 +8,9 @@ public class Main {
             Robo Rex = new Robo("Rex", 500, 500, "Norte");
             RoboTerrestre Sasquatch = new RoboTerrestre("Sasquatch", 0, 0, "Norte", 100);
             RoboAereo Unicornio = new RoboAereo("Unicornio", 0, 0, "Norte", 0, 100);
-            Ilha_Base.adicionarRobo(Ilha_Base.robosAtivos, Rex);
-            Ilha_Base.adicionarRobo(Ilha_Base.robosAtivos, Sasquatch);
-            Ilha_Base.adicionarRobo(Ilha_Base.robosAtivos, Unicornio);
+            Ilha_Base.adicionarRobo(Rex);
+            Ilha_Base.adicionarRobo(Sasquatch);
+            Ilha_Base.adicionarRobo(Unicornio);
 
             // Exibe a posicao inicial dos robos criados
             imprimirPosicao(Rex);
@@ -46,7 +46,7 @@ public class Main {
 
     public static void moverRoboTerrestre(RoboTerrestre robo, int dx, int dy, int v, Ambiente amb) {
         // Utiliza do metodo mover para atualizar as posicoes do robo terrestre e imprime as novas coordenadas adquiridas
-        if (robo.moverTerrestre(dx, dy, v, amb)) {
+        if (robo.mover(dx, dy, v, amb)) {
             int coord[] = robo.exibirPosicao();
             System.out.println("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord[0] + ", " + coord[1] + ")");
         }
@@ -57,7 +57,7 @@ public class Main {
 
     public static void moverRoboAereo(RoboAereo robo, int dx, int dy, int dz, Ambiente amb) {
         // Utiliza do metodo mover para atualizar as posicoes do robo aereo e imprime as novas coordenadas adquiridas
-        if (robo.moverAereo(dx, dy, dz, amb)) {
+        if (robo.mover(dx, dy, dz, amb)) {
             int coord_xy[] = robo.exibirPosicao();
             int z = robo.exibirAltura();
             System.out.println("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord_xy[0] + ", " + coord_xy[1] + ", " + z + ")");
