@@ -19,6 +19,8 @@ public class RoboCorredor extends RoboTerrestre{
     }
 
     public boolean mover(int delta, Ambiente amb){
+        // Se o robo nao achar nenhum obstaculo (robo) no caminho, move reto na direcao, se conseguir retorna true, caso contrario retorna falso
+
         if(delta < this.velocidadeMinima){
             return false;
         }

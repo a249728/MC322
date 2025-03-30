@@ -19,6 +19,7 @@ public class RoboTerrestre extends Robo {
 
     @Override public boolean mover(int deltaX, int deltaY, Ambiente amb) {
         // Checa se o movimento nao ultrapassa a velocidade maxima e retorna true ou false dependendo se o movimento foi bem sucedido ou nao
+        // Os robos fazem 1 acao por unidade de tempo, assim, a velocidade em bloco por unidade de tempo tem que ser maior que a distancia
         if (deltaX + deltaY <= this.velocidadeMaxima) {
             if (super.mover(deltaX, deltaY, amb)) {
                 return true;
