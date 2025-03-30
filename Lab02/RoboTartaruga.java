@@ -1,14 +1,10 @@
-public class RoboLaser extends RoboTerrestre{
-
-    private int alcanceLaser;
-
-    public RoboLaser(String n, int x, int y, String dir, int vmax, int alc){
+public class RoboTartaruga extends RoboTerrestre{
+    
+    public RoboTartaruga(String n, int x, int y, String dir, int vmax){
         super(n, x, y, dir, vmax);
-        this.alcanceLaser=alc;
     }
 
-    public void dispararLaser(Ambiente amb){
-
+    public boolean mover(int delta, Ambiente amb){
         int[] direcao = {0,0};
 
         if(this.retornarDirecao() == "Leste"){
@@ -19,12 +15,16 @@ public class RoboLaser extends RoboTerrestre{
             direcao[1]=1;
         }else if(this.retornarDirecao() == "Sul"){
             direcao[1]=-1;
+        }else{
+            return false;
         }
 
-        for(int i=0; i<alcanceLaser; i++){
+        for(int i=1; i<delta; i++){
             if(identificarObstaculo(i*direcao[0], i*direcao[1], amb)){
-                amb.destruirRobo(amb.acharRobo(i*direcao[0], i*direcao[1]));
+                return false;
             }
         }
+        super.mover(delta*direcao[0], delta*direcao[1], amb);
+        return true;
     }
 }
