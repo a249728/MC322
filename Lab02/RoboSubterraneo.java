@@ -18,7 +18,7 @@ public class RoboSubterraneo extends RoboAereo{
         this.altitudeMinima = zmin;
     }
 
-    public boolean mover(int deltaX, int deltaY, int deltaZ, Ambiente amb) {
+    @Override public boolean mover(int deltaX, int deltaY, int deltaZ, Ambiente amb) {
         if (exibirAltura() + deltaZ >= altitudeMinima && exibirAltura() + deltaZ <= 0) {
             if (super.mover(deltaX, deltaY, amb)) {
                 if(deltaZ > 0){

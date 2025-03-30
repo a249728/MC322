@@ -58,6 +58,7 @@ public class RoboCriador extends RoboAereo{
     }
 
     public int retornarFilhos(){
+        // Retorna a quantidade de filhos do robo
         return this.filhos;
     }
 

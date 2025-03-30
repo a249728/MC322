@@ -17,7 +17,7 @@ public class RoboTerrestre extends Robo {
         this.velocidadeMaxima = vmax;
     }
 
-    public boolean mover(int deltaX, int deltaY, Ambiente amb) {
+    @Override public boolean mover(int deltaX, int deltaY, Ambiente amb) {
         // Checa se o movimento nao ultrapassa a velocidade maxima e retorna true ou false dependendo se o movimento foi bem sucedido ou nao
         if (deltaX + deltaY <= this.velocidadeMaxima) {
             if (super.mover(deltaX, deltaY, amb)) {
