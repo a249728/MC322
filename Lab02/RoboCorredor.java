@@ -19,14 +19,15 @@ public class RoboCorredor extends RoboTerrestre{
     }
 
     public boolean mover(int delta, Ambiente amb){
-        // Se o robo nao achar nenhum obstaculo (robo) no caminho, move reto na direcao, se conseguir retorna true, caso contrario retorna falso
+        // Se o robo nao achar nenhum obstaculo (robo) no caminho, move reto na direcao, se conseguir retorna true, caso contrario retorna false
 
+        // Se a velocidade for menor que a minima retorna false
         if(delta < this.velocidadeMinima){
             return false;
         }
         
+        // Converte a palavra da direcao em um vetor direcao
         int[] direcao = {0,0};
-
         if(this.retornarDirecao() == "Leste"){
             direcao[0]=1;
         }else if(this.retornarDirecao() == "Oeste"){
@@ -39,6 +40,7 @@ public class RoboCorredor extends RoboTerrestre{
             return false;
         }
 
+        // Verifica se tem algum obstaculo no caminho, se tiver retorna false, senao anda e retorna true
         for(int i=1; i<delta; i++){
             if(identificarObstaculo(i*direcao[0], i*direcao[1], amb)){
                 return false;
