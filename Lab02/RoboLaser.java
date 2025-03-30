@@ -7,6 +7,14 @@ public class RoboLaser extends RoboTerrestre{
         this.alcanceLaser=alc;
     }
 
+    public int retornarAlcanceLaser(){
+        return this.alcanceLaser;
+    }
+
+    public void mudarAlcanceLaser(int alc){
+        this.alcanceLaser = alc;
+    }
+
     public void dispararLaser(Ambiente amb){
 
         int[] direcao = {0,0};

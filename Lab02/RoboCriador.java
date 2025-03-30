@@ -43,7 +43,13 @@ public class RoboCriador extends RoboAereo{
         amb.adicionarRobo(robo);
     }
 
-    public int exibirFilhos(){
+    public void criarRoboCorredor(Ambiente amb, String n, String dir, int vmax, int vmin){
+        this.filhos++;
+        RoboCorredor robo = new RoboCorredor(n, exibirPosicao()[0], exibirPosicao()[1], dir, vmax, vmin);
+        amb.adicionarRobo(robo);
+    }
+
+    public int retornarFilhos(){
         return this.filhos;
     }
 
