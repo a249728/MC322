@@ -1,10 +1,18 @@
-public class RoboTartaruga extends RoboTerrestre{
+public class RoboCorredor extends RoboTerrestre{
     
-    public RoboTartaruga(String n, int x, int y, String dir, int vmax){
+    private int velocidadeMinima;
+
+    public RoboCorredor(String n, int x, int y, String dir, int vmax, int vmin){
         super(n, x, y, dir, vmax);
+        this.velocidadeMinima = vmin;
     }
 
-    public boolean mover(int delta, int v, Ambiente amb){
+    public boolean mover(int delta, Ambiente amb){
+        
+        if(delta < this.velocidadeMinima){
+            return false;
+        }
+        
         int[] direcao = {0,0};
 
         if(this.retornarDirecao() == "Leste"){
@@ -24,9 +32,9 @@ public class RoboTartaruga extends RoboTerrestre{
                 return false;
             }
         }
-        if(super.mover(delta*direcao[0], delta*direcao[1], v, amb)){
+        if(super.mover(delta*direcao[0], delta*direcao[1], amb)){
             return true;
-        };
+        }
         return false;
     }
 }

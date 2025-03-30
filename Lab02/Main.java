@@ -24,7 +24,7 @@ public class Main {
     
             // Move os robos criados
             moverRobo(Rex, -3, 0, Ilha_Base);
-            moverRoboTerrestre(Sasquatch, 400, 0, 50, Ilha_Base);
+            moverRoboTerrestre(Sasquatch, 400, 0, Ilha_Base);
             moverRoboAereo(Unicornio, 400, 0, 100, Ilha_Base);
     
             // Exibe a posicao final dos robos criados
@@ -44,9 +44,9 @@ public class Main {
         }
     }
 
-    public static void moverRoboTerrestre(RoboTerrestre robo, int dx, int dy, int v, Ambiente amb) {
+    public static void moverRoboTerrestre(RoboTerrestre robo, int dx, int dy, Ambiente amb) {
         // Utiliza do metodo mover para atualizar as posicoes do robo terrestre e imprime as novas coordenadas adquiridas
-        if (robo.mover(dx, dy, v, amb)) {
+        if (robo.mover(dx, dy, amb)) {
             int coord[] = robo.exibirPosicao();
             System.out.println("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord[0] + ", " + coord[1] + ")");
         }
