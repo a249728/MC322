@@ -20,6 +20,7 @@ public class RoboSubterraneo extends RoboAereo{
 
     @Override public boolean mover(int deltaX, int deltaY, int deltaZ, Ambiente amb) {
         // Sobrescreve o mover do aereo para incluir altura minima e considerar maxima como 0
+        // RoboSubterraneo sempre vai estar fora do ambiente
         if (exibirAltura() + deltaZ >= altitudeMinima && exibirAltura() + deltaZ <= 0) {
             if (super.mover(deltaX, deltaY, amb)) {
                 if(deltaZ > 0){
