@@ -3,6 +3,7 @@ public class RoboCorredor extends RoboTerrestre{
     private int velocidadeMinima;
 
     public RoboCorredor(String n, int x, int y, String dir, int vmax, int vmin){
+        // Metodo construtor da classe
         super(n, x, y, dir, vmax);
         this.velocidadeMinima = vmin;
     }

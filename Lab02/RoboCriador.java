@@ -3,6 +3,7 @@ public class RoboCriador extends RoboAereo{
     private int filhos;
 
     public RoboCriador(String n, int x, int y, String dir, int z, int zmax){
+        // Metodo construtor da classe
         super(n, x, y, dir, z, zmax);
         this.filhos=0;
     }

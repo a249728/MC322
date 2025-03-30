@@ -3,6 +3,7 @@ public class RoboSubterraneo extends RoboAereo{
     private int altitudeMinima;
 
     public RoboSubterraneo(String n, int x, int y, String dir, int z, int zmin){
+        // Metodo construtor da classe
         super(n, x, y, dir, z, 0);
         this.altitudeMinima=zmin;
     }

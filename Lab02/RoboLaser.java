@@ -3,6 +3,7 @@ public class RoboLaser extends RoboTerrestre{
     private int alcanceLaser;
 
     public RoboLaser(String n, int x, int y, String dir, int vmax, int alc){
+        // Metodo construtor da classe
         super(n, x, y, dir, vmax);
         this.alcanceLaser=alc;
     }
