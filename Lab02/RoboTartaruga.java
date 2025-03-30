@@ -4,7 +4,7 @@ public class RoboTartaruga extends RoboTerrestre{
         super(n, x, y, dir, vmax);
     }
 
-    public boolean mover(int delta, Ambiente amb){
+    public boolean mover(int delta, int v, Ambiente amb){
         int[] direcao = {0,0};
 
         if(this.retornarDirecao() == "Leste"){
@@ -24,7 +24,9 @@ public class RoboTartaruga extends RoboTerrestre{
                 return false;
             }
         }
-        super.mover(delta*direcao[0], delta*direcao[1], amb);
-        return true;
+        if(super.mover(delta*direcao[0], delta*direcao[1], v, amb)){
+            return true;
+        };
+        return false;
     }
 }
