@@ -19,7 +19,6 @@ public class RoboCorredor extends RoboTerrestre{
     }
 
     public boolean mover(int delta, Ambiente amb){
-        
         if(delta < this.velocidadeMinima){
             return false;
         }
