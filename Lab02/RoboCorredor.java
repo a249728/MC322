@@ -7,6 +7,14 @@ public class RoboCorredor extends RoboTerrestre{
         this.velocidadeMinima = vmin;
     }
 
+    public int retornarVelocidadeMinima(){
+        return this.velocidadeMinima;
+    }
+
+    public void mudarVelocidadeMinima(int vmin){
+        this.velocidadeMinima = vmin;
+    }
+
     public boolean mover(int delta, Ambiente amb){
         
         if(delta < this.velocidadeMinima){

@@ -10,6 +10,18 @@ public class RoboAereo extends Robo {
         this.altitudeMaxima = zmax;
     }
 
+    public int retornarAltitudeMaxima(){
+        return this.altitudeMaxima;
+    }
+
+    public void mudarAltitudeMaxima(int zmax){
+        this.altitudeMaxima = zmax;
+    }
+
+    public int retornarAltitude(){
+        return this.altitude;
+    }
+
     public void subir(int deltaZ) {
         // Atualiza a altitude do robo adicionando a variacao de posicao desejada
         this.altitude += deltaZ;

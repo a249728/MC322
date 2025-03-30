@@ -23,7 +23,7 @@ public class Robo {
         return false;
     }
 
-    public void novaDirecao(String dir){
+    public void mudarDirecao(String dir){
         this.direcao=dir;
     }
 
