@@ -24,16 +24,23 @@ public class Robo {
     }
 
     public void mudarDirecao(String dir){
+        // Muda a direcao do robo
         this.direcao=dir;
     }
 
     public String retornarDirecao() {
+        // Retorna a direcao do robo
         return this.direcao;
     }
 
     public int[] exibirPosicao() {
         // Retorna o vetor de coordenadas xy do robo
         return new int[] { this.posicaoX, this.posicaoY };
+    }
+
+    public void mudarNome(String n){
+        // Muda o nome do robo
+        this.nome = n;
     }
 
     public String retornarNome() {

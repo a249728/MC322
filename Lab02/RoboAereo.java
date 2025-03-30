@@ -11,14 +11,17 @@ public class RoboAereo extends Robo {
     }
 
     public int retornarAltitudeMaxima(){
+        // Retorna a altitude maxima do robo
         return this.altitudeMaxima;
     }
 
     public void mudarAltitudeMaxima(int zmax){
+        // Muda a altidude maxima do robo
         this.altitudeMaxima = zmax;
     }
 
     public int retornarAltitude(){
+        // Retorna a altitude do robo
         return this.altitude;
     }
 

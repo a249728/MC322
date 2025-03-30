@@ -8,10 +8,12 @@ public class RoboTerrestre extends Robo {
     }
 
     public int retornarVelocidadeMaxima(){
+        // Retorna a velocidade maxima do robo
         return this.velocidadeMaxima;
     }
 
     public void mudarVelocidadeMaxima(int vmax){
+        // Muda a velocidade maxima do robo
         this.velocidadeMaxima = vmax;
     }
 
