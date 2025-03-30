@@ -9,10 +9,12 @@ public class RoboCorredor extends RoboTerrestre{
     }
 
     public int retornarVelocidadeMinima(){
+        // Retorna a velocidade minima do robo
         return this.velocidadeMinima;
     }
 
     public void mudarVelocidadeMinima(int vmin){
+        // Muda a velocidade minima do robo
         this.velocidadeMinima = vmin;
     }
 

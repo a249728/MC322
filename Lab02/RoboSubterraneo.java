@@ -9,10 +9,12 @@ public class RoboSubterraneo extends RoboAereo{
     }
 
     public int retornarAltitudeMinima(){
+        // Retorna a altitude minima do robo
         return this.altitudeMinima;
     }
 
     public void mudarAltitudeMinima(int zmin){
+        // Muda a altitude minima do robo
         this.altitudeMinima = zmin;
     }
 

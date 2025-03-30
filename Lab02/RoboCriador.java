@@ -8,46 +8,53 @@ public class RoboCriador extends RoboAereo{
         this.filhos=0;
     }
 
-    public void criarRobo(Ambiente amb, String n, String dir){
+    public Robo criarRobo(Ambiente amb, String n, String dir){
         this.filhos++;
         Robo robo = new Robo(n, exibirPosicao()[0], exibirPosicao()[1], dir);
         amb.adicionarRobo(robo);
+        return robo;
     }
 
-    public void criarRoboTerrestre(Ambiente amb, String n, String dir, int vmax){
+    public RoboTerrestre criarRoboTerrestre(Ambiente amb, String n, String dir, int vmax){
         this.filhos++;
         RoboTerrestre robo = new RoboTerrestre(n, exibirPosicao()[0], exibirPosicao()[1], dir, vmax);
         amb.adicionarRobo(robo);
+        return robo;
     }
 
-    public void criarRoboAereo(Ambiente amb, String n, String dir, int z, int zmax){
+    public RoboAereo criarRoboAereo(Ambiente amb, String n, String dir, int z, int zmax){
         this.filhos++;
         RoboAereo robo = new RoboAereo(n, exibirPosicao()[0], exibirPosicao()[1], dir, z, zmax);
         amb.adicionarRobo(robo);
+        return robo;
     }
 
-    public void criarRoboLaser(Ambiente amb, String n, String dir, int vmax, int alc){
+    public RoboLaser criarRoboLaser(Ambiente amb, String n, String dir, int vmax, int alc){
         this.filhos++;
         RoboLaser robo = new RoboLaser(n, exibirPosicao()[0], exibirPosicao()[1], dir, vmax, alc);
         amb.adicionarRobo(robo);
+        return robo;
     }
 
-    public void criarRoboSubterraneo(Ambiente amb, String n, String dir, int z, int zmin){
+    public RoboSubterraneo criarRoboSubterraneo(Ambiente amb, String n, String dir, int z, int zmin){
         this.filhos++;
         RoboSubterraneo robo = new RoboSubterraneo(n, exibirPosicao()[0], exibirPosicao()[1], dir, z, zmin);
         amb.adicionarRobo(robo);
+        return robo;
     }
 
-    public void criarRoboCriador(Ambiente amb, String n, String dir, int z, int zmax){
+    public RoboCriador criarRoboCriador(Ambiente amb, String n, String dir, int z, int zmax){
         this.filhos++;
         RoboCriador robo = new RoboCriador(n, exibirPosicao()[0], exibirPosicao()[1], dir, z, zmax);
         amb.adicionarRobo(robo);
+        return robo;
     }
 
-    public void criarRoboCorredor(Ambiente amb, String n, String dir, int vmax, int vmin){
+    public RoboCorredor criarRoboCorredor(Ambiente amb, String n, String dir, int vmax, int vmin){
         this.filhos++;
         RoboCorredor robo = new RoboCorredor(n, exibirPosicao()[0], exibirPosicao()[1], dir, vmax, vmin);
         amb.adicionarRobo(robo);
+        return robo;
     }
 
     public int retornarFilhos(){

@@ -20,8 +20,8 @@ public class RoboAereo extends Robo {
         this.altitudeMaxima = zmax;
     }
 
-    public int retornarAltitude(){
-        // Retorna a altitude do robo
+    public int exibirAltura() {
+        // Retorna posicao z
         return this.altitude;
     }
 
@@ -52,10 +52,5 @@ public class RoboAereo extends Robo {
             }
         }
         return false;
-    }
-
-    public int exibirAltura() {
-        // Retorna posicao z
-        return this.altitude;
     }
 }

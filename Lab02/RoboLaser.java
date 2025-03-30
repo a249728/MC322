@@ -9,10 +9,12 @@ public class RoboLaser extends RoboTerrestre{
     }
 
     public int retornarAlcanceLaser(){
+        // Retorna o alcance do laser do robo
         return this.alcanceLaser;
     }
 
     public void mudarAlcanceLaser(int alc){
+        // Muda o alcance laser do robo
         this.alcanceLaser = alc;
     }
 
