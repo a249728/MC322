@@ -26,8 +26,19 @@ public class Main {
             imprimirPosicaoAereo(Unicornio);
             imprimirPosicaoAereo(Corujao);
             imprimirPosicaoAereo(JeffRosen);
-            
     
+            // Move alguns dos robos criados
+            moverRobo(Sasquatch, 501, 0, ilhaMecanimais);
+            moverRoboTerrestre(Rex, 10, 0, ilhaMecanimais);
+            moverRoboAereo(Unicornio, 10, -3, 0, ilhaMecanimais);
+            moverRoboCorredor(Mouse, 400, ilhaMecanimais);
+            moverRoboSubterraneo(Corujao, 0, 0, -100, ilhaMecanimais);
+
+
+            //Utiliza dos métodos (ainda não utilizados) específicos dos robos especiais
+            int numDestruidos = Komodo.dispararLaser(ilhaMecanimais);
+            System.out.println("O robo " + Komodo.retornarNome() + " atingiu e destruiu " + numDestruidos + " robos");
+            
             // Checa se os robos estão inicialmente dentro dos limites do ambiente
             checarLimites(ilhaMecanimais, Sasquatch);
             checarLimites(ilhaMecanimais, Rex);
@@ -37,22 +48,14 @@ public class Main {
             checarLimitesAereo(ilhaMecanimais, Corujao);
             checarLimitesAereo(ilhaMecanimais, JeffRosen);
     
-            // Move alguns dos robos criados
-            moverRobo(Sasquatch, 501, 0, ilhaMecanimais);
-            moverRoboTerrestre(Rex, 10, 0, ilhaMecanimais);
-            moverRoboAereo(Unicornio, 10, 0, 0, ilhaMecanimais);
-            moverRoboCorredor(Mouse, 400, ilhaMecanimais);
-            moverRobo
-
-
-            //Utiliza dos métodos (ainda não utilizados) específicos dos robos especiais
-            Komodo
-            
-    
             // Exibe a posicao final dos robos criados
-            imprimirPosicao(Rex);
             imprimirPosicao(Sasquatch);
+            imprimirPosicao(Rex);
+            imprimirPosicao(Mouse);
+            imprimirPosicao(Komodo);
             imprimirPosicaoAereo(Unicornio);
+            imprimirPosicaoAereo(Corujao);
+            imprimirPosicaoAereo(JeffRosen);
 
     }
 
