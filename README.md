@@ -65,30 +65,7 @@ MC322/
 #### Pré-requisitos  
 - **Java JDK** versão 8 ou superior.  
 - Um terminal ou IDE como **Eclipse** ou **IntelliJ IDEA**.  
-
-#### Compilação  
-1. Navegue até o diretório raiz do projeto:  
-    ```bash
-    cd /home/alupcosta/Documents/MC322
-    ```
-2. Compile os arquivos do **Lab01**:  
-    ```bash
-    javac -d bin src/Lab01/*.java
-    ```
-3. Compile os arquivos do **Lab02**:  
-    ```bash
-    javac -d bin src/Lab02/*.java
-    ```
-
-#### Execução  
-1. Execute o programa principal do **Lab01**:  
-   ```bash
-   java -cp bin Lab01.Main
-   ```
-2. Execute o programa principal do **Lab02**:  
-   ```bash
-   java -cp bin Lab02.Main
-   ```
+  ```
 
 ### Contato  
 Caso tenha dúvidas ou sugestões, entre em contato:  
