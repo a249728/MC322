@@ -59,14 +59,6 @@ MC322/
 ```
 
 ---
-
-### Instruções para Compilação e Execução  
-
-#### Pré-requisitos  
-- **Java JDK** versão 8 ou superior.  
-- Um terminal ou IDE como **Eclipse** ou **IntelliJ IDEA**.  
-  ```
-
 ### Contato  
 Caso tenha dúvidas ou sugestões, entre em contato:  
 - **Ana Luiza Paro Costa**: [a249728@dac.unicamp.br](mailto:a249728@dac.unicamp.br)  
