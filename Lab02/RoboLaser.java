@@ -19,7 +19,7 @@ public class RoboLaser extends RoboTerrestre{
     }
 
     public int dispararLaser(Ambiente amb){
-        // Destroi todos os robos na direcao que ele esta olhando ate o alcance
+        // Destroi todos os robos na direcao que ele esta olhando ate o alcance (inclusive robos aereos pois o laser é ENORME)
 
         // Converte a palavra da direcao em um vetor direcao
         int[] direcao = {0,0};

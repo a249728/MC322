@@ -43,7 +43,7 @@ public class RoboAereo extends Robo {
                     subir(deltaZ);
                 }
                 else{
-                    descer(deltaZ);
+                    descer(-deltaZ);
                 }
                 return true;
             }

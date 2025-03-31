@@ -3,7 +3,7 @@ public class Ambiente {
     private int comprimento;
     private int largura;
     private int altura;
-    public Robo[] robosAtivos = new Robo[0];
+    private Robo[] robosAtivos = new Robo[0];
 
     public Ambiente(int c, int l, int a) {
         // Metodo construtor da classe
@@ -22,7 +22,7 @@ public class Ambiente {
 
     public boolean dentroDosLimitesAereo(int x, int y, int z) {
         // Retorna um valor booleano correspondente a se as coordenadas fornecidas estao ou nao incluidas nos limites do ambiente (considerando eixo z)
-        if (x < this.comprimento && y < this.largura && z < this.altura) {
+        if (x >= 0 && x < this.comprimento && y >= 0 && y < this.largura && z >= 0 && z < this.altura) {
             return true;
         }
         return false;
@@ -43,16 +43,19 @@ public class Ambiente {
         robosAtivos = novoArr;
     }
 
-public Robo acharRobo(int x, int y){
-    Robo obstaculos[] = this.robosAtivos;
-    for (int i = 0; i < obstaculos.length; i++) {
-        if (obstaculos[i].exibirPosicao()[0] == x && obstaculos[i].exibirPosicao()[1] == y) {
-            return obstaculos[i];
+    public Robo acharRobo(int x, int y){
+        Robo obstaculos[] = this.robosAtivos;
+        for (int i = 0; i < obstaculos.length; i++) {
+            if (obstaculos[i].exibirPosicao()[0] == x && obstaculos[i].exibirPosicao()[1] == y) {
+                return obstaculos[i];
+            }
         }
+        return null;
     }
-    return null;
-}
 
+    public Robo[] retornarRobosAtivos() {
+        return this.robosAtivos;
+    }
 
 
     public void destruirRobo(Robo robo) {

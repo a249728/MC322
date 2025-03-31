@@ -1,0 +1,3 @@
+{
+    "cmake.sourceDirectory": "${workspaceFolder}/usr/share/doc/bpfcc-tools/examples/tracing"
+}

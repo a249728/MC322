@@ -50,9 +50,9 @@ public class Robo {
 
     public boolean identificarObstaculo(int deltaX, int deltaY, Ambiente amb) {
         //Checa se a posicao para a qual o robo quer mover ja esta ocupada por outro robo (obstaculo)
-        Robo obstaculos[] = amb.robosAtivos;
+        Robo obstaculos[] = amb.retornarRobosAtivos();
         for (int i = 0; i < obstaculos.length; i++) {
-            if (obstaculos[i].posicaoX == this.posicaoX + deltaX && obstaculos[i].posicaoX == this.posicaoX + deltaX) {
+            if (obstaculos[i].posicaoX == this.posicaoX + deltaX && obstaculos[i].posicaoY == this.posicaoY + deltaY && obstaculos[i] != this) {
                 return true;
             }
         }
