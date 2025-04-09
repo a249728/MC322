@@ -2,7 +2,7 @@ Lab 3 - Diretrizes
 
 Classes antigas:
 Ambiente
-- Criar um array list de obstáculos no ambiente
+- Criar um array list de obstáculos no ambiente 
 - Converter o vetor de robos no ambiente para o tipo array list
 - Criar métodos adicionar e remover obstáculos
 - Usar variáveis final
@@ -21,8 +21,8 @@ Main
 
 Classes novas:
 Obstaculo
-- Atributos: dimensões e tipo (usando ENUM)
-- Métodos: gets e sets
+- Atributos: dimensões e tipo (usando ENUM) ✅
+- Métodos: gets ✅
 
 Sensor
 - Atributos: raio de alcance (double)
