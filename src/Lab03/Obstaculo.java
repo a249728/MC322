@@ -1,28 +1,24 @@
-public enum Obstaculo {
-    PEDRA (3, 3, 3),
-    ARVORE (1, 1, 10),
-    BURACO (5, 5, -5),
-    LAGO (21, 21, -8);
+public class Obstaculo {
+    private TipoObstaculo obstaculo;
+    private int posicaoX;
+    private int posicaoY;
 
-    private final int comprimento;  
-    private final int largura;
-    private final int altura;
-
-    Obstaculo(int c, int l, int a) {
-        this.comprimento = c;
-        this.largura = l;
-        this.altura = a;
+    public Obstaculo(String tipo, int x, int y) {
+        this.obstaculo = TipoObstaculo.valueOf(tipo);
+        this.posicaoX = x;
+        this.posicaoY = y;
     }
 
-    public int getComprimento() {
-        return comprimento; 
+    public TipoObstaculo getObstaculo() {
+        return obstaculo;
     }
 
-    public int getLargura() {
-        return largura; 
+    public int posicaoX() {
+        return posicaoX;
     }
 
-    public int getAltura() {
-        return altura; 
+    public int posicaoY() {
+        return posicaoY;
     }
 }
+
