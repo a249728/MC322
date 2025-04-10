@@ -76,4 +76,8 @@ public class Ambiente {
         robosAtivos = novoArr;
     }
 
+    public boolean getIluminacao(Robo robo, int i, int j, String momento) {
+
+    }
+
 }

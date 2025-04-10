@@ -8,7 +8,7 @@ public enum TipoObstaculo {
     private final int largura;
     private final int altura;
 
-    public TipoObstaculo(int c, int l, int a) {
+    TipoObstaculo(int c, int l, int a) {
         this.comprimento = c;
         this.largura = l;
         this.altura = a;
