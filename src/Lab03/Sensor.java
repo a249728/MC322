@@ -25,4 +25,12 @@ public class Sensor {
     public void setRaioDeAlcance(double novoRaio) {
         raioDeAlcance = novoRaio;
     }
+
+    public int getBateria() {
+        return bateria;
+    }
+
+    public void setBateria(int novaBateria) {
+        bateria = novaBateria;
+    }
 }

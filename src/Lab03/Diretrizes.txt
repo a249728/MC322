@@ -9,16 +9,17 @@ Ambiente
 - Alterar posicao do sol para horario
 
 Robo
-- Implementar uma relação de agregação com sensores (criar sensores dentro da classe Robo)
-- Alterar movimentação para considerar obstáculos
-- Alterar subtipos para considerar obstáculos
+- Implementar uma relação de agregação com sensores (criar sensores dentro da classe Robo) ✅
+- Alterar movimentação para considerar obstáculos ✅
+- Alterar subtipos para considerar obstáculos ✅
 
 Main
 - Implementar menu interativo (com entrada explicada) que, pelo menos:
    1. Visualiza status de robos/ambientes
    2. Controla movimentos básicos
    3. Utiliza/relata sensores
-- Tudo que não for feito no menu, testar externamente
+- Tudo que não for feito no menu, testar externamente que nem estavamos fazendo para tudo antes
+- Criar textinho explicativo de como o menu funciona
 
 Classes novas:
 Obstaculo
@@ -33,10 +34,11 @@ Sensor:
 - Criar pelo menos 2 subtipos de sensores, dentre eles um pelo menos deve ser o de checar colisões com obstáculos ✅
 - Adicionar checagem de obstaculo para o sensor iluminacao e para o sensor colisao ✅
 - Criar iluminação corretamente fisicamente
+- Checar pressao (ja fiz algumas coisas)
 - Utilizar variáveis final ✅
 
 Extra:
-- Checar se tem métodos gets e sets o suficiente e uniformizar o codigo
-- Explicar por que não queremos criar uma classe abstrata para o robo criador
-- Desenvolver um diagrama de classes
+- Checar se tem métodos gets e sets o suficiente e uniformizar o codigo ✅
+- Explicar por que não queremos criar uma classe abstrata para o robo criador (será feito no READ.ME)
+- Desenvolver um diagrama de classes 
 - Melhorar o READ.ME de acordo com especificações
