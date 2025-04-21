@@ -39,7 +39,6 @@ public class SensorIluminacao extends Sensor {
                 altura = roboAereo.exibirAltura();
             }
             if (posicaoRobo[0] == x + deslocamentoX && posicaoRobo[1] == y && altura == z) {
-                return true;
             }
         }
         return false;
@@ -56,8 +55,7 @@ public class SensorIluminacao extends Sensor {
             if (aoLadoX && dentroY && abaixoZ) {
                 return true;
             }
-                return true;
-            }
+            return true;
         }
         return false;
     }

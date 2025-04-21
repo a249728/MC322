@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+
 public class Robo {
     private String nome;
     private int posicaoX;
     private int posicaoY;
     private String direcao;
     private SensorIluminacao sensorIluminacao; // Referência direta para o sensor de iluminação
-    private SensorColisao sensorColisao; // Referência direta para o sensor de colisão
+    private SensorPressao sensorPressao; // Referência direta para o sensor de colisão
 
     public Robo(String n, int x, int y, String dir) {
         this.nome = n;
@@ -12,11 +14,11 @@ public class Robo {
         this.posicaoY = y;
         this.direcao = dir;
         this.sensorIluminacao = null; // Inicializa como null
-        this.sensorColisao = null; // Inicializa como null
+        this.sensorPressao = null; // Inicializa como null
     }
 
     public boolean mover(int deltaX, int deltaY, Ambiente amb) {
-        if (this.posicaoX + deltaX >= 0 && this.posicaoY + deltaY >= 0 && !identificarObstaculo(deltaX, deltaY, amb)) {
+        if (this.posicaoX + deltaX >= 0 && this.posicaoY + deltaY >= 0 && (!identificarObstaculo(deltaX, deltaY, amb) || this instanceof RoboAereo)) {
             this.posicaoX += deltaX;
             this.posicaoY += deltaY;
             return true;
@@ -44,12 +46,37 @@ public class Robo {
         return this.nome;
     }
 
-    public Object[] identificarObstaculo(int deltaX, int deltaY, Ambiente amb) {
-        if (sensorColisao != null) {
-            String resultado = sensorColisao.monitorarColisao(this.posicaoX + deltaX, this.posicaoY + deltaY, amb);
-            return new Object[] { temObstaculo, resultado };
+    public boolean identificarObstaculo(int deltaX, int deltaY, Ambiente amb) {
+        // Checa se a posicao para a qual o robo quer mover ja esta ocupada por outro robo (obstaculo)
+        ArrayList<Robo> robos = amb.retornarRobosAtivos();
+        ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
+        for (Robo robo : robos) {
+            if (robo.posicaoX == this.posicaoX + deltaX && robo.posicaoY == this.posicaoY + deltaY && robo != this) {
+                return true;
+            }
         }
-        return new Object[] { false, "" }; // Sem sensor de colisão ou sem obstáculo
+        for (Obstaculo obstaculo : obstaculos) {
+            boolean dentroX = posicaoX + deltaX >= obstaculo.getPosicaoX() && posicaoX + deltaX < obstaculo.getPosicaoX() + obstaculo.getObstaculo().getComprimento();
+            boolean dentroY = posicaoY + deltaY >= obstaculo.getPosicaoY() && posicaoY + deltaY < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura();
+            if (dentroX && dentroY) {
+                return true; // Colisão detectada com um obstáculo
+            }
+        }
+        return false;
+    }
+
+    public String usarSensorIluminacao(int x, int y, int z, Ambiente amb) {
+        if (this.sensorIluminacao != null) {
+            return this.sensorIluminacao.monitorarIluminacao(x, y, z, amb);
+        }
+        return "Sensor de iluminacao nao disponivel";
+    }
+
+    public String usarSensorPressao(int x, int y, int z, Ambiente amb) {
+        if (this.sensorPressao != null) {
+            return this.sensorPressao.monitorarPressao(x, y, z, amb);
+        }
+        return "Sensor de pressao nao disponivel";
     }
 
     public void adicionarSensorIluminacao(double raio, int bateria) {
@@ -58,9 +85,9 @@ public class Robo {
         }
     }
 
-    public void adicionarSensorColisao(double raio, int bateria) {
-        if (this.sensorColisao == null) { // Garante que só pode haver um sensor de colisão
-            this.sensorColisao = new SensorColisao(raio, bateria, this);
+    public void adicionarSensorPressao(double raio, int bateria) {
+        if (this.sensorPressao == null) { // Garante que só pode haver um sensor de colisão
+            this.sensorPressao = new SensorPressao(raio, bateria, this);
         }
     }
 
@@ -68,7 +95,7 @@ public class Robo {
         return this.sensorIluminacao;
     }
 
-    public SensorColisao getSensorColisao() {
-        return this.sensorColisao;
+    public SensorPressao getSensorPressao() {
+        return this.sensorPressao;
     }
 }
