@@ -15,14 +15,8 @@ public class Obstaculo {
         return obs;
     }
 
-    public Obstaculo removerObstaculo(Ambiente amb, int x, int y) {
-        for (Obstaculo obstaculo : amb.retornarObstaculos()) {
-            if (obstaculo.posicaoX == x && obstaculo.posicaoY == y) {
-                amb.retornarObstaculos().remove(obstaculo);
-                return obstaculo;
-            }
-        }
-        return null;
+    public void removerObstaculo(Obstaculo obs, Ambiente amb) {
+        amb.destruirObstaculo(obs);
     }
 
     public TipoObstaculo getObstaculo() {
