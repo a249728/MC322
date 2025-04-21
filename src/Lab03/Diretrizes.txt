@@ -24,14 +24,14 @@ Classes novas:
 Obstaculo
 - Atributos: dimensões e tipo (usando ENUM) ✅
 - Métodos: gets ✅
-- No metodo criar obstaculo checar se não existe já um robo naquele lugar
-- Checar remover obstaculo para ter certeza que queremos fazer dessa forma
+- No metodo criar obstaculo checar se não existe já um robo naquele lugar ✅
+- Checar remover obstaculo para ter certeza que queremos fazer dessa forma ✅
 
-Sensor
+Sensor:
 - Atributos: raio de alcance (double) ✅
 - Métodos: monitorar ✅
 - Criar pelo menos 2 subtipos de sensores, dentre eles um pelo menos deve ser o de checar colisões com obstáculos ✅
-- Adicionar checagem de obstaculo para o sensor iluminacao e para o sensor colisao
+- Adicionar checagem de obstaculo para o sensor iluminacao e para o sensor colisao ✅
 - Criar iluminação corretamente fisicamente
 - Utilizar variáveis final ✅
 
