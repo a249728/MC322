@@ -5,9 +5,9 @@ public class SensorColisao extends Sensor {
         super(raio, bat, robo);
     }
 
-    public String monitorarColisao(int x, int y, Ambiente amb) {
-        if (!this.monitorar(x, y)) {
-            return "Nao foi possivel monitorar essa posicao";
+    public boolean monitorarColisao(int x, int y, int z, Ambiente amb) {
+        if (!this.monitorar(x, y, z)) {
+            return true; // Não foi possível monitorar o ponto
         }
         ArrayList<Robo> robos = amb.retornarRobosAtivos();
         ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
@@ -16,17 +16,15 @@ public class SensorColisao extends Sensor {
         for (Robo rob : robos) {
             if (rob.exibirPosicao()[0] == x && rob.exibirPosicao()[1] == y && rob != robo) {
                 if (rob.getClass() == RoboAereo.class) {
-                    // converter rob do tipo Robo para RoboAereo e adicionar a altura2 o valor de sua altura
                     RoboAereo roboAereo = (RoboAereo) rob;
                     altura1 = roboAereo.exibirAltura();
                 }         
                 if (robo.getClass() == RoboAereo.class) {
-                    // converter robo do tipo Robo para RoboAereo e adicionar a altura1 o valor de sua altura
                     RoboAereo roboAereo = (RoboAereo) robo;
                     altura2 = roboAereo.exibirAltura();
                 }
                 if (altura1 == altura2) {
-                    return "Ha possibilidade de colisao detectada com " + rob.retornarNome();
+                    return true; // Possibilidade de colisão detectada com outro robô
                 }
             }
         }
@@ -35,16 +33,15 @@ public class SensorColisao extends Sensor {
             int alturaRobo = 0;
             if (x > obstaculo.getPosicaoX() && x < obstaculo.getPosicaoX() + obstaculo.getObstaculo().getComprimento() && y > obstaculo.getPosicaoY() && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()) {
                 if (robo.getClass() == RoboAereo.class) {
-                    // converter robo do tipo Robo para RoboAereo e adicionar a alturaRobo o valor de sua altura
                     RoboAereo roboAereo = (RoboAereo) robo;
                     alturaRobo = roboAereo.exibirAltura();
                 }
                 if (Math.abs(alturaRobo) < Math.abs(alturaObstaculo)) {
-                    return "Ha possibilidade de colisao detectada com um obstaculo";
+                    return true; // Possibilidade de colisão detectada com um obstáculo
                 }
             }
         }
-        return "Nao ha possibilidade de colisao";
+        return false; // Não há possibilidade de colisão
     }
 }
 

@@ -9,9 +9,9 @@ public class Sensor {
         this.robo = robo;
     }
 
-    public boolean monitorar(int x, int y) {
+    public boolean monitorar(int x, int y, int z) {
         int coord[] = robo.exibirPosicao();
-        if ((Math.pow(x-coord[0], 2) + Math.pow(y-coord[1], 2)) <= raioDeAlcance && bateria > 0) {
+        if ((Math.pow(x - coord[0], 2) + Math.pow(y - coord[1], 2) + Math.pow(z - coord[2], 2)) <= raioDeAlcance && bateria > 0) {
             bateria--;
             return true;
         }

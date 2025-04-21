@@ -5,44 +5,56 @@ public class SensorIluminacao extends Sensor {
         super(raio, bat, robo);
     }
 
-    public String monitorarIluminacao(int x, int y, Ambiente amb) {
-        if (!this.monitorar(x, y)) {
+    public String monitorarIluminacao(int x, int y, int z, Ambiente amb) {
+        if (!this.monitorar(x, y, z)) {
             return "Nao foi possivel monitorar essa posicao";
         }
+
         ArrayList<Robo> robos = amb.retornarRobosAtivos();
         ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
-        String dir = amb.retornarPosSol();
-        if (dir.equals("Leste")) {
-            for (Robo robo : robos) {
-                // Checa se existe um robo na coordenada x+1, y
-                if (robo.exibirPosicao()[0] == x + 1 && robo.exibirPosicao()[1] == y) {
-                    return "Sombra";
-                }
-            }
-            for (Obstaculo obstaculo : obstaculos) {
-                // Checa se existe um obstaculo na coordenada x+1, y
-                if (obstaculo.getPosicaoX() == x + 1 && y > obstaculo.getPosicaoY() && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()) {
-                    return "Sombra";
-                }
-            }
-            return "Iluminado";
+        String direcaoSol = amb.retornarPosSol();
+
+        int deslocamentoX = 0;
+        if (direcaoSol.equals("Leste")) {
+            deslocamentoX = 1;
+        } else if (direcaoSol.equals("Oeste")) {
+            deslocamentoX = -1;
+        } else {
+            return "A direcao indicada do sol e invalida";
         }
-        else if (dir.equals("Oeste")) {
-            for (Robo robo : robos) {
-                // Checa se existe um robo na coordenada x-1, y
-                if (robo.exibirPosicao()[0] == x - 1 && robo.exibirPosicao()[1] == y) {
-                    return "Sombra";
-                }
-                return "Iluminado";
-            }
-            for (Obstaculo obstaculo : obstaculos) {
-                // Checa se existe um obstaculo na coordenada x+1, y
-                if (x > obstaculo.getPosicaoX() && x < obstaculo.getPosicaoX() + obstaculo.getObstaculo().getLargura() && y > obstaculo.getPosicaoY() && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()) {
-                    return "Sombra";
-                }
-            }
-            return "Iluminado";
+
+        if (haSombraPorRobo(x, y, z, deslocamentoX, robos) || haSombraPorObstaculo(x, y, z, deslocamentoX, obstaculos)) {
+            return "Sombra";
         }
-        return "A direcao indicada do sol e invalida";
+
+        return "Iluminado";
+    }
+
+    private boolean haSombraPorRobo(int x, int y, int z, int deslocamentoX, ArrayList<Robo> robos) {
+        for (Robo rob : robos) {
+            int[] posicaoRobo = rob.exibirPosicao();
+            int altura = 0;
+            if (rob.getClass() == RoboAereo.class) {
+                RoboAereo roboAereo = (RoboAereo) rob;
+                altura = roboAereo.exibirAltura();
+            }
+            if (posicaoRobo[0] == x + deslocamentoX && posicaoRobo[1] == y && altura == z) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean haSombraPorObstaculo(int x, int y, int z, int deslocamentoX, ArrayList<Obstaculo> obstaculos) {
+        for (Obstaculo obstaculo : obstaculos) {
+            if (x + deslocamentoX > obstaculo.getPosicaoX()
+                    && x + deslocamentoX < obstaculo.getPosicaoX() + obstaculo.getObstaculo().getLargura()
+                    && y > obstaculo.getPosicaoY()
+                    && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()
+                    && z < obstaculo.getObstaculo().getAltura()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
