@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SensorIluminacao extends Sensor {
@@ -19,7 +18,12 @@ public class SensorIluminacao extends Sensor {
                 if (robo.exibirPosicao()[0] == x + 1 && robo.exibirPosicao()[1] == y) {
                     return "Sombra";
                 }
-                return "Iluminado";
+            }
+            for (Obstaculo obstaculo : obstaculos) {
+                // Checa se existe um obstaculo na coordenada x+1, y
+                if (obstaculo.getPosicaoX() == x + 1 && obstaculo.getPosicaoY() == y) {
+                    return "Sombra";
+                }
             }
         }
         else if (dir.equals("Oeste")) {

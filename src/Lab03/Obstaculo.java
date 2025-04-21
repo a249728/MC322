@@ -23,11 +23,11 @@ public class Obstaculo {
         return obstaculo;
     }
 
-    public int posicaoX() {
+    public int getPosicaoX() {
         return posicaoX;
     }
 
-    public int posicaoY() {
+    public int getPosicaoY() {
         return posicaoY;
     }
 }
