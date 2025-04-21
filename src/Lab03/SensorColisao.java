@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SensorColisao extends Sensor {
@@ -22,7 +21,7 @@ public class SensorColisao extends Sensor {
         }
         for (Obstaculo obstaculo : obstaculos) {
             if (obstaculo.getPosicaoX() == coord[0] && y > obstaculo.getPosicaoY() && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()) {
-                return "Sombra";
+                return "Ha possibilidade de colisao detectada com obstaculo";
             }
         }
         return "Nao ha possibilidade de colisao";
