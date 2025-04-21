@@ -1,7 +1,7 @@
 public class Sensor {
     private double raioDeAlcance;
     private int bateria;
-    private Robo robo;
+    protected Robo robo;
 
     public Sensor(double raio, int bat, Robo robo) {
         this.raioDeAlcance = raio;
