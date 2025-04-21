@@ -1,47 +1,48 @@
 import java.util.ArrayList;
 
 public class SensorColisao extends Sensor {
+
     public SensorColisao(double raio, int bat, Robo robo) {
         super(raio, bat, robo);
     }
 
-    public boolean monitorarColisao(int x, int y, int z, Ambiente amb) {
+    public boolean monitorarColisao(int x, int y, int z, Ambiente ambiente) {
+        // Verifica se o ponto está dentro do alcance do sensor
         if (!this.monitorar(x, y, z)) {
             return true; // Não foi possível monitorar o ponto
         }
-        ArrayList<Robo> robos = amb.retornarRobosAtivos();
-        ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
-        int altura1 = 0;
-        int altura2 = 0;
-        for (Robo rob : robos) {
-            if (rob.exibirPosicao()[0] == x && rob.exibirPosicao()[1] == y && rob != robo) {
-                if (rob.getClass() == RoboAereo.class) {
-                    RoboAereo roboAereo = (RoboAereo) rob;
-                    altura1 = roboAereo.exibirAltura();
-                }         
-                if (robo.getClass() == RoboAereo.class) {
-                    RoboAereo roboAereo = (RoboAereo) robo;
-                    altura2 = roboAereo.exibirAltura();
-                }
-                if (altura1 == altura2) {
-                    return true; // Possibilidade de colisão detectada com outro robô
+
+        // Obtém os robôs ativos e os obstáculos do ambiente
+        ArrayList<Robo> robosAtivos = ambiente.retornarRobosAtivos();
+        ArrayList<Obstaculo> obstaculos = ambiente.retornarObstaculos();
+
+        // Verifica colisão com outros robôs
+        for (Robo roboAtivo : robosAtivos) {
+            if (roboAtivo != robo && roboAtivo.exibirPosicao()[0] == x && roboAtivo.exibirPosicao()[1] == y) {
+                int alturaRobo = (roboAtivo instanceof RoboAereo) ? ((RoboAereo) roboAtivo).exibirAltura() : 0;
+                if (alturaRobo == z) {
+                    return true; // Colisão detectada com outro robô
                 }
             }
         }
+
+        // Verifica colisão com obstáculos
         for (Obstaculo obstaculo : obstaculos) {
+            int posX = obstaculo.getPosicaoX();
+            int posY = obstaculo.getPosicaoY();
+            int comprimento = obstaculo.getObstaculo().getComprimento();
+            int largura = obstaculo.getObstaculo().getLargura();
             int alturaObstaculo = obstaculo.getObstaculo().getAltura();
-            int alturaRobo = 0;
-            if (x > obstaculo.getPosicaoX() && x < obstaculo.getPosicaoX() + obstaculo.getObstaculo().getComprimento() && y > obstaculo.getPosicaoY() && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()) {
-                if (robo.getClass() == RoboAereo.class) {
-                    RoboAereo roboAereo = (RoboAereo) robo;
-                    alturaRobo = roboAereo.exibirAltura();
-                }
-                if (Math.abs(alturaRobo) < Math.abs(alturaObstaculo)) {
-                    return true; // Possibilidade de colisão detectada com um obstáculo
-                }
+
+            boolean dentroX = x > posX && x < posX + comprimento;
+            boolean dentroY = y > posY && y < posY + largura;
+            boolean dentroZ = Math.abs(z) < Math.abs(alturaObstaculo);
+
+            if (dentroX && dentroY && dentroZ) {
+                return true; // Colisão detectada com um obstáculo
             }
         }
+
         return false; // Não há possibilidade de colisão
     }
 }
-
