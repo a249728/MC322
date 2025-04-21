@@ -47,11 +47,15 @@ public class SensorIluminacao extends Sensor {
 
     private boolean haSombraPorObstaculo(int x, int y, int z, int deslocamentoX, ArrayList<Obstaculo> obstaculos) {
         for (Obstaculo obstaculo : obstaculos) {
-            if (x + deslocamentoX > obstaculo.getPosicaoX()
-                    && x + deslocamentoX < obstaculo.getPosicaoX() + obstaculo.getObstaculo().getLargura()
-                    && y > obstaculo.getPosicaoY()
-                    && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()
-                    && z < obstaculo.getObstaculo().getAltura()) {
+            boolean aoLadoX = x + deslocamentoX > obstaculo.getPosicaoX() 
+                    && x + deslocamentoX < obstaculo.getPosicaoX() + obstaculo.getObstaculo().getLargura();
+            boolean dentroY = y > obstaculo.getPosicaoY() 
+                    && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura();
+            boolean abaixoZ = z < obstaculo.getObstaculo().getAltura() && obstaculo.getObstaculo().getAltura() > 0;
+
+            if (aoLadoX && dentroY && abaixoZ) {
+                return true;
+            }
                 return true;
             }
         }
