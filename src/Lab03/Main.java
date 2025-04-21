@@ -1,191 +1,215 @@
+import java.util.Scanner;
+
 public class Main {
+
     public static void main(String[] args) {
-        // Cria um ambiente
-        Ambiente ilhaMecanimais = new Ambiente(500, 500, 500, "Leste");
-        imprimir("Criando o ambiente Ilha Base de dimensões 500x500x500");
-
-        // Cria um robo criador que cria o restante dos robos
-        RoboCriador JeffRosen = new RoboCriador("JeffRosen", 0, 0, "Norte", 1, 499);
-        imprimirPosicaoAereo(JeffRosen);
-        Robo Sasquatch = JeffRosen.criarRobo(ilhaMecanimais, "Sasquatch");
-        moverRoboAereo(JeffRosen, 0, 1, 0, ilhaMecanimais);
-        RoboTerrestre Rex = JeffRosen.criarRoboTerrestre(ilhaMecanimais, "Rex", 100);
-        moverRoboAereo(JeffRosen, 0, 1, 0, ilhaMecanimais);
-        RoboAereo Unicornio = JeffRosen.criarRoboAereo(ilhaMecanimais, "Unicornio", 0, 99);
-        moverRoboAereo(JeffRosen, 0, 1, 0, ilhaMecanimais);
-        RoboSubterraneo Corujao = JeffRosen.criarRoboSubterraneo(ilhaMecanimais, "Corujao", 0, -99);
-        moverRoboAereo(JeffRosen, 0, 1, 0, ilhaMecanimais);
-        RoboLaser Komodo = JeffRosen.criarRoboLaser(ilhaMecanimais, "Komodo", 100, 10);
-        moverRoboAereo(JeffRosen, 0, 1, 0, ilhaMecanimais);
-        RoboCorredor Mouse = JeffRosen.criarRoboCorredor(ilhaMecanimais, "Mouse", 200, 100);
-        checarLimitesAereo(ilhaMecanimais, JeffRosen);
-        imprimirPosicaoAereo(JeffRosen);
-        imprimir("");
-
-        // Sasquatch (Robo)
-        imprimirPosicao(Sasquatch);
-        checarLimites(ilhaMecanimais, Sasquatch);
-        moverRobo(Sasquatch, 501, 0, ilhaMecanimais); //Move Sasquatch para fora dos limites
-        checarLimites(ilhaMecanimais, Sasquatch); //Imprime que Sasquatch está fora dos limites
-        imprimir("");
-
-        // Rex (RoboTerrestre)
-        imprimirPosicao(Rex);
-        checarLimites(ilhaMecanimais, Rex);
-        moverRoboTerrestre(Rex, 400, 0, ilhaMecanimais); //Rex não move pois tenta mover com uma velocidade maior do que a permitida
-        moverRoboTerrestre(Rex, 2, -1, ilhaMecanimais); //Move Rex de acordo com as regras
-        checarLimites(ilhaMecanimais, Rex); // Rex permanece dentro dos limites
-        imprimir("");
-
-        // Unicornio (RoboAereo)
-        imprimirPosicaoAereo(Unicornio);
-        checarLimitesAereo(ilhaMecanimais, Unicornio);
-        moverRoboAereo(Unicornio, 0, 0, 80, ilhaMecanimais); //Unicornio sobe para cima em 80 (dentro da altitude maxima)
-        moverRoboAereo(Unicornio, 0, 0, 50, ilhaMecanimais); //Unicornio nao se move pois ultrapassa altitude maxima
-        moverRoboAereo(Unicornio, 0, 0, -90, ilhaMecanimais); //Unicornio nao se move pois tenta ir para a parte subterranea e nao e subterraneo
-        moverRoboAereo(Unicornio, 3, -2, 10, ilhaMecanimais); //Move Unicornio de acordo com as regras
-        checarLimitesAereo(ilhaMecanimais, Unicornio); //Unicornio permanece dentro dos limites
-        imprimir("");
-        
-        // Corujao (RoboSubterraneo)
-        imprimirPosicaoAereo(Corujao);
-        checarLimitesAereo(ilhaMecanimais, Corujao); //Corujao esta dentro dos limites pois nao esta em baixo da terra (z=0)
-        moverRoboSubterraneo(Corujao, 10, 10, 10, ilhaMecanimais); //Corujao nao move pois nao pode ir para altitudes positivas
-        moverRoboSubterraneo(Corujao, 0, 0, -100, ilhaMecanimais); //Corijao nao move pois ultrapassa a altura minima
-        moverRoboSubterraneo(Corujao, 10, 10, -10, ilhaMecanimais); //Move Corujao de acordo com as regras
-        checarLimitesAereo(ilhaMecanimais, Corujao); //Corujao esta fora dos limites pois estara em uma altura negativa
-        imprimir("");
-        
-        // Komodo (RoboLaser)
-        imprimirPosicao(Komodo);
-        checarLimites(ilhaMecanimais, Komodo);
-        moverRobo(Komodo, 200, -5, ilhaMecanimais); //Komodo nao move pois passa a velocidade maxima
-        moverRobo(Komodo, 1, -4, ilhaMecanimais); //Move Komodo de acordo com as regras
-        mudarDirecaoRobo(Komodo, "Leste"); //Muda direcao de Komodo
-        dispararLaserRobo(Komodo, ilhaMecanimais); //Komodo destroi Rex e Unicornio, nao destroi Sasquatch pois esta muito longe
-        checarLimites(ilhaMecanimais, Komodo); //Komodo permanece dentro dos limites
-        imprimir("");
-        
-        // Mouse (RoboCorredor)
-        imprimirPosicao(Mouse);
-        checarLimites(ilhaMecanimais, Mouse);
-        moverRoboCorredor(Mouse, 95, ilhaMecanimais); //Mouse nao move pois esta abaixo da velocidade minima
-        moverRoboCorredor(Mouse, 100, ilhaMecanimais); //Move mouse de acordo com as regras
-        mudarDirecaoRobo(Mouse, "Leste"); //Muda direcao de Mouse
-        moverRoboCorredor(Mouse, 100, ilhaMecanimais); //Move mouse de acordo com as regras
-        mudarDirecaoRobo(Mouse, "Sul"); //Muda direcao de Mouse
-        moverRoboCorredor(Mouse, 105, ilhaMecanimais); //Move mouse de acordo com as regras
-        mudarDirecaoRobo(Mouse, "Oeste"); //Muda direcao de Mouse
-        moverRoboCorredor(Mouse, 150, ilhaMecanimais); //Mouse nao move pois Komodo esta no caminho
-        checarLimites(ilhaMecanimais, Mouse); //Mouse pemanece dentro dos limites
+        Scanner scanner = new Scanner(System.in);
+        console(scanner);
+        scanner.close();
     }
 
-    public static void imprimir(String str){
+    public static void console(Scanner scanner) {
+        Ambiente ambiente = null;
+
+        imprimir("Simulador iniciado. Digite comandos (ou 'sair' para encerrar):");
+
+        while (true) {
+            imprimir(">>> ");
+            String linha = ler(scanner);
+            if (linha.equalsIgnoreCase("sair")) break;
+
+            String[] partes = linha.split(" ");
+            if (partes.length < 1) continue;
+
+            String comando = partes[0];
+
+            try {
+                switch (comando) {
+                    case "criarAmbiente":
+                        if (partes.length == 5) {
+                            int c = Integer.parseInt(partes[1]);
+                            int l = Integer.parseInt(partes[2]);
+                            int a = Integer.parseInt(partes[3]);
+                            String sol = partes[4];
+                            ambiente = new Ambiente(c, l, a, sol);
+                            imprimir("Ambiente criado com sucesso.");
+                        } else {
+                            imprimir("Uso: criarAmbiente <comprimento> <largura> <altura> <posSol>");
+                        }
+                        break;
+
+                    case "criarRobo":
+                        if (ambiente != null && partes.length >= 3) {
+                            String tipo = partes[1];
+                            String nome = partes[2];
+                            Robo robo = null;
+                            switch (tipo) {
+                                case "base":
+                                    robo = new Robo(nome, 0, 0, "Norte");
+                                    break;
+                                case "terrestre":
+                                    robo = new RoboTerrestre(nome, 0, 0, "Norte", 100);
+                                    break;
+                                case "aereo":
+                                    robo = new RoboAereo(nome, 0, 0, "Norte", 0, 99);
+                                    break;
+                                case "subterraneo":
+                                    robo = new RoboSubterraneo(nome, 0, 0, "Norte", 0, -99);
+                                    break;
+                                case "laser":
+                                    robo = new RoboLaser(nome, 0, 0, "Norte", 100, 10);
+                                    break;
+                                case "corredor":
+                                    robo = new RoboCorredor(nome, 0, 0, "Norte", 200, 100);
+                                    break;
+                                case "criador":
+                                    robo = new RoboCriador(nome, 0, 0, "Norte", 1, 499);
+                                    break;
+                                default:
+                                    imprimir("Tipo inválido.");
+                            }
+                            if (robo != null) {
+                                ambiente.adicionarRobo(robo);
+                                imprimir("Robo " + nome + " criado.");
+                            }
+                        } else {
+                            imprimir("Uso: criarRobo <tipo> <nome>");
+                        }
+                        break;
+
+                    case "exibirPosicao":
+                        if (ambiente != null && partes.length == 2) {
+                            Robo robo = buscarRobo(ambiente, partes[1]);
+                            if (robo != null) {
+                                imprimir(robo.retornarNome() + " está na posição " + coordenadas(robo));
+                            } else {
+                                imprimir("Robo não encontrado.");
+                            }
+                        }
+                        break;
+
+                    case "checarLimites":
+                        if (ambiente != null && partes.length == 2) {
+                            Robo robo = buscarRobo(ambiente, partes[1]);
+                            if (robo != null) {
+                                int[] xy = robo.exibirPosicao();
+                                boolean dentro;
+                                if (robo instanceof RoboAereo) {
+                                    int z = ((RoboAereo) robo).exibirAltura();
+                                    dentro = ambiente.dentroDosLimitesAereo(xy[0], xy[1], z);
+                                } else {
+                                    dentro = ambiente.dentroDosLimites(xy[0], xy[1]);
+                                }
+                                imprimir("O robo " + robo.retornarNome() + (dentro ? " está " : " não está ") + "dentro dos limites.");
+                            } else {
+                                imprimir("Robo não encontrado.");
+                            }
+                        }
+                        break;
+
+                    case "listarRobos":
+                        if (ambiente != null) {
+                            for (Robo r : ambiente.retornarRobosAtivos()) {
+                                imprimir(r.retornarNome() + " em " + coordenadas(r));
+                            }
+                        } else {
+                            imprimir("Ambiente não criado ainda.");
+                        }
+                        break;
+
+                    case "destruirRobo":
+                        if (ambiente != null && partes.length == 2) {
+                            Robo r = buscarRobo(ambiente, partes[1]);
+                            if (r != null) {
+                                ambiente.destruirRobo(r);
+                                imprimir("Robo " + partes[1] + " destruído.");
+                            } else {
+                                imprimir("Robo não encontrado.");
+                            }
+                        }
+                        break;
+
+                    case "mover":
+                        if (ambiente != null && partes.length >= 2) {
+                            Robo robo = buscarRobo(ambiente, partes[1]);
+                            if (robo == null) {
+                                imprimir("Robo não encontrado.");
+                                break;
+                            }
+                            if (robo instanceof RoboAereo && partes.length == 5) {
+                                ((RoboAereo) robo).mover(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), Integer.parseInt(partes[4]), ambiente);
+                            } else if (robo instanceof RoboSubterraneo && partes.length == 5) {
+                                ((RoboSubterraneo) robo).mover(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), Integer.parseInt(partes[4]), ambiente);
+                            } else if (robo instanceof RoboCorredor && partes.length == 3) {
+                                ((RoboCorredor) robo).mover(Integer.parseInt(partes[2]), ambiente);
+                            } else if (robo instanceof RoboTerrestre && partes.length == 4) {
+                                ((RoboTerrestre) robo).mover(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), ambiente);
+                            } else if (partes.length == 4) {
+                                robo.mover(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), ambiente);
+                            } else {
+                                imprimir("Parâmetros incorretos para mover.");
+                            }
+                        }
+                        break;
+
+                    case "mudarDirecao":
+                        if (ambiente != null && partes.length == 3) {
+                            Robo robo = buscarRobo(ambiente, partes[1]);
+                            if (robo != null) {
+                                robo.mudarDirecao(partes[2]);
+                                imprimir(robo.retornarNome() + " agora está olhando para " + partes[2]);
+                            } else {
+                                imprimir("Robo não encontrado.");
+                            }
+                        }
+                        break;
+
+                    case "dispararLaser":
+                        if (ambiente != null && partes.length == 2) {
+                            Robo robo = buscarRobo(ambiente, partes[1]);
+                            if (robo instanceof RoboLaser) {
+                                int n = ((RoboLaser) robo).dispararLaser(ambiente);
+                                imprimir("Laser disparado! " + n + " robô(s) destruído(s).");
+                            } else {
+                                imprimir("Esse robô não possui laser.");
+                            }
+                        }
+                        break;
+
+                    default:
+                        imprimir("Comando desconhecido: " + comando);
+                }
+            } catch (Exception e) {
+                imprimir("Erro ao executar comando: " + e.getMessage());
+            }
+        }
+
+        imprimir("Simulação encerrada.");
+    }
+
+    private static String ler(Scanner scanner) {
+        return scanner.nextLine();
+    }
+
+    private static void imprimir(String str) {
         System.out.println(str);
     }
 
-    public static void mudarDirecaoRobo(Robo robo, String dir){
-        //Utiliza do metodo mudarDirecao para mudar a direcao que o robo esta voltado
-        robo.mudarDirecao(dir);
-        imprimir("O robo " + robo.retornarNome() + " está olhando para a direção " + dir);  
-}   
-    
-     public static void moverRobo(Robo robo, int dx, int dy, Ambiente amb) {
-        // Utiliza do metodo mover para atualizar as posicoes do robo base e imprime as novas coordenadas adquiridas
-        if (robo.mover(dx, dy, amb)) {
-            int coord[] = robo.exibirPosicao();
-            imprimir("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord[0] + ", " + coord[1] + ")");
+    private static Robo buscarRobo(Ambiente ambiente, String nome) {
+        for (Robo r : ambiente.retornarRobosAtivos()) {
+            if (r.retornarNome().equals(nome)) return r;
         }
-        else {
-            imprimir("O robo " + robo.retornarNome() + " não se moveu");
-        }
+        return null;
     }
 
-    public static void moverRoboTerrestre(RoboTerrestre robo, int dx, int dy, Ambiente amb) {
-        // Utiliza do metodo mover para atualizar as posicoes do robo terrestre e imprime as novas coordenadas adquiridas
-        if (robo.mover(dx, dy, amb)) {
-            int coord[] = robo.exibirPosicao();
-            imprimir("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord[0] + ", " + coord[1] + ")");
+    private static String coordenadas(Robo r) {
+        if (r instanceof RoboAereo) {
+            int[] xy = r.exibirPosicao();
+            int z = ((RoboAereo) r).exibirAltura();
+            return "(" + xy[0] + ", " + xy[1] + ", " + z + ")";
+        } else {
+            int[] xy = r.exibirPosicao();
+            return "(" + xy[0] + ", " + xy[1] + ")";
         }
-        else {
-            imprimir("O robo " + robo.retornarNome() + " não se moveu");
-        }
-    }
-
-    public static void moverRoboCorredor(RoboCorredor robo, int d, Ambiente amb) {
-        // Utiliza do metodo mover para atualizar as posicoes do robo terrestre e imprime as novas coordenadas adquiridas
-        if (robo.mover(d, amb)) {
-            int coord[] = robo.exibirPosicao();
-            imprimir("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord[0] + ", " + coord[1] + ")");
-        }
-        else {
-            imprimir("O robo " + robo.retornarNome() + " não se moveu");
-        }
-    }
-
-    public static void moverRoboSubterraneo(RoboSubterraneo robo, int dx, int dy, int dz, Ambiente amb) {
-        // Utiliza do metodo mover para atualizar as posicoes do robo terrestre e imprime as novas coordenadas adquiridas
-        if (robo.mover(dx, dy, dz, amb)) {
-            int coord_xy[] = robo.exibirPosicao();
-            int z = robo.exibirAltura();
-            imprimir("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord_xy[0] + ", " + coord_xy[1] + ", " + z + ")");
-        }
-        else {
-            imprimir("O robo " + robo.retornarNome() + " não se moveu");
-        }
-    }
-
-    public static void moverRoboAereo(RoboAereo robo, int dx, int dy, int dz, Ambiente amb) {
-        // Utiliza do metodo mover para atualizar as posicoes do robo aereo e imprime as novas coordenadas adquiridas
-        if (robo.mover(dx, dy, dz, amb)) {
-            int coord_xy[] = robo.exibirPosicao();
-            int z = robo.exibirAltura();
-            imprimir("O robo " + robo.retornarNome() + " moveu para a posicao: (" + coord_xy[0] + ", " + coord_xy[1] + ", " + z + ")");
-        }
-        else {
-            imprimir("O robo " + robo.retornarNome() + " não se moveu");
-        }
-    }
-
-    public static void checarLimites(Ambiente amb, Robo robo) {
-        // Checa se as atuais coordenadas do robo base/terrestre indicam que ele esta dentro dos limites do ambiente e imprime o resultado
-        int coord[] = robo.exibirPosicao();
-        if (amb.dentroDosLimites(coord[0], coord[1])) {
-            imprimir("O robo " + robo.retornarNome() + " esta dentro dos limites do ambiente");
-        }
-        else {
-            imprimir("O robo " + robo.retornarNome() + " nao esta dentro dos limites do ambiente");
-        }
-    }
-
-    public static void checarLimitesAereo(Ambiente amb, RoboAereo robo) {
-        // Checa se as atuais coordenadas do robo aereo indicam que ele esta dentro dos limites do ambiente e imprime o resultado
-        int coord_xy[] = robo.exibirPosicao();
-        int z = robo.exibirAltura();
-        if (amb.dentroDosLimitesAereo(coord_xy[0], coord_xy[1], z)) {
-            imprimir("O robo " + robo.retornarNome() + " esta dentro dos limites do ambiente");
-        }
-        else {
-            imprimir("O robo " + robo.retornarNome() + " nao esta dentro dos limites do ambiente");
-        }
-    }
-
-    public static void imprimirPosicao(Robo robo) {
-        // Imprime as atuais coordenadas do robo base/terrestre
-        int coord[] = robo.exibirPosicao();
-        imprimir("O robo " + robo.retornarNome() + " esta na posicao (" + coord[0] + ", " + coord[1] + ")");
-    }
-
-    public static void imprimirPosicaoAereo(RoboAereo robo) {
-        // Imprime as atuais coordenadas do robo aereo
-        int coord_xy[] = robo.exibirPosicao();
-        int z = robo.exibirAltura();
-        imprimir("O robo " + robo.retornarNome() + " esta na posicao (" + coord_xy[0] + ", " + coord_xy[1] + ", " + z + ")");
-    }
-
-    public static void dispararLaserRobo(RoboLaser robo, Ambiente amb){
-        // Dispara o laser do robo laser e imprime quantos robos foram destruidos dentro do alcance do laser
-        int numDestruidos = robo.dispararLaser(amb);
-        imprimir("O robo " + robo.retornarNome() + " atingiu e destruiu " + numDestruidos + " robos");
     }
 }
