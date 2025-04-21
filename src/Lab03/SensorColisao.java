@@ -33,13 +33,13 @@ public class SensorColisao extends Sensor {
         for (Obstaculo obstaculo : obstaculos) {
             int alturaObstaculo = obstaculo.getObstaculo().getAltura();
             int alturaRobo = 0;
-            if (obstaculo.getPosicaoX() == x && y > obstaculo.getPosicaoY() && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()) {
+            if (x > obstaculo.getPosicaoX() && x < obstaculo.getPosicaoX() + obstaculo.getObstaculo().getComprimento() && y > obstaculo.getPosicaoY() && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()) {
                 if (robo.getClass() == RoboAereo.class) {
                     // converter robo do tipo Robo para RoboAereo e adicionar a alturaRobo o valor de sua altura
                     RoboAereo roboAereo = (RoboAereo) robo;
                     alturaRobo = roboAereo.exibirAltura();
                 }
-                if (alturaRobo < alturaObstaculo) {
+                if (Math.abs(alturaRobo) < Math.abs(alturaObstaculo)) {
                     return "Ha possibilidade de colisao detectada com um obstaculo";
                 }
             }

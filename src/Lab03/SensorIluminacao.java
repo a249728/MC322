@@ -37,7 +37,7 @@ public class SensorIluminacao extends Sensor {
             }
             for (Obstaculo obstaculo : obstaculos) {
                 // Checa se existe um obstaculo na coordenada x+1, y
-                if (obstaculo.getPosicaoX() == x - 1 && y > obstaculo.getPosicaoY() && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()) {
+                if (x > obstaculo.getPosicaoX() && x < obstaculo.getPosicaoX() + obstaculo.getObstaculo().getLargura() && y > obstaculo.getPosicaoY() && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()) {
                     return "Sombra";
                 }
             }
