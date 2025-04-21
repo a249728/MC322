@@ -7,6 +7,7 @@ public class Ambiente {
     private int altura;
     private final String posSol;
     private ArrayList<Robo> robosAtivos = new ArrayList<>();
+    private ArrayList<Obstaculo> obstaculos = new ArrayList<>();
 
     public Ambiente(int c, int l, int a, String p) {
         // Metodo construtor da classe
@@ -31,6 +32,11 @@ public class Ambiente {
         robosAtivos.add(robo);
     }
 
+    public void adicionarObstaculo(Obstaculo obstaculo) {
+        // Adiciona um Obstaculo ao ArrayList
+        obstaculos.add(obstaculo);
+    }
+
     public Robo acharRobo(int x, int y) {
         for (Robo robo : robosAtivos) {
             if (robo.exibirPosicao()[0] == x && robo.exibirPosicao()[1] == y) {
@@ -44,6 +50,10 @@ public class Ambiente {
         return this.robosAtivos;
     }
 
+    public ArrayList<Obstaculo> retornarObstaculos() {
+        return this.obstaculos;
+    }
+
     public String retornarPosSol() {
         // Retorna a posicao do sol
         return this.posSol;
@@ -52,6 +62,11 @@ public class Ambiente {
     public void destruirRobo(Robo robo) {
         // Remove o Robo do ArrayList
         robosAtivos.remove(robo);
+    }
+
+    public void destruirObstaculo(Obstaculo obstaculo) {
+        // Remove o Obstaculo do ArrayList
+        obstaculos.remove(obstaculo);
     }
 
 }
