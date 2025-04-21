@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Robo {
     // Declara as propriedades da classe Robo
     private String nome;
@@ -49,10 +51,10 @@ public class Robo {
     }
 
     public boolean identificarObstaculo(int deltaX, int deltaY, Ambiente amb) {
-        //Checa se a posicao para a qual o robo quer mover ja esta ocupada por outro robo (obstaculo)
-        Robo obstaculos[] = amb.retornarRobosAtivos();
-        for (int i = 0; i < obstaculos.length; i++) {
-            if (obstaculos[i].posicaoX == this.posicaoX + deltaX && obstaculos[i].posicaoY == this.posicaoY + deltaY && obstaculos[i] != this) {
+        // Checa se a posicao para a qual o robo quer mover ja esta ocupada por outro robo (obstaculo)
+        ArrayList<Robo> obstaculos = amb.retornarRobosAtivos();
+        for (Robo obstaculo : obstaculos) {
+            if (obstaculo.posicaoX == this.posicaoX + deltaX && obstaculo.posicaoY == this.posicaoY + deltaY && obstaculo != this) {
                 return true;
             }
         }

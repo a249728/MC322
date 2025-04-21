@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         // Cria um ambiente
-        Ambiente ilhaMecanimais = new Ambiente(500, 500, 500);
+        Ambiente ilhaMecanimais = new Ambiente(500, 500, 500, "Leste");
         imprimir("Criando o ambiente Ilha Base de dimensões 500x500x500");
 
         // Cria um robo criador que cria o restante dos robos

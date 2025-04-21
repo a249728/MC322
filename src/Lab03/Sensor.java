@@ -1,12 +1,18 @@
 public class Sensor {
     private double raioDeAlcance;
+    private int bateria;
+    private Robo robo;
 
-    public Sensor(double raio) {
+    public Sensor(double raio, int bat, Robo robo) {
         this.raioDeAlcance = raio;
+        this.bateria = bat;
+        this.robo = robo;
     }
 
-    public boolean dentroDoRaio(int x, int y) {
-        if ((Math.pow(x, 2) + Math.pow(y, 2)) <= raioDeAlcance) {
+    public boolean monitorar(int x, int y) {
+        int coord[] = robo.exibirPosicao();
+        if ((Math.pow(x-coord[0], 2) + Math.pow(y-coord[1], 2)) <= raioDeAlcance && bateria > 0) {
+            bateria--;
             return true;
         }
         return false;

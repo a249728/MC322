@@ -3,9 +3,9 @@ Lab 3 - Diretrizes
 Classes antigas:
 Ambiente
 - Criar um array list de obstáculos no ambiente 
-- Converter o vetor de robos no ambiente para o tipo array list
+- Converter o vetor de robos no ambiente para o tipo array list ✅
 - Criar métodos adicionar e remover obstáculos
-- Usar variáveis final
+- Usar variáveis final ✅
 
 Robo
 - Implementar uma relação de agregação com sensores (criar sensores dentro da classe Robo)
@@ -25,10 +25,10 @@ Obstaculo
 - Métodos: gets ✅
 
 Sensor
-- Atributos: raio de alcance (double)
-- Métodos: monitorar
+- Atributos: raio de alcance (double) ✅
+- Métodos: monitorar ✅
 - Criar pelo menos 2 subtipos de sensores, dentre eles um pelo menos deve ser o de checar colisões com obstáculos
-- Utilizar variáveis final
+- Utilizar variáveis final ✅
 
 Extra:
 - Desenvolver um diagrama de classes

@@ -1,7 +1,7 @@
 public class Obstaculo {
     private TipoObstaculo obstaculo;
-    private int posicaoX;
-    private int posicaoY;
+    private final int posicaoX;
+    private final int posicaoY;
 
     public Obstaculo(String tipo, int x, int y) {
         this.obstaculo = TipoObstaculo.valueOf(tipo);

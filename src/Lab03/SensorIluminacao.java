@@ -1,25 +1,34 @@
-public class SensorIluminacao extends Sensor {
-    private final String momento;
+import java.util.ArrayList;
 
-    public SensorIluminacao(double raio, String momento) {
-        super(raio);
-        this.momento = momento;
+public class SensorIluminacao extends Sensor {
+    public SensorIluminacao(double raio, int bat, Robo robo) {
+        super(raio, bat, robo);
     }
 
-    public double monitorarIluminacao(Robo robo, double raio, Ambiente amb) {
-        int area = 0, iluminado = 0;
-
-        for(int i = 1; i <= raio; i++) {
-            for(int j = 1; j <= raio; j++) {
-                if (super.dentroDoRaio(i, j)) {
-                    area++;
-                    if (amb.getIluminacao(robo, i, j, momento)) {
-                        iluminado++;
-                    }
+    public String monitorarIluminacao(int x, int y, Ambiente amb) {
+        if (!this.monitorar(x, y)) {
+            return "Nao foi possivel monitorar essa posicao";
+        }
+        ArrayList<Robo> obstaculos = amb.retornarRobosAtivos();
+        String dir = amb.retornarPosSol();
+        if (dir.equals("Leste")) {
+            for (Robo robo : obstaculos) {
+                // Checa se existe um robo na coordenada x+1, y
+                if (robo.exibirPosicao()[0] == x + 1 && robo.exibirPosicao()[1] == y) {
+                    return "Sombra";
                 }
+                return "Iluminado";
             }
         }
-
-        return iluminado/area;
+        else if (dir.equals("Oeste")) {
+            for (Robo robo : obstaculos) {
+                // Checa se existe um robo na coordenada x-1, y
+                if (robo.exibirPosicao()[0] == x - 1 && robo.exibirPosicao()[1] == y) {
+                    return "Sombra";
+                }
+                return "Iluminado";
+            }
+        }
+        return "A direcao indicada do sol e invalida";
     }
 }
