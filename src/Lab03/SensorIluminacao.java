@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SensorIluminacao extends Sensor {
@@ -9,10 +10,11 @@ public class SensorIluminacao extends Sensor {
         if (!this.monitorar(x, y)) {
             return "Nao foi possivel monitorar essa posicao";
         }
-        ArrayList<Robo> obstaculos = amb.retornarRobosAtivos();
+        ArrayList<Robo> robos = amb.retornarRobosAtivos();
+        ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
         String dir = amb.retornarPosSol();
         if (dir.equals("Leste")) {
-            for (Robo robo : obstaculos) {
+            for (Robo robo : robos) {
                 // Checa se existe um robo na coordenada x+1, y
                 if (robo.exibirPosicao()[0] == x + 1 && robo.exibirPosicao()[1] == y) {
                     return "Sombra";
@@ -21,7 +23,7 @@ public class SensorIluminacao extends Sensor {
             }
         }
         else if (dir.equals("Oeste")) {
-            for (Robo robo : obstaculos) {
+            for (Robo robo : robos) {
                 // Checa se existe um robo na coordenada x-1, y
                 if (robo.exibirPosicao()[0] == x - 1 && robo.exibirPosicao()[1] == y) {
                     return "Sombra";

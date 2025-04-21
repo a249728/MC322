@@ -23,6 +23,7 @@ Classes novas:
 Obstaculo
 - Atributos: dimensões e tipo (usando ENUM) ✅
 - Métodos: gets ✅
+- No metodo criar obstaculo checar se não existe já um robo naquele lugar
 - Checar remover obstaculo para ter certeza que queremos fazer dessa forma
 
 Sensor
@@ -34,5 +35,6 @@ Sensor
 
 Extra:
 - Checar se tem métodos gets e sets o suficiente e uniformizar o codigo
+- Explicar por que não queremos criar uma classe abstrata para o robo criador
 - Desenvolver um diagrama de classes
 - Melhorar o READ.ME de acordo com especificações
