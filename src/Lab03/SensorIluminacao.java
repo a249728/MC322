@@ -21,10 +21,11 @@ public class SensorIluminacao extends Sensor {
             }
             for (Obstaculo obstaculo : obstaculos) {
                 // Checa se existe um obstaculo na coordenada x+1, y
-                if (obstaculo.getPosicaoX() == x + 1 && obstaculo.getPosicaoY() == y) {
+                if (obstaculo.getPosicaoX() == x + 1 && y > obstaculo.getPosicaoY() && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()) {
                     return "Sombra";
                 }
             }
+            return "Iluminado";
         }
         else if (dir.equals("Oeste")) {
             for (Robo robo : robos) {
@@ -34,6 +35,13 @@ public class SensorIluminacao extends Sensor {
                 }
                 return "Iluminado";
             }
+            for (Obstaculo obstaculo : obstaculos) {
+                // Checa se existe um obstaculo na coordenada x+1, y
+                if (obstaculo.getPosicaoX() == x - 1 && y > obstaculo.getPosicaoY() && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura()) {
+                    return "Sombra";
+                }
+            }
+            return "Iluminado";
         }
         return "A direcao indicada do sol e invalida";
     }
