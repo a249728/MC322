@@ -30,8 +30,8 @@ public class Main {
                             int c = Integer.parseInt(partes[1]);
                             int l = Integer.parseInt(partes[2]);
                             int a = Integer.parseInt(partes[3]);
-                            String sol = partes[4];
-                            ambiente = new Ambiente(c, l, a, sol);
+                            String h = partes[4];
+                            ambiente = new Ambiente(c, l, a, h);
                             imprimir("Ambiente criado com sucesso.");
                         } else {
                             imprimir("Uso: criarAmbiente <comprimento> <largura> <altura> <posSol>");

@@ -5,16 +5,16 @@ public class Ambiente {
     private int comprimento;
     private int largura;
     private int altura;
-    private final String posSol;
+    private String horario;
     private ArrayList<Robo> robosAtivos = new ArrayList<>();
     private ArrayList<Obstaculo> obstaculos = new ArrayList<>();
 
-    public Ambiente(int c, int l, int a, String p) {
+    public Ambiente(int c, int l, int a, String h) {
         // Metodo construtor da classe
         this.comprimento = c;
         this.largura = l;
         this.altura = a;
-        this.posSol = p;
+        this.horario = h;
     }
 
     public boolean dentroDosLimites(int x, int y) {
@@ -54,9 +54,9 @@ public class Ambiente {
         return this.obstaculos;
     }
 
-    public String retornarPosSol() {
+    public String retornarHorario() {
         // Retorna a posicao do sol
-        return this.posSol;
+        return this.horario;
     }
 
     public void destruirRobo(Robo robo) {
