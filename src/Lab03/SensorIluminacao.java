@@ -9,32 +9,31 @@ public class SensorIluminacao extends Sensor {
         return ((xp-x0)/x1);
     }
 
-    private boolean interseccaoRetaPlanoDelimitado(float x0, float x1, float y0, float y1, float z0, float z1, float xp, float yi, float yf, float zi, float zf){
-        if(x1==0){
+    private boolean interseccaoRetaPlanoDelimitado(float[] reta, int[] obj, int coord, int lado){
+        if(reta[2*coord+1]==0){
             return false;
         }
-        float t=interseccaoRetaPlano(x0, x1, xp);
-        float y=y0+t*y1;
-        float z=z0+t*z1;
-        if(yi<y && y<yf && zi<z && z<zf){
+        int coord1=(coord+1)%3;
+        int coord2=(coord+2)%3;
+        float t=interseccaoRetaPlano(reta[2*coord], reta[2*coord+1], obj[2*coord+lado]);
+        if(t<0){
+            return false;
+        }
+        float xyz1=reta[2*coord1]+t*reta[2*coord1+1];
+        float xyz2=reta[2*coord2]+t*reta[2*coord2+1];
+        if(obj[2*coord1]<xyz1 && xyz1<obj[2*coord1+1] && obj[2*coord2]<xyz2 && xyz2<obj[2*coord2+1]){
             return true;
         }
         return false;
     }
 
-    private boolean interseccaoRetaObjeto(float x0, float x1, float y0, float y1, float z0, float z1, float xi, float xf, float yi, float yf, float zi, float zf){
-        if(interseccaoRetaPlanoDelimitado(x0, x1, y0, y1, z0, z1, xi, yi, yf, zi, zf)){
-            return true;
-        }if(interseccaoRetaPlanoDelimitado(x0, x1, y0, y1, z0, z1, xf, yi, yf, zi, zf)){
-            return true;
-        }if(interseccaoRetaPlanoDelimitado(x0, x1, y0, y1, z0, z1, yi, xi, xf, zi, zf)){
-            return true;
-        }if(interseccaoRetaPlanoDelimitado(x0, x1, y0, y1, z0, z1, yf, xi, xf, zi, zf)){
-            return true;
-        }if(interseccaoRetaPlanoDelimitado(x0, x1, y0, y1, z0, z1, zi, yi, yf, xi, xf)){
-            return true;
-        }if(interseccaoRetaPlanoDelimitado(x0, x1, y0, y1, z0, z1, zf, yi, yf, xi, xf)){
-            return true;
+    private boolean interseccaoRetaObjeto(float[] reta, int[] obj){
+        for(int coord=0; coord<3; coord++){
+            for(int lado=0; lado<2; lado++){
+                if(interseccaoRetaPlanoDelimitado(reta, obj, coord, lado)){
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -46,33 +45,28 @@ public class SensorIluminacao extends Sensor {
 
         ArrayList<Robo> robos = amb.retornarRobosAtivos();
         ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
-        String horario = amb.retornarHorario();
+        String[] horaMinuto = amb.retornarHorario().split(":");
+        float horario=Float.parseFloat(horaMinuto[0])+(Float.parseFloat(horaMinuto[1])/60);
+        float theta=((horario-6)/12)*((float)Math.PI);
+        float[] reta = {x, (float)Math.cos((float)theta), y, 0, z, (float)Math.sin((float)theta)};
 
-        int deslocamentoX = 0;
-        if (direcaoSol.equals("Leste")) {
-            deslocamentoX = 1;
-        } else if (direcaoSol.equals("Oeste")) {
-            deslocamentoX = -1;
-        } else {
-            return "A direcao indicada do sol e invalida";
-        }
-
-        if (haSombraPorRobo(x, y, z, deslocamentoX, robos) || haSombraPorObstaculo(x, y, z, deslocamentoX, obstaculos)) {
+        if (sombraPorRobo(reta, robos) || haSombraPorObstaculo(x, y, z, deslocamentoX, obstaculos)) {
             return "Sombra";
         }
 
         return "Iluminado";
     }
 
-    private boolean haSombraPorRobo(int x, int y, int z, int deslocamentoX, ArrayList<Robo> robos) {
-        for (Robo rob : robos) {
-            int[] posicaoRobo = rob.exibirPosicao();
-            int altura = 0;
-            if (rob.getClass() == RoboAereo.class) {
-                RoboAereo roboAereo = (RoboAereo) rob;
-                altura = roboAereo.exibirAltura();
+    private boolean sombraPorRobo(float[] reta, ArrayList<Robo> robos) {
+        for (Robo robo : robos) {
+            int[] pos = robo.exibirPosicao();
+            int z=0;
+            if(robo instanceof RoboAereo){
+                z=((RoboAereo)robo).exibirAltura();
             }
-            if (posicaoRobo[0] == x + deslocamentoX && posicaoRobo[1] == y && altura == z) {
+            int[] obj={pos[0], pos[0]+1, pos[1], pos[1]+1, z, z+1}
+            if (interseccaoRetaObjeto(reta, obj)) {
+                return true;
             }
         }
         return false;
