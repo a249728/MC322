@@ -43,21 +43,25 @@ public class SensorIluminacao extends Sensor {
             return "Nao foi possivel monitorar essa posicao";
         }
 
-        ArrayList<Robo> robos = amb.retornarRobosAtivos();
+        if(z<0){
+            return "Posição monitorada abaixo da terra";
+        }
+
+        //ArrayList<Robo> robos = amb.retornarRobosAtivos();
         ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
         String[] horaMinuto = amb.retornarHorario().split(":");
         float horario=Float.parseFloat(horaMinuto[0])+(Float.parseFloat(horaMinuto[1])/60);
         float theta=((horario-6)/12)*((float)Math.PI);
         float[] reta = {x, (float)Math.cos((float)theta), y, 0, z, (float)Math.sin((float)theta)};
 
-        if (sombraPorRobo(reta, robos) || haSombraPorObstaculo(x, y, z, deslocamentoX, obstaculos)) {
+        if (sombraPorObstaculo(reta, obstaculos)) {
             return "Sombra";
         }
 
         return "Iluminado";
     }
 
-    private boolean sombraPorRobo(float[] reta, ArrayList<Robo> robos) {
+    /*private boolean sombraPorRobo(float[] reta, ArrayList<Robo> robos) {
         for (Robo robo : robos) {
             int[] pos = robo.exibirPosicao();
             int z=0;
@@ -70,20 +74,22 @@ public class SensorIluminacao extends Sensor {
             }
         }
         return false;
-    }
+    }*/
 
-    private boolean haSombraPorObstaculo(int x, int y, int z, int deslocamentoX, ArrayList<Obstaculo> obstaculos) {
-        for (Obstaculo obstaculo : obstaculos) {
-            boolean aoLadoX = x + deslocamentoX > obstaculo.getPosicaoX() 
-                    && x + deslocamentoX < obstaculo.getPosicaoX() + obstaculo.getObstaculo().getLargura();
-            boolean dentroY = y > obstaculo.getPosicaoY() 
-                    && y < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura();
-            boolean abaixoZ = z < obstaculo.getObstaculo().getAltura() && obstaculo.getObstaculo().getAltura() > 0;
 
-            if (aoLadoX && dentroY && abaixoZ) {
+    private boolean sombraPorObstaculo(float[] reta, ArrayList<Obstaculo> obstaculos) {
+        for (Obstaculo obs : obstaculos) {
+            int x = obs.getPosicaoX();
+            int y = obs.getPosicaoY();
+            int z = 0;
+            TipoObstaculo tobs = obs.getObstaculo();
+            int deltax = tobs.getComprimento();
+            int deltay = tobs.getLargura();
+            int deltaz = tobs.getAltura();
+            int[] obj={x, x+deltax, y, y+deltay, z, z+deltaz};
+            if (interseccaoRetaObjeto(reta, obj)) {
                 return true;
             }
-            return true;
         }
         return false;
     }
