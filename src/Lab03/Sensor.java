@@ -19,18 +19,22 @@ public class Sensor {
     }
 
     public double getRaioDeAlcance() {
+        // Retorna o raio de alcance do sensor
         return raioDeAlcance;
     }
 
     public void setRaioDeAlcance(double novoRaio) {
+        // Muda o raio de alcance do sensor
         raioDeAlcance = novoRaio;
     }
 
     public int getBateria() {
+        // Retorna a bateria atual do sensor
         return bateria;
     }
 
     public void setBateria(int novaBateria) {
+        // Muda a bateria atual do sensor
         bateria = novaBateria;
     }
 }

@@ -18,7 +18,6 @@ public class SensorPressao extends Sensor {
     private double calcularPressao(int z) {
         // Pressão atmosférica padrão ao nível do mar
         final double PRESSAO_NIVEL_MAR = 1.0; // em atm
-
         // Fator de variação da pressão por unidade de altura
         final double FATOR_ALTURA = 0.00012514185; // diminui rho*g Pascal, ou rho*g/101325=1.293*9.80665/101325=0.00012514185 atm por unidade acima do nível do mar
         final double FATOR_PROFUNDIDADE = 0.5337643696; // aumenta rho*g Pascal, ou rho*g/101325=5515*9.80665/101325=0.5337643696 atm por unidade abaixo do nível do mar

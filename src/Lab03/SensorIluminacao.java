@@ -62,7 +62,7 @@ public class SensorIluminacao extends Sensor {
         ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
         String[] horaMinuto = amb.retornarHorario().split(":");
         double horario=Double.parseDouble(horaMinuto[0])+(Double.parseDouble(horaMinuto[1])/60);
-        double theta=((horario-6)/12)*((double)Math.PI);
+        double theta=((horario-6)/12)*((double)Math.PI); //encontra que o eixo x faz com o sol baseado no horario
         double[] reta = {x, (double)Math.cos((double)theta), y, 0, z, (double)Math.sin((double)theta)}; //parametrizacao da reta
 
         if (sombraPorObstaculo(reta, obstaculos)) {
@@ -82,8 +82,8 @@ public class SensorIluminacao extends Sensor {
             int deltax = tobs.getComprimento();
             int deltay = tobs.getLargura();
             int deltaz = tobs.getAltura();
-            int[] obj={x, x+deltax, y, y+deltay, z, z+deltaz};
-            if (interseccaoRetaObjeto(reta, obj)) {//ve seo objeto intercecta a semireta de raio de luz
+            int[] obj={x, x+deltax, y, y+deltay, z, z+deltaz};//cria objeto baseado nas dimensoes do objeto
+            if (interseccaoRetaObjeto(reta, obj)) {//ve se o objeto intercecta a semireta de raio de luz
                 return true;
             }
         }
