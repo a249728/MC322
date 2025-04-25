@@ -34,7 +34,7 @@ public class Main {
                             ambiente = new Ambiente(c, l, a, h);
                             imprimir("Ambiente criado com sucesso.");
                         } else {
-                            imprimir("Uso: criarAmbiente <comprimento> <largura> <altura> <posSol>");
+                            imprimir("Uso: criarAmbiente <comprimento> <largura> <altura> <horario>");
                         }
                         break;
 
