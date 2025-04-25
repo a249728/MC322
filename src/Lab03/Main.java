@@ -30,50 +30,161 @@ public class Main {
                             int c = Integer.parseInt(partes[1]);
                             int l = Integer.parseInt(partes[2]);
                             int a = Integer.parseInt(partes[3]);
-                            String h = partes[4];
-                            ambiente = new Ambiente(c, l, a, h);
+                            String sol = partes[4];
+                            ambiente = new Ambiente(c, l, a, sol);
                             imprimir("Ambiente criado com sucesso.");
                         } else {
-                            imprimir("Uso: criarAmbiente <comprimento> <largura> <altura> <horario>");
+                            imprimir("Uso: criarAmbiente <comprimento> <largura> <altura> <posSol>");
                         }
                         break;
 
                     case "criarRobo":
-                        if (ambiente != null && partes.length >= 3) {
+                        if (ambiente != null && partes.length >= 6) {
                             String tipo = partes[1];
                             String nome = partes[2];
+                            int x = Integer.parseInt(partes[3]);
+                            int y = Integer.parseInt(partes[4]);
+                            String dir = partes[5];
                             Robo robo = null;
                             switch (tipo) {
                                 case "base":
-                                    robo = new Robo(nome, 0, 0, "Norte");
+                                    robo = new Robo(nome, x, y, dir);
                                     break;
                                 case "terrestre":
-                                    robo = new RoboTerrestre(nome, 0, 0, "Norte", 100);
+                                    int vmaxT = Integer.parseInt(partes[6]);
+                                    robo = new RoboTerrestre(nome, x, y, dir, vmaxT);
                                     break;
                                 case "aereo":
-                                    robo = new RoboAereo(nome, 0, 0, "Norte", 0, 99);
+                                    int zA = Integer.parseInt(partes[6]);
+                                    int zmaxA = Integer.parseInt(partes[7]);
+                                    robo = new RoboAereo(nome, x, y, dir, zA, zmaxA);
                                     break;
                                 case "subterraneo":
-                                    robo = new RoboSubterraneo(nome, 0, 0, "Norte", 0, -99);
+                                    int zS = Integer.parseInt(partes[6]);
+                                    int zminS = Integer.parseInt(partes[7]);
+                                    robo = new RoboSubterraneo(nome, x, y, dir, zS, zminS);
                                     break;
                                 case "laser":
-                                    robo = new RoboLaser(nome, 0, 0, "Norte", 100, 10);
+                                    int vmaxL = Integer.parseInt(partes[6]);
+                                    int alcance = Integer.parseInt(partes[7]);
+                                    robo = new RoboLaser(nome, x, y, dir, vmaxL, alcance);
                                     break;
                                 case "corredor":
-                                    robo = new RoboCorredor(nome, 0, 0, "Norte", 200, 100);
+                                    int vmaxC = Integer.parseInt(partes[6]);
+                                    int vminC = Integer.parseInt(partes[7]);
+                                    robo = new RoboCorredor(nome, x, y, dir, vmaxC, vminC);
                                     break;
-                                case "criador":
-                                    robo = new RoboCriador(nome, 0, 0, "Norte", 1, 499);
+                                case "gerador":
+                                    int zC = Integer.parseInt(partes[6]);
+                                    int zmaxC = Integer.parseInt(partes[7]);
+                                    robo = new RoboCriador(nome, x, y, dir, zC, zmaxC);
                                     break;
                                 default:
                                     imprimir("Tipo inválido.");
                             }
                             if (robo != null) {
                                 ambiente.adicionarRobo(robo);
-                                imprimir("Robo " + nome + " criado.");
+                                imprimir("Robo " + nome + " criado em " + coordenadas(robo) + " direção " + dir + ".");
                             }
                         } else {
-                            imprimir("Uso: criarRobo <tipo> <nome>");
+                            imprimir("Uso: criarRobo <tipo> <nome> <x> <y> <direcao> [parametros adicionais dependendo do tipo]");
+                        }
+                        break;
+
+                    case "gerarRobo":
+                        if (ambiente != null && partes.length >= 4) {
+                            String nomeGerador = partes[1];
+                            String tipo = partes[2];
+                            String nomeNovo = partes[3];
+                            Robo gerador = buscarRobo(ambiente, nomeGerador);
+                            if (gerador instanceof RoboCriador) {
+                                Robo novo = null;
+                                switch (tipo) {
+                                    case "base":
+                                        novo = ((RoboCriador) gerador).criarRobo(ambiente, nomeNovo);
+                                        break;
+                                    case "terrestre":
+                                        if (partes.length >= 5) {
+                                            int vmaxT = Integer.parseInt(partes[4]);
+                                            novo = ((RoboCriador) gerador).criarRoboTerrestre(ambiente, nomeNovo, vmaxT);
+                                        }
+                                        break;
+                                    case "aereo":
+                                        if (partes.length >= 6) {
+                                            int z = Integer.parseInt(partes[4]);
+                                            int zmax = Integer.parseInt(partes[5]);
+                                            novo = ((RoboCriador) gerador).criarRoboAereo(ambiente, nomeNovo, z, zmax);
+                                        }
+                                        break;
+                                    case "subterraneo":
+                                        if (partes.length >= 6) {
+                                            int z = Integer.parseInt(partes[4]);
+                                            int zmin = Integer.parseInt(partes[5]);
+                                            novo = ((RoboCriador) gerador).criarRoboSubterraneo(ambiente, nomeNovo, z, zmin);
+                                        }
+                                        break;
+                                    case "laser":
+                                        if (partes.length >= 6) {
+                                            int vmax = Integer.parseInt(partes[4]);
+                                            int alcance = Integer.parseInt(partes[5]);
+                                            novo = ((RoboCriador) gerador).criarRoboLaser(ambiente, nomeNovo, vmax, alcance);
+                                        }
+                                        break;
+                                    case "corredor":
+                                        if (partes.length >= 6) {
+                                            int vmax = Integer.parseInt(partes[4]);
+                                            int vmin = Integer.parseInt(partes[5]);
+                                            novo = ((RoboCriador) gerador).criarRoboCorredor(ambiente, nomeNovo, vmax, vmin);
+                                        }
+                                        break;
+                                    case "gerador":
+                                        if (partes.length >= 6) {
+                                            int z = Integer.parseInt(partes[4]);
+                                            int zmax = Integer.parseInt(partes[5]);
+                                            novo = ((RoboCriador) gerador).criarRoboCriador(ambiente, nomeNovo, z, zmax);
+                                        }
+                                        break;
+                                    default:
+                                        imprimir("Tipo inválido para geração.");
+                                        break;
+                                }
+                                if (novo != null) {
+                                    imprimir("Robo " + nomeNovo + " do tipo " + tipo + " gerado por " + nomeGerador + " em " + coordenadas(novo));
+                                } else {
+                                    imprimir("Parâmetros inválidos ou incompletos para tipo " + tipo);
+                                }
+                            } else {
+                                imprimir("Robo " + nomeGerador + " não é um gerador.");
+                            }
+                        } else {
+                            imprimir("Uso: gerarRobo <nomeGerador> <tipo> <nomeNovo> [parametros adicionais dependendo do tipo]");
+                        }
+                        break;
+
+                    case "mover":
+                        if (ambiente != null && partes.length >= 2) {
+                            Robo robo = buscarRobo(ambiente, partes[1]);
+                            if (robo == null) {
+                                imprimir("Robo não encontrado.");
+                                break;
+                            }
+                            boolean sucesso = false;
+                            if (robo instanceof RoboAereo && partes.length == 5) {
+                                sucesso = ((RoboAereo) robo).mover(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), Integer.parseInt(partes[4]), ambiente);
+                            } else if (robo instanceof RoboSubterraneo && partes.length == 5) {
+                                sucesso = ((RoboSubterraneo) robo).mover(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), Integer.parseInt(partes[4]), ambiente);
+                            } else if (robo instanceof RoboCorredor && partes.length == 3) {
+                                sucesso = ((RoboCorredor) robo).mover(Integer.parseInt(partes[2]), ambiente);
+                            } else if (robo instanceof RoboTerrestre && partes.length == 4) {
+                                sucesso = ((RoboTerrestre) robo).mover(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), ambiente);
+                            } else if (partes.length == 4) {
+                                sucesso = robo.mover(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), ambiente);
+                            }
+                            if (sucesso) {
+                                imprimir("Movimento realizado com sucesso.");
+                            } else {
+                                imprimir("Movimento bloqueado: obstáculo, limites ou parâmetros inválidos.");
+                            }
                         }
                         break;
 
@@ -129,29 +240,6 @@ public class Main {
                         }
                         break;
 
-                    case "mover":
-                        if (ambiente != null && partes.length >= 2) {
-                            Robo robo = buscarRobo(ambiente, partes[1]);
-                            if (robo == null) {
-                                imprimir("Robo não encontrado.");
-                                break;
-                            }
-                            if (robo instanceof RoboAereo && partes.length == 5) {
-                                ((RoboAereo) robo).mover(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), Integer.parseInt(partes[4]), ambiente);
-                            } else if (robo instanceof RoboSubterraneo && partes.length == 5) {
-                                ((RoboSubterraneo) robo).mover(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), Integer.parseInt(partes[4]), ambiente);
-                            } else if (robo instanceof RoboCorredor && partes.length == 3) {
-                                ((RoboCorredor) robo).mover(Integer.parseInt(partes[2]), ambiente);
-                            } else if (robo instanceof RoboTerrestre && partes.length == 4) {
-                                ((RoboTerrestre) robo).mover(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), ambiente);
-                            } else if (partes.length == 4) {
-                                robo.mover(Integer.parseInt(partes[2]), Integer.parseInt(partes[3]), ambiente);
-                            } else {
-                                imprimir("Parâmetros incorretos para mover.");
-                            }
-                        }
-                        break;
-
                     case "mudarDirecao":
                         if (ambiente != null && partes.length == 3) {
                             Robo robo = buscarRobo(ambiente, partes[1]);
@@ -173,6 +261,82 @@ public class Main {
                             } else {
                                 imprimir("Esse robô não possui laser.");
                             }
+                        }
+                        break;
+
+                        case "criarObstaculo":
+                        if (ambiente != null && partes.length == 4) {
+                            String tipo = partes[1];
+                            int x = Integer.parseInt(partes[2]);
+                            int y = Integer.parseInt(partes[3]);
+                            Obstaculo obs = new Obstaculo(tipo, x, y);
+                            if (obs.criarObstaculo(ambiente, tipo, x, y) != null) {
+                                imprimir("Obstáculo do tipo " + tipo + " criado em (" + x + ", " + y + ")");
+                            } else {
+                                imprimir("Não foi possível criar o obstáculo nesta posição.");
+                            }
+                        } else {
+                            imprimir("Uso: criarObstaculo <tipo> <x> <y>");
+                        }
+                        break;
+
+                    case "removerObstaculo":
+                        if (ambiente != null && partes.length == 3) {
+                            int x = Integer.parseInt(partes[1]);
+                            int y = Integer.parseInt(partes[2]);
+                            Obstaculo alvo = null;
+                            for (Obstaculo o : ambiente.retornarObstaculos()) {
+                                if (o.getPosicaoX() == x && o.getPosicaoY() == y) {
+                                    alvo = o;
+                                    break;
+                                }
+                            }
+                            if (alvo != null) {
+                                alvo.removerObstaculo(alvo, ambiente);
+                                imprimir("Obstáculo removido em (" + x + ", " + y + ")");
+                            } else {
+                                imprimir("Nenhum obstáculo encontrado na posição.");
+                            }
+                        } else {
+                            imprimir("Uso: removerObstaculo <x> <y>");
+                        }
+                        break;
+
+                    case "monitorarIluminacao":
+                        if (ambiente != null && partes.length == 5) {
+                            String nome = partes[1];
+                            int x = Integer.parseInt(partes[2]);
+                            int y = Integer.parseInt(partes[3]);
+                            int z = Integer.parseInt(partes[4]);
+                            Robo robo = buscarRobo(ambiente, nome);
+                            if (robo != null) {
+                                SensorIluminacao sensor = new SensorIluminacao(100, 100, robo);
+                                String resultado = sensor.monitorarIluminacao(x, y, z, ambiente);
+                                imprimir(resultado);
+                            } else {
+                                imprimir("Robo não encontrado.");
+                            }
+                        } else {
+                            imprimir("Uso: monitorarIluminacao <robo> <x> <y> <z>");
+                        }
+                        break;
+
+                    case "monitorarPressao":
+                        if (ambiente != null && partes.length == 5) {
+                            String nome = partes[1];
+                            int x = Integer.parseInt(partes[2]);
+                            int y = Integer.parseInt(partes[3]);
+                            int z = Integer.parseInt(partes[4]);
+                            Robo robo = buscarRobo(ambiente, nome);
+                            if (robo != null) {
+                                SensorPressao sensor = new SensorPressao(100, 100, robo);
+                                String resultado = sensor.monitorarPressao(x, y, z, ambiente);
+                                imprimir(resultado);
+                            } else {
+                                imprimir("Robo não encontrado.");
+                            }
+                        } else {
+                            imprimir("Uso: monitorarPressao <robo> <x> <y> <z>");
                         }
                         break;
 
