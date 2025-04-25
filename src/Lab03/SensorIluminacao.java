@@ -5,29 +5,29 @@ public class SensorIluminacao extends Sensor {
         super(raio, bat, robo);
     }
 
-    private float interseccaoRetaPlano(float x0, float x1, float xp){
+    private double interseccaoRetaPlano(double x0, double x1, double xp){
         return ((xp-x0)/x1);
     }
 
-    private boolean interseccaoRetaPlanoDelimitado(float[] reta, int[] obj, int coord, int lado){
+    private boolean interseccaoRetaPlanoDelimitado(double[] reta, int[] obj, int coord, int lado){
         if(reta[2*coord+1]==0){
             return false;
         }
         int coord1=(coord+1)%3;
         int coord2=(coord+2)%3;
-        float t=interseccaoRetaPlano(reta[2*coord], reta[2*coord+1], obj[2*coord+lado]);
+        double t=interseccaoRetaPlano(reta[2*coord], reta[2*coord+1], obj[2*coord+lado]);
         if(t<0){
             return false;
         }
-        float xyz1=reta[2*coord1]+t*reta[2*coord1+1];
-        float xyz2=reta[2*coord2]+t*reta[2*coord2+1];
+        double xyz1=reta[2*coord1]+t*reta[2*coord1+1];
+        double xyz2=reta[2*coord2]+t*reta[2*coord2+1];
         if(obj[2*coord1]<xyz1 && xyz1<obj[2*coord1+1] && obj[2*coord2]<xyz2 && xyz2<obj[2*coord2+1]){
             return true;
         }
         return false;
     }
 
-    private boolean interseccaoRetaObjeto(float[] reta, int[] obj){
+    private boolean interseccaoRetaObjeto(double[] reta, int[] obj){
         for(int coord=0; coord<3; coord++){
             for(int lado=0; lado<2; lado++){
                 if(interseccaoRetaPlanoDelimitado(reta, obj, coord, lado)){
@@ -50,9 +50,9 @@ public class SensorIluminacao extends Sensor {
         //ArrayList<Robo> robos = amb.retornarRobosAtivos();
         ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
         String[] horaMinuto = amb.retornarHorario().split(":");
-        float horario=Float.parseFloat(horaMinuto[0])+(Float.parseFloat(horaMinuto[1])/60);
-        float theta=((horario-6)/12)*((float)Math.PI);
-        float[] reta = {x, (float)Math.cos((float)theta), y, 0, z, (float)Math.sin((float)theta)};
+        double horario=Double.parseDouble(horaMinuto[0])+(Double.parseDouble(horaMinuto[1])/60);
+        double theta=((horario-6)/12)*((double)Math.PI);
+        double[] reta = {x, (double)Math.cos((double)theta), y, 0, z, (double)Math.sin((double)theta)};
 
         if (sombraPorObstaculo(reta, obstaculos)) {
             return "Sombra";
@@ -61,7 +61,7 @@ public class SensorIluminacao extends Sensor {
         return "Iluminado";
     }
 
-    /*private boolean sombraPorRobo(float[] reta, ArrayList<Robo> robos) {
+    /*private boolean sombraPorRobo(double[] reta, ArrayList<Robo> robos) {
         for (Robo robo : robos) {
             int[] pos = robo.exibirPosicao();
             int z=0;
@@ -77,7 +77,7 @@ public class SensorIluminacao extends Sensor {
     }*/
 
 
-    private boolean sombraPorObstaculo(float[] reta, ArrayList<Obstaculo> obstaculos) {
+    private boolean sombraPorObstaculo(double[] reta, ArrayList<Obstaculo> obstaculos) {
         for (Obstaculo obs : obstaculos) {
             int x = obs.getPosicaoX();
             int y = obs.getPosicaoY();
