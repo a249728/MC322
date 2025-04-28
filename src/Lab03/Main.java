@@ -36,7 +36,7 @@ public class Main {
                             ambiente = new Ambiente(c, l, a, hora);
                             imprimir("Ambiente criado com sucesso.");
                         } else {
-                            imprimir("Uso: criarAmbiente <comprimento> <largura> <altura> <horario>");
+                            imprimir("Uso: criarAmbiente <comprimento> <largura> <altura> <horario> (horario na forma hh:mm)");
                         }
                         break;
 
@@ -400,14 +400,14 @@ public class Main {
                         imprimir("15. sair - Encerra a simulação.");
                         imprimir("16. help - Mostra esta lista de comandos.");
                     
-                        imprimir("\nTipos de robôs disponíveis:");
-                        imprimir("- Robo: Robô terrestre padrão.");
-                        imprimir("- RoboAereo: Robô que voa e se movimenta em três dimensões.");
-                        imprimir("- RoboGerador: Robô aéreo que pode criar novos robôs.");
-                        imprimir("- RoboLaser: Robô equipado com um laser destrutivo.");
-                        imprimir("- RoboTerrestre: Robô especializado em se mover pelo solo.");
-                        imprimir("- RoboSubterraneo: Robô que se desloca sob a terra, escapando de obstáculos.");
-                        imprimir("- RoboCorredor: Robô de alta velocidade que anda apenas em linha reta.");
+                        imprimir("\nTipos de robôs disponíveis: (use os entre parenteses)");
+                        imprimir("- Robo (ou base): Robô terrestre padrão.");
+                        imprimir("- RoboAereo (ou aereo): Robô que voa e se movimenta em três dimensões.");
+                        imprimir("- RoboGerador (ou gerador): Robô aéreo que pode criar novos robôs.");
+                        imprimir("- RoboLaser (ou laser): Robô equipado com um laser destrutivo.");
+                        imprimir("- RoboTerrestre (ou terrestre): Robô especializado em se mover pelo solo.");
+                        imprimir("- RoboSubterraneo (ou subterraneo): Robô que se desloca sob a terra, escapando de obstáculos.");
+                        imprimir("- RoboCorredor (ou corredor): Robô de alta velocidade que anda apenas em linha reta.");
                     
                         imprimir("\nTipos de obstáculos disponíveis:");
                         imprimir("- PEDRA: Ocupa 3x3 no solo e altura 3.");
