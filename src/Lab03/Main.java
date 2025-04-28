@@ -430,10 +430,10 @@ public class Main {
 
     // Função para criar os sensores
     private static void criarSensor(String tipo, Robo robo, double raio, int bateria) {
-        if (tipo.equals("Iluminacao")) {
+        if (tipo.equals("iluminacao")) {
             robo.adicionarSensorIluminacao(raio, bateria);
             imprimir("Sensor de iluminação criado para " + robo.retornarNome() + " com raio " + raio + " e bateria " + bateria + ".");
-        } else if (tipo.equals("Pressao")) {
+        } else if (tipo.equals("pressao")) {
             robo.adicionarSensorPressao(raio, bateria);
             imprimir("Sensor de pressão criado para " + robo.retornarNome() + " com raio " + raio + " e bateria " + bateria + ".");
         } else {
@@ -443,10 +443,10 @@ public class Main {
 
     // Função para monitorar os sensores
     private static void monitorarSensor(String tipo, Robo robo, int x, int y, int z, Ambiente ambiente) {
-        if (tipo.equals("Iluminacao")) {
+        if (tipo.equals("iluminacao")) {
             String resultado = robo.usarSensorIluminacao(x, y, z, ambiente);
             imprimir(resultado);
-        } else if (tipo.equals("Pressao")) {
+        } else if (tipo.equals("pressao")) {
             String resultado = robo.usarSensorPressao(x, y, z, ambiente);
             imprimir(resultado);
         } else {
