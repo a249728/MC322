@@ -12,7 +12,7 @@ public class Main {
         Ambiente ambiente = null;
 
         imprimir("Bem-vindo ao simulador de robôs!");
-        imprimir("Para começar, crie um ambiente usando o comando: criarAmbiente <comprimento> <largura> <altura> <posSol>");
+        imprimir("Para começar, crie um ambiente usando o comando: criarAmbiente <comprimento> <largura> <altura> <horario>");
         imprimir("Você pode digitar 'help' a qualquer momento para ver a lista de comandos disponíveis.");
 
         while (true) {
@@ -32,11 +32,11 @@ public class Main {
                             int c = Integer.parseInt(partes[1]);
                             int l = Integer.parseInt(partes[2]);
                             int a = Integer.parseInt(partes[3]);
-                            String sol = partes[4];
-                            ambiente = new Ambiente(c, l, a, sol);
+                            String hora = partes[4];
+                            ambiente = new Ambiente(c, l, a, hora);
                             imprimir("Ambiente criado com sucesso.");
                         } else {
-                            imprimir("Uso: criarAmbiente <comprimento> <largura> <altura> <posSol>");
+                            imprimir("Uso: criarAmbiente <comprimento> <largura> <altura> <horario>");
                         }
                         break;
 
@@ -347,7 +347,7 @@ public class Main {
                         break;
 
                     case "criarSensor":
-                        if (ambiente != null && partes.length == 4) {
+                        if (ambiente != null && partes.length == 5) {
                             String tipo = partes[1];
                             String nome = partes[2];
                             double raio = Double.parseDouble(partes[3]);
@@ -383,29 +383,39 @@ public class Main {
 
                     case "help":
                         imprimir("Comandos disponíveis:");
-                        imprimir("1. criarAmbiente <comprimento> <largura> <altura> <posSol> - Cria um ambiente com as especificações fornecidas.");
-                        imprimir("2. criarRobo <nome> <x> <y> <direcao> - Cria um robô com o nome e as características especificadas.");
-                        imprimir("3. gerarRobo <nomeGerador> <nomeNovo> - Gera um robô a partir de um gerador.");
-                        imprimir("4. mover <nomeRobo> <distancia> <direcao> - Move o robô especificado.");
-                        imprimir("5. exibirPosicao <nomeRobo> - Exibe a posição do robô no ambiente.");
+                        imprimir("1. criarAmbiente <comprimento> <largura> <altura> <horario> - Cria um ambiente com dimensões e horário inicial.");
+                        imprimir("2. criarRobo <tipo> <nome> <x> <y> <direcao> [parâmetros adicionais dependendo do tipo] - Cria um robô no ambiente.");
+                        imprimir("3. gerarRobo <nomeGerador> <nomeNovo> [parâmetros adicionais dependendo do tipo] - Gera um novo robô a partir de um robô gerador.");
+                        imprimir("4. mover <nomeRobo> <distancia> [parâmetros adicionais dependendo do tipo] - Move o robô. Se a direção não for informada, usa a atual.");
+                        imprimir("5. exibirPosicao <nomeRobo> - Mostra a posição atual do robô.");
                         imprimir("6. checarLimites <nomeRobo> - Verifica se o robô está dentro dos limites do ambiente.");
                         imprimir("7. listarRobos - Lista todos os robôs ativos no ambiente.");
-                        imprimir("8. destruirRobo <nomeRobo> - Destrói o robô especificado.");
-                        imprimir("9. mudarDirecao <nomeRobo> <direcao> - Muda a direção do robô para a direção especificada.");
-                        imprimir("10. dispararLaser <nomeRobo> - Dispara o laser de um robô que possui essa função.");
+                        imprimir("8. destruirRobo <nomeRobo> - Destrói o robô informado.");
+                        imprimir("9. mudarDirecao <nomeRobo> <novaDirecao> - Altera a direção do robô.");
+                        imprimir("10. dispararLaser <nomeRobo> - Dispara o laser do robô (caso ele tenha).");
                         imprimir("11. criarObstaculo <tipo> <x> <y> - Cria um obstáculo no ambiente.");
-                        imprimir("12. removerObstaculo <x> <y> - Remove um obstáculo na posição especificada.");
-                        imprimir("13. criarSensor <nomeRobo> <raio> <bateria> - Cria um sensor (iluminação ou pressão) para o robô especificado.");
-                        imprimir("14. monitorar <nomeRobo> <x> <y> <z> - Monitora a iluminação ou pressão na posição especificada usando o sensor do robô.");
+                        imprimir("12. removerObstaculo <x> <y> - Remove o obstáculo localizado na posição informada.");
+                        imprimir("13. criarSensor <nomeRobo> <tipoSensor> <raio> <bateria> - Cria um sensor no robô (tipo: iluminacao ou pressao).");
+                        imprimir("14. monitorar <nomeRobo> <x> <y> <z> <tipoSensor> - Usa o sensor do robô para monitorar uma posição.");
                         imprimir("15. sair - Encerra a simulação.");
-                        imprimir("16. help - Exibe esta lista de comandos.");
-    
+                        imprimir("16. help - Mostra esta lista de comandos.");
+                    
                         imprimir("\nTipos de robôs disponíveis:");
-                        imprimir("1. RoboTerrestre - Robô que se move no solo.");
-                        imprimir("2. RoboAereo - Robô que se move no ar.");
-                        imprimir("3. RoboLaser - Robô equipado com laser para destruição.");
-                        imprimir("4. RoboCombinado - Robô com capacidades combinadas de robôs terrestres e aéreos.");
+                        imprimir("- Robo: Robô terrestre padrão.");
+                        imprimir("- RoboAereo: Robô que voa e se movimenta em três dimensões.");
+                        imprimir("- RoboGerador: Robô aéreo que pode criar novos robôs.");
+                        imprimir("- RoboLaser: Robô equipado com um laser destrutivo.");
+                        imprimir("- RoboTerrestre: Robô especializado em se mover pelo solo.");
+                        imprimir("- RoboSubterraneo: Robô que se desloca sob a terra, escapando de obstáculos.");
+                        imprimir("- RoboCorredor: Robô de alta velocidade que anda apenas em linha reta.");
+                    
+                        imprimir("\nTipos de obstáculos disponíveis:");
+                        imprimir("- PEDRA: Ocupa 3x3 no solo e altura 3.");
+                        imprimir("- ARVORE: Ocupa 1x1 no solo e altura 10.");
+                        imprimir("- BURACO: Ocupa 5x5 no solo e profundidade -5.");
+                        imprimir("- LAGO: Ocupa 21x21 no solo e profundidade -8.");
                         break;
+                    
 
                     default:
                         imprimir("Comando desconhecido: " + comando);
