@@ -3,16 +3,42 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        
+        // Cria um ambiente
+        Ambiente ilhaMecanimais = new Ambiente(500, 500, 500, "15:00");
+        imprimir("Criando o ambiente Ilha Base de dimensões 500x500x500");
+
+        // Cria um robo Gerador que cria o restante dos robos
+        RoboGerador JeffRosen = new RoboGerador("JeffRosen", 0, 0, "Norte", 1, 499);
+        Robo Sasquatch = JeffRosen.gerarRobo(ilhaMecanimais, "Sasquatch");
+        JeffRosen.mover(0, 1, 0, ilhaMecanimais);
+        RoboTerrestre Rex = JeffRosen.gerarRoboTerrestre(ilhaMecanimais, "Rex", 100);
+        JeffRosen.mover(0, 1, 0, ilhaMecanimais);
+        RoboAereo Unicornio = JeffRosen.gerarRoboAereo(ilhaMecanimais, "Unicornio", 0, 99);
+        JeffRosen.mover(0, 1, 0, ilhaMecanimais);
+        RoboSubterraneo Corujao = JeffRosen.gerarRoboSubterraneo(ilhaMecanimais, "Corujao", 0, -99);
+        JeffRosen.mover(0, 1, 0, ilhaMecanimais);
+        RoboLaser Komodo = JeffRosen.gerarRoboLaser(ilhaMecanimais, "Komodo", 100, 10);
+        JeffRosen.mover(0, 1, 0, ilhaMecanimais);
+        RoboCorredor Mouse = JeffRosen.gerarRoboCorredor(ilhaMecanimais, "Mouse", 200, 100);
+        
+        Rex.adicionarSensorPressao(100, 100);
+        Unicornio.adicionarSensorIluminacao(100, 100);
+        Sasquatch.adicionarSensorPressao(10, 10);
+        Sasquatch.adicionarSensorIluminacao(10, 10);
+        
+        ilhaMecanimais.criarObstaculo(TipoObstaculo.PEDRA, 3, 3);
+        ilhaMecanimais.criarObstaculo(TipoObstaculo.ARVORE, 20, 10);
+        ilhaMecanimais.criarObstaculo(TipoObstaculo.BURACO, 10, 20);
+        ilhaMecanimais.criarObstaculo(TipoObstaculo.LAGO, 50, 50);
+        
         Scanner scanner = new Scanner(System.in);
-        console(scanner);
+        console(scanner, ilhaMecanimais);
         scanner.close();
     }
 
-    public static void console(Scanner scanner) {
-        Ambiente ambiente = null;
-
+    public static void console(Scanner scanner, Ambiente ambiente) {
         imprimir("Bem-vindo ao simulador de robôs!");
-        imprimir("Para começar, crie um ambiente usando o comando: criarAmbiente <comprimento> <largura> <altura> <horario>");
         imprimir("Você pode digitar 'help' a qualquer momento para ver a lista de comandos disponíveis.");
 
         while (true) {
@@ -27,97 +53,6 @@ public class Main {
 
             try {
                 switch (comando) {
-                    case "criarAmbiente":
-                        if (partes.length == 5) {
-                            int c = Integer.parseInt(partes[1]);
-                            int l = Integer.parseInt(partes[2]);
-                            int a = Integer.parseInt(partes[3]);
-                            String hora = partes[4];
-                            ambiente = new Ambiente(c, l, a, hora);
-                            imprimir("Ambiente criado com sucesso.");
-                        } else {
-                            imprimir("Uso: criarAmbiente <comprimento> <largura> <altura> <horario> (horario na forma hh:mm)");
-                        }
-                        break;
-
-                    case "criarRobo":
-                        if (ambiente != null && partes.length >= 6) {
-                            String tipo = partes[1];
-                            String nome = partes[2];
-                            int x = Integer.parseInt(partes[3]);
-                            int y = Integer.parseInt(partes[4]);
-                            String dir = partes[5];
-                            Robo robo = null;
-                            switch (tipo) {
-                                case "base":
-                                    robo = new Robo(nome, x, y, dir);
-                                    break;
-                                case "terrestre":
-                                    if (partes.length >= 7) {
-                                        int vmaxT = Integer.parseInt(partes[6]);
-                                        robo = new RoboTerrestre(nome, x, y, dir, vmaxT);
-                                    } else {
-                                        imprimir("Uso: criarRobo terrestre <nome> <x> <y> <direcao> <velocidadeMaxima>");
-                                    }
-                                    break;
-                                case "aereo":
-                                    if (partes.length >= 8) {
-                                        int zA = Integer.parseInt(partes[6]);
-                                        int zmaxA = Integer.parseInt(partes[7]);
-                                        robo = new RoboAereo(nome, x, y, dir, zA, zmaxA);
-                                    } else {
-                                        imprimir("Uso: criarRobo aereo <nome> <x> <y> <direcao> <alturaInicial> <alturaMaxima>");
-                                    }
-                                    break;
-                                case "subterraneo":
-                                    if (partes.length >= 8) {
-                                        int zS = Integer.parseInt(partes[6]);
-                                        int zminS = Integer.parseInt(partes[7]);
-                                        robo = new RoboSubterraneo(nome, x, y, dir, zS, zminS);
-                                    } else {
-                                        imprimir("Uso: criarRobo subterraneo <nome> <x> <y> <direcao> <profundidadeInicial> <profundidadeMinima>");
-                                    }
-                                    break;
-                                case "laser":
-                                    if (partes.length >= 8) {
-                                        int vmaxL = Integer.parseInt(partes[6]);
-                                        int alcance = Integer.parseInt(partes[7]);
-                                        robo = new RoboLaser(nome, x, y, dir, vmaxL, alcance);
-                                    } else {
-                                        imprimir("Uso: criarRobo laser <nome> <x> <y> <direcao> <velocidadeMaxima> <alcance>");
-                                    }
-                                    break;
-                                case "corredor":
-                                    if (partes.length >= 8) {
-                                        int vmaxC = Integer.parseInt(partes[6]);
-                                        int vminC = Integer.parseInt(partes[7]);
-                                        robo = new RoboCorredor(nome, x, y, dir, vmaxC, vminC);
-                                    } else {
-                                        imprimir("Uso: criarRobo corredor <nome> <x> <y> <direcao> <velocidadeMaxima> <velocidadeMinima>");
-                                    }
-                                    break;
-                                case "gerador":
-                                    if (partes.length >= 8) {
-                                        int zC = Integer.parseInt(partes[6]);
-                                        int zmaxC = Integer.parseInt(partes[7]);
-                                        robo = new RoboGerador(nome, x, y, dir, zC, zmaxC);
-                                    } else {
-                                        imprimir("Uso: criarRobo gerador <nome> <x> <y> <direcao> <alturaInicial> <alturaMaxima>");
-                                    }
-                                    break;
-                                default:
-                                    imprimir("Tipo inválido.");
-                                    break;
-                            }
-                            if (robo != null) {
-                                ambiente.adicionarRobo(robo);
-                                imprimir("Robo " + nome + " criado em " + coordenadas(robo) + " direção " + dir + ".");
-                            }
-                        } else {
-                            imprimir("Uso: criarRobo <tipo> <nome> <x> <y> <direcao> [parametros adicionais dependendo do tipo]");
-                        }
-                        break;
-
                     case "gerarRobo":
                         if (ambiente != null && partes.length >= 4) {
                             String nomeGerador = partes[1];
@@ -308,22 +243,6 @@ public class Main {
                         }
                         break;
 
-                    case "criarObstaculo":
-                        if (ambiente != null && partes.length == 4) {
-                            String tipo = partes[1];
-                            int x = Integer.parseInt(partes[2]);
-                            int y = Integer.parseInt(partes[3]);
-                            Obstaculo obs = new Obstaculo(tipo, x, y);
-                            if (obs.criarObstaculo(ambiente, tipo, x, y) != null) {
-                                imprimir("Obstáculo do tipo " + tipo + " criado em (" + x + ", " + y + ")");
-                            } else {
-                                imprimir("Não foi possível criar o obstáculo nesta posição.");
-                            }
-                        } else {
-                            imprimir("Uso: criarObstaculo <tipo> <x> <y>");
-                        }
-                        break;
-
                     case "removerObstaculo":
                         if (ambiente != null && partes.length == 3) {
                             int x = Integer.parseInt(partes[1]);
@@ -343,23 +262,6 @@ public class Main {
                             }
                         } else {
                             imprimir("Uso: removerObstaculo <x> <y>");
-                        }
-                        break;
-
-                    case "criarSensor":
-                        if (ambiente != null && partes.length == 5) {
-                            String tipo = partes[1];
-                            String nome = partes[2];
-                            double raio = Double.parseDouble(partes[3]);
-                            int bateria = Integer.parseInt(partes[4]);
-                            Robo robo = buscarRobo(ambiente, nome);
-                            if (robo != null) {
-                                criarSensor(tipo, robo, raio, bateria);
-                            } else {
-                                imprimir("Robo não encontrado.");
-                            }
-                        } else {
-                            imprimir("Uso: criarSensor <tipo> <nomeRobo> <raio> <bateria>");
                         }
                         break;
 
@@ -383,24 +285,20 @@ public class Main {
 
                     case "help":
                         imprimir("Comandos disponíveis:");
-                        imprimir("1. criarAmbiente <comprimento> <largura> <altura> <horario> - Cria um ambiente com dimensões e horário inicial.");
-                        imprimir("2. criarRobo <tipo> <nome> <x> <y> <direcao> [parâmetros adicionais dependendo do tipo] - Cria um robô no ambiente.");
-                        imprimir("3. gerarRobo <nomeGerador> <nomeNovo> [parâmetros adicionais dependendo do tipo] - Gera um novo robô a partir de um robô gerador.");
-                        imprimir("4. mover <nomeRobo> <distancia> [parâmetros adicionais dependendo do tipo] - Move o robô. Se a direção não for informada, usa a atual.");
-                        imprimir("5. exibirPosicao <nomeRobo> - Mostra a posição atual do robô.");
-                        imprimir("6. checarLimites <nomeRobo> - Verifica se o robô está dentro dos limites do ambiente.");
-                        imprimir("7. listarRobos - Lista todos os robôs ativos no ambiente.");
-                        imprimir("8. destruirRobo <nomeRobo> - Destrói o robô informado.");
-                        imprimir("9. mudarDirecao <nomeRobo> <novaDirecao> - Altera a direção do robô.");
-                        imprimir("10. dispararLaser <nomeRobo> - Dispara o laser do robô (caso ele tenha).");
-                        imprimir("11. criarObstaculo <tipo> <x> <y> - Cria um obstáculo no ambiente.");
-                        imprimir("12. removerObstaculo <x> <y> - Remove o obstáculo localizado na posição informada.");
-                        imprimir("13. criarSensor <nomeRobo> <tipoSensor> <raio> <bateria> - Cria um sensor no robô (tipo: iluminacao ou pressao).");
-                        imprimir("14. monitorar <nomeRobo> <x> <y> <z> <tipoSensor> - Usa o sensor do robô para monitorar uma posição.");
-                        imprimir("15. sair - Encerra a simulação.");
-                        imprimir("16. help - Mostra esta lista de comandos.");
+                        imprimir("1. gerarRobo <nomeGerador> <nomeNovo> [parâmetros adicionais dependendo do tipo] - Gera um novo robô a partir de um robô gerador.");
+                        imprimir("2. mover <nomeRobo> <distancia> [parâmetros adicionais dependendo do tipo] - Move o robô. Se a direção não for informada, usa a atual.");
+                        imprimir("3. exibirPosicao <nomeRobo> - Mostra a posição atual do robô.");
+                        imprimir("4. checarLimites <nomeRobo> - Verifica se o robô está dentro dos limites do ambiente.");
+                        imprimir("5. listarRobos - Lista todos os robôs ativos no ambiente.");
+                        imprimir("6. destruirRobo <nomeRobo> - Destrói o robô informado.");
+                        imprimir("7. mudarDirecao <nomeRobo> <novaDirecao> - Altera a direção do robô.");
+                        imprimir("8. dispararLaser <nomeRobo> - Dispara o laser do robô (caso ele tenha).");
+                        imprimir("9. removerObstaculo <x> <y> - Remove o obstáculo localizado na posição informada.");
+                        imprimir("10. monitorar <nomeRobo> <x> <y> <z> <tipoSensor> - Usa o sensor do robô para monitorar uma posição.");
+                        imprimir("11. sair - Encerra a simulação.");
+                        imprimir("12. help - Mostra esta lista de comandos.");
                     
-                        imprimir("\nTipos de robôs disponíveis: (use os entre parenteses)");
+                        imprimir("\nTipos de robôs disponíveis:");
                         imprimir("- Robo (ou base): Robô terrestre padrão.");
                         imprimir("- RoboAereo (ou aereo): Robô que voa e se movimenta em três dimensões.");
                         imprimir("- RoboGerador (ou gerador): Robô aéreo que pode criar novos robôs.");
@@ -426,19 +324,6 @@ public class Main {
         }
 
         imprimir("Simulação encerrada.");
-    }
-
-    // Função para criar os sensores
-    private static void criarSensor(String tipo, Robo robo, double raio, int bateria) {
-        if (tipo.equals("iluminacao")) {
-            robo.adicionarSensorIluminacao(raio, bateria);
-            imprimir("Sensor de iluminação criado para " + robo.retornarNome() + " com raio " + raio + " e bateria " + bateria + ".");
-        } else if (tipo.equals("pressao")) {
-            robo.adicionarSensorPressao(raio, bateria);
-            imprimir("Sensor de pressão criado para " + robo.retornarNome() + " com raio " + raio + " e bateria " + bateria + ".");
-        } else {
-            imprimir("Tipo de sensor desconhecido: " + tipo);
-        }
     }
 
     // Função para monitorar os sensores

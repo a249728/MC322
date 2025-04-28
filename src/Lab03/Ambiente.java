@@ -27,6 +27,26 @@ public class Ambiente {
         return x >= 0 && x < this.comprimento && y >= 0 && y < this.largura && z >= 0 && z < this.altura;
     }
 
+
+public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
+    // checa se ja nao existe um obstaculo ou um robo naquela posicao
+    ArrayList<Robo> robos = retornarRobosAtivos();
+    ArrayList<Obstaculo> obstaculos = retornarObstaculos();
+    for (Robo robo : robos) {
+        if (robo.exibirPosicao()[0] >= x && robo.exibirPosicao()[0] < x + tipo.getComprimento() && robo.exibirPosicao()[1] >= y && robo.exibirPosicao()[1] < y + tipo.getLargura()) {
+            return null;
+        }
+    }
+    for (Obstaculo obs : obstaculos) {
+        if (obs.getPosicaoX() >= x && obs.getPosicaoX() < x + tipo.getComprimento() && obs.getPosicaoY() >= y && obs.getPosicaoY() < y + tipo.getLargura()) {
+            return null;
+        }
+    }
+    Obstaculo obs = new Obstaculo(tipo, x, y);
+    adicionarObstaculo(obs);
+    return obs;
+}
+
     public void adicionarRobo(Robo robo) {
         // Adiciona um Robo ativo ao ArrayList
         robosAtivos.add(robo);
