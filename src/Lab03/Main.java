@@ -11,7 +11,9 @@ public class Main {
     public static void console(Scanner scanner) {
         Ambiente ambiente = null;
 
-        imprimir("Simulador iniciado. Digite comandos (ou 'sair' para encerrar):");
+        imprimir("Bem-vindo ao simulador de robôs!");
+        imprimir("Para começar, crie um ambiente usando o comando: criarAmbiente <comprimento> <largura> <altura> <posSol>");
+        imprimir("Você pode digitar 'help' a qualquer momento para ver a lista de comandos disponíveis.");
 
         while (true) {
             imprimir(">>> ");
@@ -306,7 +308,7 @@ public class Main {
                         }
                         break;
 
-                        case "criarObstaculo":
+                    case "criarObstaculo":
                         if (ambiente != null && partes.length == 4) {
                             String tipo = partes[1];
                             int x = Integer.parseInt(partes[2]);
@@ -344,75 +346,65 @@ public class Main {
                         }
                         break;
 
-                    case "criarSensorIluminacao":
+                    case "criarSensor":
                         if (ambiente != null && partes.length == 4) {
-                            String nome = partes[1];
-                            double raio = Double.parseDouble(partes[2]);
-                            int bateria = Integer.parseInt(partes[3]);
+                            String tipo = partes[1];
+                            String nome = partes[2];
+                            double raio = Double.parseDouble(partes[3]);
+                            int bateria = Integer.parseInt(partes[4]);
                             Robo robo = buscarRobo(ambiente, nome);
                             if (robo != null) {
-                                robo.adicionarSensorIluminacao(raio, bateria);
-                                imprimir("Sensor de iluminação criado para " + nome + " com raio " + raio + " e bateria " + bateria + ".");
+                                criarSensor(tipo, robo, raio, bateria);
                             } else {
                                 imprimir("Robo não encontrado.");
                             }
                         } else {
-                            imprimir("Uso: criarSensorIluminacao <nomeRobo> <raio> <bateria>");
-                        }
-                        break;
-                    
-                    case "criarSensorPressao":
-                        if (ambiente != null && partes.length == 4) {
-                            String nome = partes[1];
-                            double raio = Double.parseDouble(partes[2]);
-                            int bateria = Integer.parseInt(partes[3]);
-                            Robo robo = buscarRobo(ambiente, nome);
-                            if (robo != null) {
-                                robo.adicionarSensorPressao(raio, bateria);
-                                imprimir("Sensor de pressão criado para " + nome + " com raio " + raio + " e bateria " + bateria + ".");
-                            } else {
-                                imprimir("Robo não encontrado.");
-                            }
-                        } else {
-                            imprimir("Uso: criarSensorPressao <nomeRobo> <raio> <bateria>");
-                        }
-                        break;
-                    
-
-                    case "monitorarIluminacao":
-                        if (ambiente != null && partes.length == 5) {
-                            String nome = partes[1];
-                            int x = Integer.parseInt(partes[2]);
-                            int y = Integer.parseInt(partes[3]);
-                            int z = Integer.parseInt(partes[4]);
-                            Robo robo = buscarRobo(ambiente, nome);
-                            if (robo != null) {
-                                String resultado = robo.usarSensorIluminacao(x, y, z, ambiente);
-                                imprimir(resultado);
-                            } else {
-                                imprimir("Robo não encontrado.");
-                            }
-                        } else {
-                            imprimir("Uso: monitorarIluminacao <robo> <x> <y> <z>");
+                            imprimir("Uso: criarSensor <tipo> <nomeRobo> <raio> <bateria>");
                         }
                         break;
 
-                    case "monitorarPressao":
-                        if (ambiente != null && partes.length == 5) {
-                            String nome = partes[1];
-                            int x = Integer.parseInt(partes[2]);
-                            int y = Integer.parseInt(partes[3]);
-                            int z = Integer.parseInt(partes[4]);
+                    case "monitorar":
+                        if (ambiente != null && partes.length == 6) {
+                            String tipo = partes[1];
+                            String nome = partes[2];
+                            int x = Integer.parseInt(partes[3]);
+                            int y = Integer.parseInt(partes[4]);
+                            int z = Integer.parseInt(partes[5]);
                             Robo robo = buscarRobo(ambiente, nome);
                             if (robo != null) {
-                                String resultado = robo.usarSensorPressao(x, y, z, ambiente);
-                                imprimir(resultado);
+                                monitorarSensor(tipo, robo, x, y, z, ambiente);
                             } else {
                                 imprimir("Robo não encontrado.");
                             }
                         } else {
-                            imprimir("Uso: monitorarPressao <robo> <x> <y> <z>");
+                            imprimir("Uso: monitorar <tipo> <robo> <x> <y> <z>");
                         }
+                        break;
+
+                    case "help":
+                        imprimir("Comandos disponíveis:");
+                        imprimir("1. criarAmbiente <comprimento> <largura> <altura> <posSol> - Cria um ambiente com as especificações fornecidas.");
+                        imprimir("2. criarRobo <nome> <x> <y> <direcao> - Cria um robô com o nome e as características especificadas.");
+                        imprimir("3. gerarRobo <nomeGerador> <nomeNovo> - Gera um robô a partir de um gerador.");
+                        imprimir("4. mover <nomeRobo> <distancia> <direcao> - Move o robô especificado.");
+                        imprimir("5. exibirPosicao <nomeRobo> - Exibe a posição do robô no ambiente.");
+                        imprimir("6. checarLimites <nomeRobo> - Verifica se o robô está dentro dos limites do ambiente.");
+                        imprimir("7. listarRobos - Lista todos os robôs ativos no ambiente.");
+                        imprimir("8. destruirRobo <nomeRobo> - Destrói o robô especificado.");
+                        imprimir("9. mudarDirecao <nomeRobo> <direcao> - Muda a direção do robô para a direção especificada.");
+                        imprimir("10. dispararLaser <nomeRobo> - Dispara o laser de um robô que possui essa função.");
+                        imprimir("11. criarObstaculo <tipo> <x> <y> - Cria um obstáculo no ambiente.");
+                        imprimir("12. removerObstaculo <x> <y> - Remove um obstáculo na posição especificada.");
+                        imprimir("13. criarSensor <nomeRobo> <raio> <bateria> - Cria um sensor (iluminação ou pressão) para o robô especificado.");
+                        imprimir("14. monitorar <nomeRobo> <x> <y> <z> - Monitora a iluminação ou pressão na posição especificada usando o sensor do robô.");
+                        imprimir("15. sair - Encerra a simulação.");
+                        imprimir("16. help - Exibe esta lista de comandos.");
+    
+                        imprimir("\nTipos de robôs disponíveis:");
+                        imprimir("1. RoboTerrestre - Robô que se move no solo.");
+                        imprimir("2. RoboAereo - Robô que se move no ar.");
+                        imprimir("3. RoboLaser - Robô equipado com laser para destruição.");
+                        imprimir("4. RoboCombinado - Robô com capacidades combinadas de robôs terrestres e aéreos.");
                         break;
 
                     default:
@@ -426,6 +418,34 @@ public class Main {
         imprimir("Simulação encerrada.");
     }
 
+    // Função para criar os sensores
+    private static void criarSensor(String tipo, Robo robo, double raio, int bateria) {
+        if (tipo.equals("Iluminacao")) {
+            robo.adicionarSensorIluminacao(raio, bateria);
+            imprimir("Sensor de iluminação criado para " + robo.retornarNome() + " com raio " + raio + " e bateria " + bateria + ".");
+        } else if (tipo.equals("Pressao")) {
+            robo.adicionarSensorPressao(raio, bateria);
+            imprimir("Sensor de pressão criado para " + robo.retornarNome() + " com raio " + raio + " e bateria " + bateria + ".");
+        } else {
+            imprimir("Tipo de sensor desconhecido: " + tipo);
+        }
+    }
+
+    // Função para monitorar os sensores
+    private static void monitorarSensor(String tipo, Robo robo, int x, int y, int z, Ambiente ambiente) {
+        if (tipo.equals("Iluminacao")) {
+            String resultado = robo.usarSensorIluminacao(x, y, z, ambiente);
+            imprimir(resultado);
+        } else if (tipo.equals("Pressao")) {
+            String resultado = robo.usarSensorPressao(x, y, z, ambiente);
+            imprimir(resultado);
+        } else {
+            imprimir("Tipo de sensor desconhecido: " + tipo);
+        }
+    }
+
+
+    
     private static String ler(Scanner scanner) {
         return scanner.nextLine();
     }
