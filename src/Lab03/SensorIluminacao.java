@@ -28,7 +28,7 @@ public class SensorIluminacao extends Sensor {
         double xyz1=reta[2*coord1]+t*reta[2*coord1+1];
         double xyz2=reta[2*coord2]+t*reta[2*coord2+1];
         //as outras coordenadas da interseccao
-        if(obj[2*coord1]<xyz1 && xyz1<obj[2*coord1+1] && obj[2*coord2]<xyz2 && xyz2<obj[2*coord2+1]){
+        if(obj[2*coord1] <= xyz1 && xyz1 <= obj[2*coord1+1] && obj[2*coord2] <= xyz2 && xyz2 <= obj[2*coord2+1]){
             //se estiver dentro dos limites do plano
             return true;
         }
