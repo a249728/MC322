@@ -113,18 +113,11 @@ MC322/
 ├── bin/
 └── README.md
 
----
-
-![Diagrama de Classes Lab03](Diagrama.png)  
-*O diagrama ilustra as relações entre as classes principais, incluindo herança, agregação e composição.*
-
----
-
-## Como Executar  
-
-1. Navegue até a pasta Lab03:  
+## Como Executar 
+```
+1. Chegue até a pasta
    ```bash
-   cd src/Lab03
+   cd src/LabXX
    ```
 
 2. Compile:  
