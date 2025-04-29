@@ -58,6 +58,7 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
     }
 
     public Robo acharRobo(int x, int y) {
+        // Verifica se existe um robo na posicao (x,y) e retorna o robo
         for (Robo robo : robosAtivos) {
             if (robo.exibirPosicao()[0] == x && robo.exibirPosicao()[1] == y) {
                 return robo;
@@ -67,10 +68,12 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
     }
 
     public ArrayList<Robo> retornarRobosAtivos() {
+        // Retorna o ArrayList de Robos ativos
         return this.robosAtivos;
     }
 
     public ArrayList<Obstaculo> retornarObstaculos() {
+        // Retorna o ArrayList de Obstaculos
         return this.obstaculos;
     }
 

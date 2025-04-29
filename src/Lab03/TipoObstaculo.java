@@ -1,4 +1,5 @@
 public enum TipoObstaculo {
+    // Define os tipos de obstaculos e suas dimensoes
     PEDRA (3, 3, 3),
     ARVORE (1, 1, 10),
     BURACO (5, 5, -5),

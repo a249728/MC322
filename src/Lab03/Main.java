@@ -73,6 +73,8 @@ public class Main {
     }
 
     public static void console(Scanner scanner, Ambiente ambiente) {
+        // Menu interativo
+        // Checa cada comando e executa a ação correspondente
         while (true) {
             imprimir(">>> ");
             String linha = ler(scanner);
@@ -527,6 +529,7 @@ public class Main {
 
                         imprimir("\n🛠️  CRIAÇÃO E PERSONALIZAÇÃO");
                         imprimir("- gerarRobo <nomeGerador> <tipo> <nomeNovo> [params] - Cria novo robô:");
+                        imprimir("*nomeGerador = robô que gera novos robôs (exemplo: JeffRosen)");
                         imprimir("   • Tipos disponíveis e parâmetros extras necessários:");
                         imprimir("     - base: nenhum parâmetro extra");
                         imprimir("     - terrestre: <velocidadeMaxima>");
@@ -569,6 +572,7 @@ public class Main {
                         imprimir("Comando desconhecido: '" + comando + "'");
                         imprimir("Digite 'help' para ver a lista de comandos disponíveis");
                 }
+            // checa por exceções
             } catch (NumberFormatException e) {
                 imprimir("Erro: Parâmetro numérico inválido");
                 imprimir("Digite o comando sem parâmetros para ver a ajuda específica");
@@ -581,6 +585,7 @@ public class Main {
     }
 
     private static void monitorarSensor(String tipo, Robo robo, int x, int y, int z, Ambiente ambiente) {
+        // Usa sensor do robô
         if (tipo.equalsIgnoreCase("iluminacao")) {
             imprimir(robo.usarSensorIluminacao(x, y, z, ambiente));
         } else if (tipo.equalsIgnoreCase("pressao")) {
@@ -591,14 +596,17 @@ public class Main {
     }
     
     private static String ler(Scanner scanner) {
+        // Lê uma linha do console
         return scanner.nextLine();
     }
 
     private static void imprimir(String str) {
+        // Imprime uma mensagem no console
         System.out.println(str);
     }
 
     private static Robo buscarRobo(Ambiente ambiente, String nome) {
+        // Busca um robô pelo nome no ambiente
         for (Robo r : ambiente.retornarRobosAtivos()) {
             if (r.retornarNome().equalsIgnoreCase(nome)) {
                 return r;
@@ -608,6 +616,7 @@ public class Main {
     }
 
     private static String coordenadas(Robo r) {
+        // Retorna as coordenadas do robô em formato de string
         if (r instanceof RoboAereo) {
             int[] xy = r.exibirPosicao();
             int z = ((RoboAereo) r).exibirAltura();

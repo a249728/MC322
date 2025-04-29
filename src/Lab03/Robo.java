@@ -66,6 +66,7 @@ public class Robo {
     }
 
     public String usarSensorIluminacao(int x, int y, int z, Ambiente amb) {
+        // Verifica se o sensor de iluminação está disponível e chama o método de monitoramento
         if (this.sensorIluminacao != null) {
             return this.sensorIluminacao.monitorarIluminacao(x, y, z, amb);
         }
@@ -73,6 +74,7 @@ public class Robo {
     }
 
     public String usarSensorPressao(int x, int y, int z, Ambiente amb) {
+        // Verifica se o sensor de pressão está disponível e chama o método de monitoramento
         if (this.sensorPressao != null) {
             return this.sensorPressao.monitorarPressao(x, y, z, amb);
         }
@@ -80,12 +82,14 @@ public class Robo {
     }
 
     public void adicionarSensorIluminacao(double raio, int bateria) {
+        // Cria sensor de iluminacao
         if (this.sensorIluminacao == null) { // Garante que só pode haver um sensor de iluminação
             this.sensorIluminacao = new SensorIluminacao(raio, bateria, this);
         }
     }
 
     public void adicionarSensorPressao(double raio, int bateria) {
+        // Cria sensor de pressao
         if (this.sensorPressao == null) { // Garante que só pode haver um sensor de colisão
             this.sensorPressao = new SensorPressao(raio, bateria, this);
         }

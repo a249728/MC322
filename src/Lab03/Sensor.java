@@ -10,6 +10,7 @@ public class Sensor {
     }
 
     public boolean monitorar(int x, int y, int z) {
+        // Verifica se o sensor está dentro do raio de alcance e se a bateria está disponível
         int coord[] = robo.exibirPosicao();
         double dist;
         if(robo instanceof RoboAereo){
