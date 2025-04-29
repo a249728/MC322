@@ -13,7 +13,7 @@ public class Sensor {
         int coord[] = robo.exibirPosicao();
         double dist;
         if(robo instanceof RoboAereo){
-            dist = (Math.pow(x - coord[0], 2) + Math.pow(y - coord[1], 2) + Math.pow(z - coord[2], 2));
+            dist = (Math.pow(x - coord[0], 2) + Math.pow(y - coord[1], 2) + Math.pow(z - ((RoboAereo)robo).exibirAltura(), 2));
         }
         else{
             dist = (Math.pow(x - coord[0], 2) + Math.pow(y - coord[1], 2) + Math.pow(z, 2));
