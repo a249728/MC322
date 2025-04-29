@@ -10,6 +10,7 @@ public class Main {
 
         // Cria um robo Gerador que cria o restante dos robos
         RoboGerador JeffRosen = new RoboGerador("JeffRosen", 0, 0, "Norte", 1, 499);
+        ilhaMecanimais.adicionarRobo(JeffRosen);
         Robo Sasquatch = JeffRosen.gerarRobo(ilhaMecanimais, "Sasquatch");
         JeffRosen.mover(0, 1, 0, ilhaMecanimais);
         RoboTerrestre Rex = JeffRosen.gerarRoboTerrestre(ilhaMecanimais, "Rex", 100);
@@ -207,6 +208,15 @@ public class Main {
                         }
                         break;
 
+                    case "listarObstaculos":
+                        if (ambiente != null) {
+                            for (Obstaculo o : ambiente.retornarObstaculos()) {
+                                imprimir(o.getObstaculo() + " em (" + o.getPosicaoX() + ", " + o.getPosicaoY() + ")");
+                            }
+                        } else {
+                            imprimir("Ambiente não criado ainda.");
+                        }
+
                     case "destruirRobo":
                         if (ambiente != null && partes.length == 2) {
                             Robo r = buscarRobo(ambiente, partes[1]);
@@ -297,6 +307,7 @@ public class Main {
                         imprimir("10. monitorar <nomeRobo> <x> <y> <z> <tipoSensor> - Usa o sensor do robô para monitorar uma posição.");
                         imprimir("11. sair - Encerra a simulação.");
                         imprimir("12. help - Mostra esta lista de comandos.");
+                        imprimir("13. listarObstaculos - Lista todos os obstáculos do ambiente.");
                     
                         imprimir("\nTipos de robôs disponíveis:");
                         imprimir("- Robo (ou base): Robô terrestre padrão.");
@@ -338,8 +349,6 @@ public class Main {
             imprimir("Tipo de sensor desconhecido: " + tipo);
         }
     }
-
-
     
     private static String ler(Scanner scanner) {
         return scanner.nextLine();
