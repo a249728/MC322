@@ -112,9 +112,9 @@ MC322/
 │   │   └── SensorPressao.java
 ├── bin/
 └── README.md
-
-## Como Executar 
 ```
+## Como Executar 
+
 1. Chegue até a pasta
    ```bash
    cd src/LabXX
