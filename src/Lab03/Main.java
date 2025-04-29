@@ -501,32 +501,32 @@ public class Main {
                         break;
 
                     case "help":
-                        imprimir("\n🌟 AJUDA COMPLETA - SIMULADOR DE ROBÔS 🌟");
+                        imprimir("\n🌟 COMANDOS - SIMULADOR DE ROBÔS 🌟");
                         
                         imprimir("\n📋 INFORMAÇÕES BÁSICAS");
-                        imprimir("listarRobos - Mostra todos os robôs existentes");
+                        imprimir("- listarRobos - Mostra todos os robôs existentes");
                         imprimir("   • Exibe nome, posição e tipo de cada robô");
-                        imprimir("listarObstaculos - Lista todos os obstáculos do ambiente");
+                        imprimir("- listarObstaculos - Lista todos os obstáculos do ambiente");
                         imprimir("   • Mostra tipo e posição de cada obstáculo");
-                        imprimir("listarSensores <nomeRobo> - Lista os sensores do robô especificado");
+                        imprimir("- listarSensores <nomeRobo> - Lista os sensores do robô especificado");
                         imprimir("   • Mostra tipo, raio de alcance e bateria dos sensores");
-                        imprimir("exibirPosicao <nomeRobo> - Mostra coordenadas exatas do robô");
+                        imprimir("- exibirPosicao <nomeRobo> - Mostra coordenadas exatas do robô");
                         imprimir("   • Para robôs aéreos/subterrâneos, mostra também altura/profundidade");
-                        imprimir("checarLimites <nomeRobo> - Verifica se o robô está dentro dos limites do ambiente");
+                        imprimir("- checarLimites <nomeRobo> - Verifica se o robô está dentro dos limites do ambiente");
 
                         imprimir("\n🚀 MOVIMENTAÇÃO");
-                        imprimir("mover <nomeRobo> <parametros> - Move o robô conforme seu tipo:");
+                        imprimir("- mover <nomeRobo> <parametros> - Move o robô conforme seu tipo:");
                         imprimir("   • Robôs terrestres básicos: mover <nome> <deltaX> <deltaY>");
                         imprimir("     Exemplo: mover Rex 5 3 (move 5 para leste e 3 para norte)");
                         imprimir("   • Robôs aéreos/subterrâneos: mover <nome> <deltaX> <deltaY> <deltaZ>");
                         imprimir("     Exemplo: mover Unicornio 2 0 5 (move 2 leste e sobe 5 unidades)");
                         imprimir("   • Robôs corredores: mover <nome> <distancia>");
                         imprimir("     Exemplo: mover Mouse 10 (corre 10 unidades na direção atual)");
-                        imprimir("mudarDirecao <nomeRobo> <direcao> - Altera a orientação do robô");
+                        imprimir("- mudarDirecao <nomeRobo> <direcao> - Altera a orientação do robô");
                         imprimir("   • Direções válidas: Norte, Sul, Leste, Oeste");
 
-                        imprimir("\n🛠️ CRIAÇÃO E PERSONALIZAÇÃO");
-                        imprimir("gerarRobo <nomeGerador> <tipo> <nomeNovo> [params] - Cria novo robô:");
+                        imprimir("\n🛠️  CRIAÇÃO E PERSONALIZAÇÃO");
+                        imprimir("- gerarRobo <nomeGerador> <tipo> <nomeNovo> [params] - Cria novo robô:");
                         imprimir("   • Tipos disponíveis e parâmetros extras necessários:");
                         imprimir("     - base: nenhum parâmetro extra");
                         imprimir("     - terrestre: <velocidadeMaxima>");
@@ -534,34 +534,32 @@ public class Main {
                         imprimir("     - subterraneo: <profundidadeInicial> <profundidadeMinima>");
                         imprimir("     - laser: <velocidadeMaxima> <alcanceLaser>");
                         imprimir("     - corredor: <velocidadeMaxima> <velocidadeMinima>");
-                        imprimir("criarObstaculo <tipo> <x> <y> - Adiciona novo obstáculo:");
+                        imprimir("- criarObstaculo <tipo> <x> <y> - Adiciona novo obstáculo:");
                         imprimir("   • Tipos: PEDRA (3x3), ARVORE (1x1, altura 10), BURACO (5x5), LAGO (21x21)");
-                        imprimir("adicionarSensor <nomeRobo> <tipo> <raio> <bateria> - Instala sensor:");
+                        imprimir("- adicionarSensor <nomeRobo> <tipo> <raio> <bateria> - Instala sensor:");
                         imprimir("   • Tipos: iluminacao (detecta sombras), pressao (mede pressão atmosférica)");
 
                         imprimir("\n📡 SENSORES E AÇÕES ESPECIAIS");
-                        imprimir("monitorar <tipo> <nomeRobo> <x> <y> <z> - Usa sensor do robô:");
+                        imprimir("- monitorar <tipo> <nomeRobo> <x> <y> <z> - Usa sensor do robô:");
                         imprimir("    • Exemplo: monitorar iluminacao Sasquatch 30 40 0");
                         imprimir("    • Retorna: 'Iluminado' ou 'Sombra' (para sensor de iluminação)");
-                        imprimir("dispararLaser <nomeRobo> - Aciona laser (apenas robôs laser)");
+                        imprimir("- dispararLaser <nomeRobo> - Aciona laser (apenas robôs laser)");
                         imprimir("    • Destrói todos robôs no caminho na direção atual");
 
-                        imprimir("\n🗑️ GERENCIAMENTO");
-                        imprimir("destruirRobo <nomeRobo> - Remove robô do ambiente");
-                        imprimir("removerObstaculo <x> <y> - Elimina obstáculo na posição especificada");
+                        imprimir("\n🗑️  GERENCIAMENTO");
+                        imprimir("- destruirRobo <nomeRobo> - Remove robô do ambiente");
+                        imprimir("- removerObstaculo <x> <y> - Elimina obstáculo na posição especificada");
 
                         imprimir("\n❓ AJUDA E EXEMPLOS");
-                        imprimir("testesExemplos - Mostra exemplos práticos de comandos");
-                        imprimir("help - Exibe esta mensagem de ajuda");
-                        imprimir("sair - Encerra o simulador");
+                        imprimir("- testesExemplos - Mostra exemplos práticos de comandos");
+                        imprimir("- help - Exibe esta mensagem de ajuda");
+                        imprimir("- sair - Encerra o simulador");
 
                         imprimir("\n💡 DICAS:");
                         imprimir("- Digite qualquer comando sem parâmetros para ver ajuda específica");
-                        imprimir("- Robôs aéreos podem voar sobre obstáculos terrestres");
-                        imprimir("- Robôs subterrâneos ignoram obstáculos na superfície");
                         imprimir("- Sensores consomem bateria a cada uso");
 
-                        imprimir("\n⚙️ CONFIGURAÇÃO INICIAL PRÉ-DEFINIDA:");
+                        imprimir("\n⚙️  CONFIGURAÇÃO INICIAL PRÉ-DEFINIDA:");
                         imprimir("- 7 robôs criados automaticamente (digite 'listarRobos' para ver)");
                         imprimir("- 4 obstáculos posicionados (digite 'listarObstaculos' para ver)");
                         imprimir("- 3 robôs com sensores pré-instalados");
