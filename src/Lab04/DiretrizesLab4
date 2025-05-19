@@ -1,0 +1,75 @@
+Diretrizes - Lab 4
+
+• <nome_da_exceção>.java (classe)
+	- Criar 6 desses arquivos, cada um herdando a classe padão do java Exception:
+		* RoboDesligadoException
+		* ColisaoException
+		* ErroComunicacaoException
+		* + 3 de nossa escolha
+	- Aplicar essa exceções em momentos oportunos
+
+• TipoEntidade.java (enum)
+    - Criar esse arquivo
+    - Criar um enum com os seguintes tipos: VAZIO, ROBO, OBSTACULO e DESCONHECIDO
+
+• Entidade.java (interface - não é uma classe!)
+    - Criar esse arquivo
+    - Criar uma interface que defina (sem implementar) os seguintes métodos: 
+        * int getX(); → Retorna a coordenada X da entidade
+        * int getY(); → Retorna a coordenada Y da entidade
+        * int getZ(); → Retorna a coordenada Z da entidade
+        * TipoEntidade getTipo(); → Retorna o tipo da entidade
+        * String getDescricao(); → Retorna uma descrição textual da entidade
+        * char getRepresentacao(); → Retorna o caractere que representa a entidade visualmente
+
+• <nome_do_tipo_da_entidade>.java (classe)
+    - Criar esse arquivo caso não exista ainda
+    - Adicionar a implementação dos métodos definidos na interface
+    
+ • Sensoreavel.java (interface - não é uma classe!)
+	- Criar esse arquivo
+	- Criar uma interface que defina (sem implementar) o método acionarSensores()
+	
+• Comunicavel.java (interface - não é uma classe!)
+	- Criar esse arquivo
+	- Criar uma interface que defina (sem implementar) os seguintes métodos:
+		* enviarMensagem(Comunicavel destinatario, String mensagem)
+		* receberMensagem(String mensagem)
+
+• <nome_da_interface_para_robos>.java (interface - não é uma classe)
+	- A partir de nossa criatividade, criar 3 desses arquivos, cada um sendo implementado por alguma das subclasses de robo
+    
+• Ambiente.java (classe)
+	- Trocar os arrays lists de obstáculos e robôs por um único array list de entidades
+	- Criar atributo TipoEntidade[][][] mapa
+	- Implementar/alterar os seguintes métodos:
+		* inicializarMapa(); → Inicializa todas as posições com TipoEntidade.VAZIO
+		* adicionarEntidade(Entidade e);
+		* removerEntidade(Entidade e);
+		* dentroDosLimites(int x, int y, int z);
+		* estaOcupado(int x, int y, int z);
+		* void moverEntidade(Entidade e, int novoX, int novoY, int novoZ);
+		* executarSensores(); → Chama todos os sensores dos robôs ao mesmo tempo?
+		* verificarColisoes(); → Sinceramente não faço ideia do que isso faz
+		* visualizarAmbiente(); → Imprime visão 2D 
+
+• Robo.java (classe)
+	- Criar atributo bool estado → true se ligado ou false se desligado
+	- Criar atributo TipoEntidade tipoEntidade → não é óbvio que vai ser ROBO?
+	- Implementar os seguintes métodos:
+		* void ligar()
+		* void desligar()
+		* <nome_da_acao_especifica_da_subclasse>() → definição abstrata dos métodos específicos de cada subclasse
+	- Escolher algumas de suas subclasses para implementar as interfaces existentes (garantir que algum implemente mais de uma interface ao mesmo tempo)
+	
+• CentralComunicacao.java (classe)
+	 - Criar esse arquivo
+	 - Criar atributo ArrayList<String> mensagens
+	 - Criar os seguintes métodos:
+	 	* registrarMensagem(String remetente, String mensagem)
+	 	* exibirMensagens()
+
+• Main.java
+	- Checar no documento da Esther o que é para fazer
+	
+
