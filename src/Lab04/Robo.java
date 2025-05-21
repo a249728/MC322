@@ -7,6 +7,7 @@ public abstract class Robo implements Entidade {
     private String direcao;
     private SensorIluminacao sensorIluminacao; // Referência direta para o sensor de iluminação
     private SensorPressao sensorPressao; // Referência direta para o sensor de colisão
+    private boolean estado = true; // Estado do robô (ativo ou inativo)
 
     public Robo(String n, int x, int y, String dir) {
         this.nome = n;
@@ -68,6 +69,14 @@ public abstract class Robo implements Entidade {
 
     public String retornarNome() {
         return this.nome;
+    }
+
+    public void ligar() {
+        this.estado = true;
+    }
+
+    public void desligar() {
+        this.estado = false;
     }
 
     public boolean identificarObstaculo(int deltaX, int deltaY, Ambiente amb) {
