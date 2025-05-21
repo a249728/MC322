@@ -9,8 +9,8 @@ Diretrizes - Lab 4
 	- Aplicar essas exceções em momentos oportunos
 
 • TipoEntidade.java (enum)
-    - Criar esse arquivo
-    - Criar um enum com os seguintes tipos: VAZIO, ROBO, OBSTACULO e DESCONHECIDO
+    - Criar esse arquivo ✅
+    - Criar um enum com os seguintes tipos: VAZIO, ROBO, OBSTACULO e DESCONHECIDO ✅
 
 • Entidade.java (interface - não é uma classe!)
     - Criar esse arquivo
