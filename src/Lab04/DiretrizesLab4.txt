@@ -1,12 +1,12 @@
 Diretrizes - Lab 4
 
 • <nome_da_exceção>.java (classe)
-	- Criar 6 desses arquivos, cada um herdando a classe padão do java Exception:
-		* RoboDesligadoException
-		* ColisaoException
-		* ErroComunicacaoException
+	- Criar 6 desses arquivos, cada um herdando a classe padrão do java Exception:
+		* RoboDesligadoException ✅
+		* ColisaoException ✅
+		* ErroComunicacaoException ✅
 		* + 3 de nossa escolha
-	- Aplicar essa exceções em momentos oportunos
+	- Aplicar essas exceções em momentos oportunos
 
 • TipoEntidade.java (enum)
     - Criar esse arquivo
