@@ -48,8 +48,6 @@ Diretrizes - Lab 4
 		* dentroDosLimites(int x, int y, int z);
 		* estaOcupado(int x, int y, int z);
 		* void moverEntidade(Entidade e, int novoX, int novoY, int novoZ);
-		* executarSensores(); → Chama todos os sensores dos robôs ao mesmo tempo?
-		* verificarColisoes(); → Sinceramente não faço ideia do que isso faz
 		* visualizarAmbiente(); → Imprime visão 2D 
 
 • Robo.java (classe)

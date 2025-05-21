@@ -36,4 +36,16 @@ public class RoboSubterraneo extends RoboAereo {
         }
         return false;
     }
+
+    @Override
+    public int getZ() {
+        // Retorna a coordenada Z da entidade
+        return super.exibirAltura();
+    }
+
+    @Override
+    public char getRepresentacao() {
+        // Retorna o caractere que representa a entidade visualmente
+        return 'S';
+    }
 }

@@ -75,8 +75,8 @@ public class SensorIluminacao extends Sensor {
     private boolean sombraPorObstaculo(double[] reta, ArrayList<Obstaculo> obstaculos) {
         //ve em todos os obstaculos se eles intercectam com a semirreta de luz
         for (Obstaculo obs : obstaculos) {
-            int x = obs.getPosicaoX();
-            int y = obs.getPosicaoY();
+            int x = obs.getX();
+            int y = obs.getY();
             int z = 0;
             TipoObstaculo tobs = obs.getObstaculo();
             int deltax = tobs.getComprimento();

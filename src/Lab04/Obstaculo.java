@@ -1,4 +1,4 @@
-public class Obstaculo {
+public class Obstaculo implements Entidade {
     private TipoObstaculo obstaculo;
     private final int posicaoX;
     private final int posicaoY;
@@ -19,14 +19,35 @@ public class Obstaculo {
         return obstaculo;
     }
 
-    public int getPosicaoX() {
-        // Retorna a posicao x do obstaculo
+    @Override
+    public int getX() {
         return posicaoX;
     }
 
-    public int getPosicaoY() {
-        // Retorna a posicao y do abstaculo
+    @Override
+    public int getY() {
         return posicaoY;
+    }
+
+    @Override
+    public int getZ() {
+        return 0;
+    }
+
+    @Override
+    public TipoEntidade getTipo() {
+        return TipoEntidade.OBSTACULO;
+    }
+
+    @Override
+    public String getDescricao() {
+        return TipoEntidade.OBSTACULO.getDescricao();
+    }
+
+    @Override
+    public char getRepresentacao() {
+        // Retorna o caractere que representa a entidade visualmente
+        return 'O';
     }
 }
 

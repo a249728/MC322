@@ -8,14 +8,6 @@ public class RoboGerador extends RoboAereo{
         this.filhos=0;
     }
 
-    public Robo gerarRobo(Ambiente amb, String n){
-        // Cria um filho Robo
-        this.filhos++;
-        Robo robo = new Robo(n, exibirPosicao()[0], exibirPosicao()[1], this.retornarDirecao());
-        amb.adicionarRobo(robo);
-        return robo;
-    }
-
     public RoboTerrestre gerarRoboTerrestre(Ambiente amb, String n, int vmax){
         // Cria um filho RoboTerrestre
         this.filhos++;
@@ -67,6 +59,18 @@ public class RoboGerador extends RoboAereo{
     public int retornarFilhos(){
         // Retorna a quantidade de filhos do robo
         return this.filhos;
+    }
+
+    @Override
+    public int getZ() {
+        // Retorna a coordenada Z da entidade
+        return super.exibirAltura();
+    }
+
+    @Override
+    public char getRepresentacao() {
+        // Retorna o caractere que representa a entidade visualmente
+        return 'G';
     }
 
 }

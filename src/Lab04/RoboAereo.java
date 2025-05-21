@@ -72,13 +72,25 @@ public class RoboAereo extends Robo {
             }
          }
          for (Obstaculo obstaculo : obstaculos) {
-            boolean dentroX = coord[0] + deltaX >= obstaculo.getPosicaoX() && coord[0] + deltaX < obstaculo.getPosicaoX() + obstaculo.getObstaculo().getComprimento();
-            boolean dentroY = coord[1] + deltaY >= obstaculo.getPosicaoY() && coord[1] + deltaY < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura();
+            boolean dentroX = coord[0] + deltaX >= obstaculo.getX() && coord[0] + deltaX < obstaculo.getX() + obstaculo.getObstaculo().getComprimento();
+            boolean dentroY = coord[1] + deltaY >= obstaculo.getY() && coord[1] + deltaY < obstaculo.getY() + obstaculo.getObstaculo().getLargura();
             boolean dentroZ = Math.abs(this.altitude + deltaZ) < Math.abs(obstaculo.getObstaculo().getAltura());
             if (dentroX && dentroY && dentroZ) {
                 return true; // Colisão detectada com um obstáculo
             }
          }
          return false;       
+    }
+
+    @Override
+    public int getZ() {
+        // Retorna a coordenada Z da entidade
+        return this.altitude;
+    }
+
+    @Override
+    public char getRepresentacao() {
+        // Retorna o caractere que representa a entidade visualmente
+        return 'A';
     }
 }

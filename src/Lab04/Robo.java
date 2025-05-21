@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Robo implements Entidade 
+public abstract class Robo implements Entidade {
     private String nome;
     private int posicaoX;
     private int posicaoY;
@@ -46,11 +46,17 @@ public class Robo implements Entidade
 
     public abstract int getZ();
 
-    public abstract TipoEntidade getTipo() {
+    @Override
+    public TipoEntidade getTipo() {
         return TipoEntidade.ROBO;
     }
 
-    public String get
+    @Override
+    public String getDescricao() {
+        return TipoEntidade.ROBO.getDescricao();
+    }
+
+    public abstract char getRepresentacao();
 
     public int[] exibirPosicao() {
         return new int[] { this.posicaoX, this.posicaoY };
@@ -74,8 +80,8 @@ public class Robo implements Entidade
             }
         }
         for (Obstaculo obstaculo : obstaculos) {
-            boolean dentroX = posicaoX + deltaX >= obstaculo.getPosicaoX() && posicaoX + deltaX < obstaculo.getPosicaoX() + obstaculo.getObstaculo().getComprimento();
-            boolean dentroY = posicaoY + deltaY >= obstaculo.getPosicaoY() && posicaoY + deltaY < obstaculo.getPosicaoY() + obstaculo.getObstaculo().getLargura();
+            boolean dentroX = posicaoX + deltaX >= obstaculo.getX() && posicaoX + deltaX < obstaculo.getX() + obstaculo.getObstaculo().getComprimento();
+            boolean dentroY = posicaoY + deltaY >= obstaculo.getY() && posicaoY + deltaY < obstaculo.getY() + obstaculo.getObstaculo().getLargura();
             if (dentroX && dentroY) {
                 return true; // Colisão detectada com um obstáculo
             }
