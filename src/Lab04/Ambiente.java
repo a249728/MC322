@@ -95,10 +95,10 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
         adicionarObstaculoMapa(obstaculo);
     }
 
-    public Robo acharRobo(int x, int y) {
+    public Robo acharRobo(int x, int y, int z) {
         // Verifica se existe um robo na posicao (x,y) e retorna o robo
         for (Robo robo : robosAtivos) {
-            if (robo.exibirPosicao()[0] == x && robo.exibirPosicao()[1] == y) {
+            if (robo.getX() == x && robo.getY() == y && robo.getZ() == z) {
                 return robo;
             }
         }

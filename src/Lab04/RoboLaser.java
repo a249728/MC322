@@ -19,7 +19,7 @@ public class RoboLaser extends RoboTerrestre{
     }
 
     public int dispararLaser(Ambiente amb){
-        // Destroi todos os robos na direcao que ele esta olhando ate o alcance (inclusive robos aereos pois o laser é ENORME)
+        // Destroi todos os robos na direcao que ele esta olhando ate o alcance
 
         // Converte a palavra da direcao em um vetor direcao
         int[] direcao = {0,0};
@@ -37,17 +37,11 @@ public class RoboLaser extends RoboTerrestre{
         int robosDestruidos = 0;
         for(int i=0; i<alcanceLaser; i++){
             if(identificarObstaculo(i*direcao[0], i*direcao[1], amb)){
-                amb.destruirRobo(amb.acharRobo(i*direcao[0], i*direcao[1]));
+                amb.destruirRobo(amb.acharRobo(i*direcao[0], i*direcao[1], 0));
                 robosDestruidos++;
             }
         }
         return robosDestruidos;
-    }
-
-    @Override
-    public int getZ() {
-        // Retorna a coordenada Z da entidade
-        return 0;
     }
 
     @Override
