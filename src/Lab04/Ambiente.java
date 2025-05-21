@@ -68,7 +68,9 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
     }
 
     public void adicionarRoboMapa(Robo robo){
-        mapa[robo.getX()][robo.getY()][robo.getZ()] = TipoEntidade.ROBO;
+        if(dentroDosLimitesAereo(robo.getX(), robo.getY(), robo.getZ())){
+            mapa[robo.getX()][robo.getY()][robo.getZ()] = TipoEntidade.ROBO;
+        }
     }
 
     public void adicionarObstaculoMapa(Obstaculo obstaculo){
@@ -121,7 +123,9 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
     }
 
     public void removerRoboMapa(Robo robo){
-        mapa[robo.getX()][robo.getY()][robo.getZ()] = TipoEntidade.VAZIO;
+        if(dentroDosLimitesAereo(robo.getX(), robo.getY(), robo.getZ())){
+            mapa[robo.getX()][robo.getY()][robo.getZ()] = TipoEntidade.VAZIO;
+        }
     }
 
     public void removerObstaculoMapa(Obstaculo obstaculo){
@@ -144,6 +148,13 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
         // Remove o Obstaculo do ArrayList
         obstaculos.remove(obstaculo);
         removerObstaculoMapa(obstaculo);
+    }
+
+    public void moverRoboMapa(Robo robo, int x, int y, int z){
+        removerRoboMapa(robo);
+        if(dentroDosLimitesAereo(robo.getX()+x, robo.getY()+y, robo.getZ()+z)){
+            mapa[robo.getX()+x][robo.getY()+y][robo.getZ()+z] = TipoEntidade.ROBO;
+        }
     }
 
 }

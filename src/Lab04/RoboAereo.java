@@ -47,6 +47,7 @@ public class RoboAereo extends Robo {
                 else{
                     descer(-deltaZ);
                 }
+                amb.moverRoboMapa(this, deltaX, deltaY, deltaZ);
                 return true;
             }
             else {

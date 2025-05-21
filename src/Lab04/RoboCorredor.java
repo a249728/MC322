@@ -47,6 +47,7 @@ public class RoboCorredor extends RoboTerrestre{
             }
         }
         if(super.mover(delta*direcao[0], delta*direcao[1], amb)){
+            amb.moverRoboMapa(this, delta*direcao[0], delta*direcao[1], 0);
             return true;
         }
         return false;
