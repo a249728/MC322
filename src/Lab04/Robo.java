@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Robo {
+public class Robo implements Entidade 
     private String nome;
     private int posicaoX;
     private int posicaoY;
@@ -33,6 +33,24 @@ public class Robo {
     public String retornarDirecao() {
         return this.direcao;
     }
+
+    @Override
+    public int getX() {
+        return this.posicaoX;
+    }
+
+    @Override
+    public int getY() {
+        return this.posicaoY;
+    }
+
+    public abstract int getZ();
+
+    public abstract TipoEntidade getTipo() {
+        return TipoEntidade.ROBO;
+    }
+
+    public String get
 
     public int[] exibirPosicao() {
         return new int[] { this.posicaoX, this.posicaoY };

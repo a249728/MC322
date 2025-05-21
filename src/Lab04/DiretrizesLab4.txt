@@ -13,17 +13,16 @@ Diretrizes - Lab 4
     - Criar um enum com os seguintes tipos: VAZIO, ROBO, OBSTACULO e DESCONHECIDO ✅
 
 • Entidade.java (interface - não é uma classe!)
-    - Criar esse arquivo
+    - Criar esse arquivo ✅
     - Criar uma interface que defina (sem implementar) os seguintes métodos: 
-        * int getX(); → Retorna a coordenada X da entidade
-        * int getY(); → Retorna a coordenada Y da entidade
-        * int getZ(); → Retorna a coordenada Z da entidade
-        * TipoEntidade getTipo(); → Retorna o tipo da entidade
-        * String getDescricao(); → Retorna uma descrição textual da entidade
-        * char getRepresentacao(); → Retorna o caractere que representa a entidade visualmente
+        * int getX(); → Retorna a coordenada X da entidade ✅
+        * int getY(); → Retorna a coordenada Y da entidade ✅
+        * int getZ(); → Retorna a coordenada Z da entidade ✅
+        * TipoEntidade getTipo(); → Retorna o tipo da entidade ✅
+        * String getDescricao(); → Retorna uma descrição textual da entidade ✅
+        * char getRepresentacao(); → Retorna o caractere que representa a entidade visualmente ✅
 
 • <nome_do_tipo_da_entidade>.java (classe)
-    - Criar esse arquivo caso não exista ainda
     - Adicionar a implementação dos métodos definidos na interface
     
  • Sensoreavel.java (interface - não é uma classe!)
