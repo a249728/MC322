@@ -157,4 +157,25 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
         }
     }
 
+    public boolean estaOcupado(int x, int y, int z){
+        if(mapa[x][y][z] == TipoEntidade.VAZIO){
+            return false;
+        }
+        return true;
+    }
+
+    public char[][] visualizarAmbiente(){
+        char[][] mapaXY = new char[comprimento][largura];
+        for(int x=0; x<comprimento; x++){
+            for(int y=0; y<largura; y++){
+                for(int z=altura-1; z>=0; z--){
+                    if(mapa[x][y][z]!=TipoEntidade.VAZIO){
+                        if(mapa[x][y][y]==TipoEntidade.OBSTACULO){
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
