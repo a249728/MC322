@@ -53,12 +53,6 @@ public class RoboCorredor extends RoboTerrestre{
     }
 
     @Override
-    public int getZ() {
-        // Retorna a coordenada Z da entidade
-        return 0;
-    }
-
-    @Override
     public char getRepresentacao() {
         // Retorna o caractere que representa a entidade visualmente
         return 'C';

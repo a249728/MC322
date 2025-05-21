@@ -23,7 +23,7 @@ Diretrizes - Lab 4
         * char getRepresentacao(); → Retorna o caractere que representa a entidade visualmente ✅
 
 • <nome_do_tipo_da_entidade>.java (classe)
-    - Adicionar a implementação dos métodos definidos na interface
+    - Adicionar a implementação dos métodos definidos na interface ✅
     
  • Sensoreavel.java (interface - não é uma classe!)
 	- Criar esse arquivo
