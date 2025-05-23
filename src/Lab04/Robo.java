@@ -18,7 +18,10 @@ public abstract class Robo implements Entidade {
         this.sensorPressao = null; // Inicializa como null
     }
 
-    public boolean mover(int deltaX, int deltaY, Ambiente amb) {
+    public boolean mover(int deltaX, int deltaY, Ambiente amb) throws RoboDesligadoException {
+        if (!this.estado) {
+            throw new RoboDesligadoException("O robo nao pode se mover pois estava desligado"); // Se o robô estiver desligado, não pode se mover
+        }
         if (this.posicaoX + deltaX >= 0 && this.posicaoY + deltaY >= 0 && (!identificarObstaculo(deltaX, deltaY, amb) || this instanceof RoboAereo)) {
             this.posicaoX += deltaX;
             this.posicaoY += deltaY;
@@ -27,7 +30,10 @@ public abstract class Robo implements Entidade {
         return false;
     }
 
-    public void mudarDirecao(String dir) {
+    public void mudarDirecao(String dir) throws RoboDesligadoException {
+        if (!this.estado) {
+            throw new RoboDesligadoException("O robo nao pode mudar de direcao pois estava desligado");
+        }
         this.direcao = dir;
     }
 
@@ -59,11 +65,11 @@ public abstract class Robo implements Entidade {
 
     public abstract char getRepresentacao();
 
-    public int[] exibirPosicao() {
+    public int[] exibirPosicao() throws RoboDesligadoException {
         return new int[] { this.posicaoX, this.posicaoY };
     }
 
-    public void mudarNome(String n) {
+    public void mudarNome(String n) throws RoboDesligadoException {
         this.nome = n;
     }
 
@@ -79,7 +85,7 @@ public abstract class Robo implements Entidade {
         this.estado = false;
     }
 
-    public boolean identificarObstaculo(int deltaX, int deltaY, Ambiente amb) {
+    public boolean identificarObstaculo(int deltaX, int deltaY, Ambiente amb) throws RoboDesligadoException {
         // Checa se a posicao para a qual o robo quer mover ja esta ocupada por outro robo (obstaculo)
         ArrayList<Robo> robos = amb.retornarRobosAtivos();
         ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
@@ -98,7 +104,10 @@ public abstract class Robo implements Entidade {
         return false;
     }
 
-    public String usarSensorIluminacao(int x, int y, int z, Ambiente amb) {
+    public String usarSensorIluminacao(int x, int y, int z, Ambiente amb) throws RoboDesligadoException {
+        if (!this.estado) {
+            throw new RoboDesligadoException("O robo nao pode usar o sensor de iluminacao pois estava desligado");
+        }
         // Verifica se o sensor de iluminação está disponível e chama o método de monitoramento
         if (this.sensorIluminacao != null) {
             return this.sensorIluminacao.monitorarIluminacao(x, y, z, amb);
@@ -106,7 +115,10 @@ public abstract class Robo implements Entidade {
         return "Sensor de iluminacao nao disponivel";
     }
 
-    public String usarSensorPressao(int x, int y, int z, Ambiente amb) {
+    public String usarSensorPressao(int x, int y, int z, Ambiente amb) throws RoboDesligadoException {
+        if (!this.estado) {
+            throw new RoboDesligadoException("O robo nao pode usar o sensor de pressao pois estava desligado");
+        }
         // Verifica se o sensor de pressão está disponível e chama o método de monitoramento
         if (this.sensorPressao != null) {
             return this.sensorPressao.monitorarPressao(x, y, z, amb);
@@ -114,14 +126,14 @@ public abstract class Robo implements Entidade {
         return "Sensor de pressao nao disponivel";
     }
 
-    public void adicionarSensorIluminacao(double raio, int bateria) {
+    public void adicionarSensorIluminacao(double raio, int bateria) throws RoboDesligadoException {
         // Cria sensor de iluminacao
         if (this.sensorIluminacao == null) { // Garante que só pode haver um sensor de iluminação
             this.sensorIluminacao = new SensorIluminacao(raio, bateria, this);
         }
     }
 
-    public void adicionarSensorPressao(double raio, int bateria) {
+    public void adicionarSensorPressao(double raio, int bateria) throws RoboDesligadoException {
         // Cria sensor de pressao
         if (this.sensorPressao == null) { // Garante que só pode haver um sensor de colisão
             this.sensorPressao = new SensorPressao(raio, bateria, this);
