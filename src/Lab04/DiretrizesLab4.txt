@@ -26,17 +26,17 @@ Diretrizes - Lab 4
     - Adicionar a implementação dos métodos definidos na interface ✅
     
  • Sensoreavel.java (interface - não é uma classe!)
-	- Criar esse arquivo
-	- Criar uma interface que defina (sem implementar) o método acionarSensores()
+	- Criar esse arquivo ✅
+	- Criar uma interface que defina (sem implementar) o método acionarSensores() ✅
 	
 • Comunicavel.java (interface - não é uma classe!)
-	- Criar esse arquivo
+	- Criar esse arquivo ✅
 	- Criar uma interface que defina (sem implementar) os seguintes métodos:
-		* enviarMensagem(Comunicavel destinatario, String mensagem)
-		* receberMensagem(String mensagem)
+		* enviarMensagem(Comunicavel  destinatario, String mensagem) ✅
+		* receberMensagem(String mensagem) ✅
 
 • <nome_da_interface_para_robos>.java (interface - não é uma classe)
-	- A partir de nossa criatividade, criar 3 desses arquivos, cada um sendo implementado por alguma das subclasses de robo
+	- A partir de nossa criatividade, criar 3 desses arquivos, cada um sendo implementado por alguma das subclasses de robo ✅
     
 • Ambiente.java (classe)
 	- Trocar os arrays lists de obstáculos e robôs por um único array list de entidades

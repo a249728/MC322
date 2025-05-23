@@ -1,4 +1,4 @@
-public class RoboCorredor extends RoboTerrestre{
+public class RoboCorredor extends RoboTerrestre implements Corredor {
     
     private int velocidadeMinima;
 
@@ -18,7 +18,7 @@ public class RoboCorredor extends RoboTerrestre{
         this.velocidadeMinima = vmin;
     }
 
-    public boolean mover(int delta, Ambiente amb){
+    public boolean correr(int delta, Ambiente amb){
         // Se o robo nao achar nenhum obstaculo (robo) no caminho, move reto na direcao, se conseguir retorna true, caso contrario retorna false
 
         // Se a velocidade for menor que a minima retorna false

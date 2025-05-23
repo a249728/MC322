@@ -233,7 +233,7 @@ public class Main {
                                     ambiente
                                 );
                             } else if (robMov instanceof RoboCorredor && partes.length == 3) {
-                                sucesso = ((RoboCorredor) robMov).mover(
+                                sucesso = ((RoboCorredor) robMov).correr(
                                     Integer.parseInt(partes[2]),
                                     ambiente
                                 );

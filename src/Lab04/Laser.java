@@ -1,3 +1,4 @@
-public class Laser {
-    
+public interface Laser {
+    void mudarAlcanceLaser(int alc);
+    int dispararLaser(Ambiente amb);
 }

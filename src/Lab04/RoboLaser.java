@@ -1,4 +1,4 @@
-public class RoboLaser extends RoboTerrestre{
+public class RoboLaser extends RoboTerrestre implements Laser{
 
     private int alcanceLaser;
 

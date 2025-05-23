@@ -1,4 +1,4 @@
-public class RoboGerador extends RoboAereo{
+public class RoboGerador extends RoboAereo implements Gerador {
     
     private int filhos;
 
