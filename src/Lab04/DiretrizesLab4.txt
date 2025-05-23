@@ -5,7 +5,7 @@ Diretrizes - Lab 4
 		* RoboDesligadoException ✅
 		* ColisaoException ✅
 		* ErroComunicacaoException ✅
-		* + 3 de nossa escolha
+		* + 3 de nossa escolha ✅
 	- Aplicar essas exceções em momentos oportunos
 
 • TipoEntidade.java (enum)
