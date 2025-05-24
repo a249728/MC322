@@ -65,11 +65,11 @@ public abstract class Robo implements Entidade {
 
     public abstract char getRepresentacao();
 
-    public int[] exibirPosicao() throws RoboDesligadoException {
+    public int[] exibirPosicao() {
         return new int[] { this.posicaoX, this.posicaoY };
     }
 
-    public void mudarNome(String n) throws RoboDesligadoException {
+    public void mudarNome(String n) {
         this.nome = n;
     }
 
@@ -85,7 +85,11 @@ public abstract class Robo implements Entidade {
         this.estado = false;
     }
 
-    public boolean identificarObstaculo(int deltaX, int deltaY, Ambiente amb) throws RoboDesligadoException {
+    public boolean getEstado() {
+        return this.estado;
+    }
+
+    public boolean identificarObstaculo(int deltaX, int deltaY, Ambiente amb) {
         // Checa se a posicao para a qual o robo quer mover ja esta ocupada por outro robo (obstaculo)
         ArrayList<Robo> robos = amb.retornarRobosAtivos();
         ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
@@ -126,14 +130,14 @@ public abstract class Robo implements Entidade {
         return "Sensor de pressao nao disponivel";
     }
 
-    public void adicionarSensorIluminacao(double raio, int bateria) throws RoboDesligadoException {
+    public void adicionarSensorIluminacao(double raio, int bateria) {
         // Cria sensor de iluminacao
         if (this.sensorIluminacao == null) { // Garante que só pode haver um sensor de iluminação
             this.sensorIluminacao = new SensorIluminacao(raio, bateria, this);
         }
     }
 
-    public void adicionarSensorPressao(double raio, int bateria) throws RoboDesligadoException {
+    public void adicionarSensorPressao(double raio, int bateria) {
         // Cria sensor de pressao
         if (this.sensorPressao == null) { // Garante que só pode haver um sensor de colisão
             this.sensorPressao = new SensorPressao(raio, bateria, this);

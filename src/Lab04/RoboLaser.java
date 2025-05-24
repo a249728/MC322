@@ -18,7 +18,10 @@ public class RoboLaser extends RoboTerrestre implements Laser{
         this.alcanceLaser = alc;
     }
 
-    public int dispararLaser(Ambiente amb){
+    public int dispararLaser(Ambiente amb) throws RoboDesligadoException{
+        if (!this.getEstado()){
+            throw new RoboDesligadoException("O robo nao pode disparar o laser pois estava desligado");
+        }
         // Destroi todos os robos na direcao que ele esta olhando ate o alcance
 
         // Converte a palavra da direcao em um vetor direcao

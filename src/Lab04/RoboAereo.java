@@ -27,17 +27,19 @@ public class RoboAereo extends Robo {
         return this.altitude;
     }
 
-    public void subir(int deltaZ) {
+    public void subir(int deltaZ) throws RoboDesligadoException {
+        if (!super.getEstado()) throw new RoboDesligadoException("O robo nao pode se mover pois estava desligado");
         // Atualiza a altitude do robo adicionando a variacao de posicao desejada
         this.altitude += deltaZ;
     }
 
-    public void descer(int deltaZ) {
+    public void descer(int deltaZ) throws RoboDesligadoException {
+        if (!super.getEstado()) throw new RoboDesligadoException("O robo nao pode se mover pois estava desligado");
         // Atualiza a altitude do robo adicionando a variacao de posicao desejada
         this.altitude -= deltaZ;
     }
 
-    public boolean mover(int deltaX, int deltaY, int deltaZ, Ambiente amb) {
+    public boolean mover(int deltaX, int deltaY, int deltaZ, Ambiente amb) throws RoboDesligadoException {
         // Checa se o movimento nao ultrapassa a altitude maxima e retorna true ou false dependendo se o movimento foi bem sucedido ou nao
         if (this.altitude + deltaZ <= altitudeMaxima  && this.altitude + deltaZ >= 0 && !identificarObstaculo(deltaX, deltaY, deltaZ, amb)) {
             if (super.mover(deltaX, deltaY, amb)) {
