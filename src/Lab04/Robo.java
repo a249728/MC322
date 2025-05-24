@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class Robo implements Entidade {
+public abstract class Robo implements Entidade, Sensoreavel {
     private String nome;
     private int posicaoX;
     private int posicaoY;
