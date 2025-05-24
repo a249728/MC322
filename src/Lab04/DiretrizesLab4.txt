@@ -6,7 +6,7 @@ Diretrizes - Lab 4
 		* ColisaoException ✅
 		* ErroComunicacaoException ✅
 		* + 3 de nossa escolha ✅
-	- Aplicar essas exceções em momentos oportunos
+	- Aplicar essas exceções em momentos oportunos ✅
 
 • TipoEntidade.java (enum)
     - Criar esse arquivo ✅
@@ -57,14 +57,14 @@ Diretrizes - Lab 4
 		* void ligar() ✅
 		* void desligar() ✅
 		* <nome_da_acao_especifica_da_subclasse>() → definição abstrata dos métodos específicos de cada subclasse ✅
-	- Escolher algumas de suas subclasses para implementar as interfaces existentes (garantir que algum implemente mais de uma interface ao mesmo tempo)
+	- Escolher algumas de suas subclasses para implementar as interfaces existentes (garantir que algum implemente mais de uma interface ao mesmo tempo) ✅
 	
 • CentralComunicacao.java (classe)
-	 - Criar esse arquivo 
-	 - Criar atributo ArrayList<String> mensagens
-	 - Criar os seguintes métodos:
-	 	* registrarMensagem(String remetente, String mensagem)
-	 	* exibirMensagens()
+	 - Criar esse arquivo ✅
+	 - Criar atributo ArrayList<String> mensagens ✅
+	 - Criar os seguintes métodos: ✅
+	 	* registrarMensagem(String remetente, String mensagem) ✅
+	 	* exibirMensagens() ✅
 
 • Main.java
 	- Checar no documento da Esther o que é para fazer

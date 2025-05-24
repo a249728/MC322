@@ -76,6 +76,7 @@ public class RoboGerador extends RoboAereo implements Gerador, Comunicavel {
 
     public String receberMensagem(String mensagem) {
         String resultado = "Mensagem recebida: " + mensagem;
+        CentralComunicacao.registrarMensagem(mensagem);
         return resultado;
     }
 
