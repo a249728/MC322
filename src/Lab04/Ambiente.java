@@ -32,14 +32,20 @@ public class Ambiente {
         }
     }
 
-    public boolean dentroDosLimites(int x, int y) {
+    public boolean dentroDosLimites(int x, int y) throws ForaDosLimitesException {
         // Retorna um valor booleano correspondente a se as coordenadas fornecidas estao ou nao incluidas nos limites do ambiente
-        return x < this.comprimento && y < this.largura;
+        if (x < 0 || x >= this.comprimento || y < 0 || y >= this.largura) {
+            throw new ForaDosLimitesException("Coordenadas (" + x + ", " + y + ") fora dos limites do ambiente.");
+        }
+        return true;
     }
 
-    public boolean dentroDosLimitesAereo(int x, int y, int z) {
+    public boolean dentroDosLimitesAereo(int x, int y, int z) throws ForaDosLimitesException {
         // Retorna um valor booleano correspondente a se as coordenadas fornecidas estao ou nao incluidas nos limites do ambiente (considerando eixo z)
-        return x >= 0 && x < this.comprimento && y >= 0 && y < this.largura && z >= 0 && z < this.altura;
+        if (x < 0 || x >= this.comprimento || y < 0 || y >= this.largura || z < 0 || z >= this.altura) {
+            throw new ForaDosLimitesException("Coordenadas (" + x + ", " + y + ", " + z + ") fora dos limites do ambiente.");
+        }
+        return true;
     }
 
 
