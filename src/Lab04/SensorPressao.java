@@ -3,7 +3,7 @@ public class SensorPressao extends Sensor {
         super(raio, bat, robo);
     }
 
-    public String monitorarPressao(int x, int y, int z, Ambiente amb) {
+    public String monitorarPressao(int x, int y, int z, Ambiente amb) throws BateriaSensorException {
         // Verifica se o ponto está dentro do alcance do sensor
         if (!this.monitorar(x, y, z)) {
             return "Nao foi possivel monitorar essa posicao";

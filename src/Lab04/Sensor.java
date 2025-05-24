@@ -9,8 +9,11 @@ public class Sensor {
         this.robo = robo;
     }
 
-    public boolean monitorar(int x, int y, int z) {
+    public boolean monitorar(int x, int y, int z) throws BateriaSensorException {
         // Verifica se o sensor está dentro do raio de alcance e se a bateria está disponível
+        if (bateria <= 0) {
+            throw new BateriaSensorException("Bateria do sensor esgotada.");
+        }
         int coord[] = robo.exibirPosicao();
         double dist;
         if(robo instanceof RoboAereo){
@@ -19,7 +22,7 @@ public class Sensor {
         else{
             dist = (Math.pow(x - coord[0], 2) + Math.pow(y - coord[1], 2) + Math.pow(z, 2));
         }
-        if (dist <= Math.pow(raioDeAlcance, 2) && bateria > 0) {
+        if (dist <= Math.pow(raioDeAlcance, 2)) {
             bateria--;
             return true;
         }

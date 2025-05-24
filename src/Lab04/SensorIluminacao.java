@@ -47,7 +47,7 @@ public class SensorIluminacao extends Sensor {
         return false;
     }
 
-    public String monitorarIluminacao(int x, int y, int z, Ambiente amb) {
+    public String monitorarIluminacao(int x, int y, int z, Ambiente amb) throws BateriaSensorException {
         //verifica se a posicao esta iluminada ou na sombra
         if (!this.monitorar(x, y, z)) {
             //nao consegue monitorar
