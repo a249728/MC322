@@ -60,7 +60,7 @@ Diretrizes - Lab 4
 	- Escolher algumas de suas subclasses para implementar as interfaces existentes (garantir que algum implemente mais de uma interface ao mesmo tempo)
 	
 • CentralComunicacao.java (classe)
-	 - Criar esse arquivo
+	 - Criar esse arquivo 
 	 - Criar atributo ArrayList<String> mensagens
 	 - Criar os seguintes métodos:
 	 	* registrarMensagem(String remetente, String mensagem)

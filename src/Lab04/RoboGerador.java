@@ -1,4 +1,4 @@
-public class RoboGerador extends RoboAereo implements Gerador {
+public class RoboGerador extends RoboAereo implements Gerador, Comunicavel {
     
     private int filhos;
 
@@ -57,6 +57,26 @@ public class RoboGerador extends RoboAereo implements Gerador {
 
     public int retornarFilhos(){
         return this.filhos;
+    }
+
+    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws ErroComunicacaoException, RoboDesligadoException {
+        if (!this.getEstado()) {
+            throw new RoboDesligadoException("Robo desligado: não é possível enviar mensagem");
+        }
+        if (destinatario instanceof RoboGerador) {
+            RoboGerador rg = (RoboGerador) destinatario;
+            if (!rg.getEstado()) {
+                throw new RoboDesligadoException("Destinatário desligado: não é possível receber mensagem");
+            }
+            rg.receberMensagem(mensagem);
+        } else {
+            throw new ErroComunicacaoException("Erro de comunicação: destinatário não é um robo comunicador");
+        }
+    }
+
+    public String receberMensagem(String mensagem) {
+        String resultado = "Mensagem recebida: " + mensagem;
+        return resultado;
     }
 
     @Override
