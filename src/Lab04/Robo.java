@@ -108,7 +108,7 @@ public abstract class Robo implements Entidade, Sensoreavel {
         return false;
     }
 
-    public String usarSensorIluminacao(int x, int y, int z, Ambiente amb) throws RoboDesligadoException {
+    public String usarSensorIluminacao(int x, int y, int z, Ambiente amb) throws RoboDesligadoException, BateriaSensorException {
         if (!this.estado) {
             throw new RoboDesligadoException("O robo nao pode usar o sensor de iluminacao pois estava desligado");
         }
@@ -119,7 +119,7 @@ public abstract class Robo implements Entidade, Sensoreavel {
         return "Sensor de iluminacao nao disponivel";
     }
 
-    public String usarSensorPressao(int x, int y, int z, Ambiente amb) throws RoboDesligadoException {
+    public String usarSensorPressao(int x, int y, int z, Ambiente amb) throws RoboDesligadoException, BateriaSensorException {
         if (!this.estado) {
             throw new RoboDesligadoException("O robo nao pode usar o sensor de pressao pois estava desligado");
         }
