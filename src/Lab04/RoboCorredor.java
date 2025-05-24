@@ -18,7 +18,7 @@ public class RoboCorredor extends RoboTerrestre implements Corredor {
         this.velocidadeMinima = vmin;
     }
 
-    public boolean correr(int delta, Ambiente amb) throws RoboDesligadoException {
+    public boolean correr(int delta, Ambiente amb) throws RoboDesligadoException, ColisaoException {
         // Se a velocidade for menor que a minima retorna false
         if(delta < this.velocidadeMinima){
             return false;

@@ -18,7 +18,7 @@ public abstract class Robo implements Entidade, Sensoreavel {
         this.sensorPressao = null; // Inicializa como null
     }
 
-    public boolean mover(int deltaX, int deltaY, Ambiente amb) throws RoboDesligadoException {
+    public boolean mover(int deltaX, int deltaY, Ambiente amb) throws RoboDesligadoException, ColisaoException {
         if (!this.estado) {
             throw new RoboDesligadoException("O robo nao pode se mover pois estava desligado"); // Se o robô estiver desligado, não pode se mover
         }
@@ -89,20 +89,20 @@ public abstract class Robo implements Entidade, Sensoreavel {
         return this.estado;
     }
 
-    public boolean identificarObstaculo(int deltaX, int deltaY, Ambiente amb) {
+    public boolean identificarObstaculo(int deltaX, int deltaY, Ambiente amb) throws ColisaoException {
         // Checa se a posicao para a qual o robo quer mover ja esta ocupada por outro robo (obstaculo)
         ArrayList<Robo> robos = amb.retornarRobosAtivos();
         ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
         for (Robo robo : robos) {
             if (robo.posicaoX == this.posicaoX + deltaX && robo.posicaoY == this.posicaoY + deltaY && robo != this) {
-                return true;
+                throw new ColisaoException("Nao foi possivel se mover por conta de possivel colisao");
             }
         }
         for (Obstaculo obstaculo : obstaculos) {
             boolean dentroX = posicaoX + deltaX >= obstaculo.getX() && posicaoX + deltaX < obstaculo.getX() + obstaculo.getObstaculo().getComprimento();
             boolean dentroY = posicaoY + deltaY >= obstaculo.getY() && posicaoY + deltaY < obstaculo.getY() + obstaculo.getObstaculo().getLargura();
             if (dentroX && dentroY) {
-                return true; // Colisão detectada com um obstáculo
+                throw new ColisaoException("Nao foi possivel se mover por conta de possivel colisao"); // Colisão detectada com um obstáculo
             }
         }
         return false;

@@ -39,7 +39,7 @@ public class RoboAereo extends Robo {
         this.altitude -= deltaZ;
     }
 
-    public boolean mover(int deltaX, int deltaY, int deltaZ, Ambiente amb) throws RoboDesligadoException {
+    public boolean mover(int deltaX, int deltaY, int deltaZ, Ambiente amb) throws RoboDesligadoException, ColisaoException {
         // Checa se o movimento nao ultrapassa a altitude maxima e retorna true ou false dependendo se o movimento foi bem sucedido ou nao
         if (this.altitude + deltaZ <= altitudeMaxima  && this.altitude + deltaZ >= 0 && !identificarObstaculo(deltaX, deltaY, deltaZ, amb)) {
             if (super.mover(deltaX, deltaY, amb)) {
@@ -59,7 +59,7 @@ public class RoboAereo extends Robo {
         return false;
     }
 
-    public boolean identificarObstaculo(int deltaX, int deltaY, int deltaZ, Ambiente amb) {
+    public boolean identificarObstaculo(int deltaX, int deltaY, int deltaZ, Ambiente amb) throws ColisaoException {
          // Checa se a posicao para a qual o robo quer mover ja esta ocupada por outro robo (obstaculo)
          ArrayList<Robo> robos = amb.retornarRobosAtivos();
          ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
@@ -71,7 +71,7 @@ public class RoboAereo extends Robo {
                 altura = ((RoboAereo) robo).exibirAltura();
             }
             if (robo.exibirPosicao()[0] == coord[0] + deltaX && robo.exibirPosicao()[1] == coord[1] + deltaY && altura == this.altitude + deltaZ) {
-                return true; // Colisão detectada com outro robô
+                throw new ColisaoException("Nao foi possivel se mover por conta de possivel colisao");
             }
          }
          for (Obstaculo obstaculo : obstaculos) {
@@ -79,7 +79,7 @@ public class RoboAereo extends Robo {
             boolean dentroY = coord[1] + deltaY >= obstaculo.getY() && coord[1] + deltaY < obstaculo.getY() + obstaculo.getObstaculo().getLargura();
             boolean dentroZ = Math.abs(this.altitude + deltaZ) < Math.abs(obstaculo.getObstaculo().getAltura());
             if (dentroX && dentroY && dentroZ) {
-                return true; // Colisão detectada com um obstáculo
+                throw new ColisaoException("Nao foi possivel se mover por conta de possivel colisao"); // Colisão detectada com um obstáculo
             }
          }
          return false;       
