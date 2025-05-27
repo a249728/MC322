@@ -113,6 +113,16 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
         return null;
     }
 
+    public Obstaculo acharObstaculo(int x, int y, int z) {
+        // Verifica se existe um robo na posicao (x,y) e retorna o robo
+        for (Obstaculo obs : obstaculos) {
+            if (obs.getX() <= x && obs.getX() + obs.getObstaculo().getComprimento() > x && obs.getY() <= y && obs.getY() + obs.getObstaculo().getLargura() > y && obs.getZ() <= z && obs.getZ() + obs.getObstaculo().getAltura() > z) {
+                return obs;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<Robo> retornarRobosAtivos() {
         // Retorna o ArrayList de Robos ativos
         return this.robosAtivos;
@@ -177,7 +187,13 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
                 for(int z=altura-1; z>=0; z--){
                     if(mapa[x][y][z]!=TipoEntidade.VAZIO){
                         if(mapa[x][y][y]==TipoEntidade.OBSTACULO){
-                            
+                            mapaXY[x][y]=acharObstaculo(x, y, z).getRepresentacao();
+                        }
+                        else if(mapa[x][y][y]==TipoEntidade.ROBO){
+                            mapaXY[x][y]=acharRobo(x, y, z).getRepresentacao();
+                        }
+                        else{
+                            mapaXY[x][y]='.';
                         }
                     }
                 }
