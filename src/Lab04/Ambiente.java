@@ -193,11 +193,12 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
                             mapaXY[x][y]=acharRobo(x, y, z).getRepresentacao();
                         }
                         else{
-                            mapaXY[x][y]='.';
+                            mapaXY[x][y]='V';
                         }
                     }
                 }
             }
         }
+        return mapaXY;
     }
 }
