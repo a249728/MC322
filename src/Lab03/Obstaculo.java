@@ -7,7 +7,7 @@ public class Obstaculo {
         this.obstaculo = tipo;
         this.posicaoX = x;
         this.posicaoY = y;
-    }
+    }''
 
     public void removerObstaculo(Obstaculo obs, Ambiente amb) {
         // Remove o obstaculo

@@ -73,7 +73,7 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
         entidades.add(e);
     }
 
-    public void adicionarRoboMapa(Robo robo){
+    public void adicionarRoboMapa(Robo robo) throws ForaDosLimitesException {
         if(dentroDosLimitesAereo(robo.getX(), robo.getY(), robo.getZ())){
             mapa[robo.getX()][robo.getY()][robo.getZ()] = TipoEntidade.ROBO;
         }
