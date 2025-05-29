@@ -89,7 +89,7 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
         }
     }
 
-    public void adicionarRobo(Robo robo) {
+    public void adicionarRobo(Robo robo) throws ForaDosLimitesException {
         // Adiciona um Robo ativo ao ArrayList
         robosAtivos.add(robo);
         adicionarEntidade(robo);
@@ -138,7 +138,7 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
         return this.horario;
     }
 
-    public void removerRoboMapa(Robo robo){
+    public void removerRoboMapa(Robo robo) throws ForaDosLimitesException {
         if(dentroDosLimitesAereo(robo.getX(), robo.getY(), robo.getZ())){
             mapa[robo.getX()][robo.getY()][robo.getZ()] = TipoEntidade.VAZIO;
         }
@@ -154,7 +154,7 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
         }
     }
 
-    public void destruirRobo(Robo robo) {
+    public void destruirRobo(Robo robo) throws ForaDosLimitesException {
         // Remove o Robo do ArrayList
         robosAtivos.remove(robo);
         removerRoboMapa(robo);
@@ -166,7 +166,7 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
         removerObstaculoMapa(obstaculo);
     }
 
-    public void moverRoboMapa(Robo robo, int x, int y, int z){
+    public void moverRoboMapa(Robo robo, int x, int y, int z) throws ForaDosLimitesException {
         removerRoboMapa(robo);
         if(dentroDosLimitesAereo(robo.getX()+x, robo.getY()+y, robo.getZ()+z)){
             mapa[robo.getX()+x][robo.getY()+y][robo.getZ()+z] = TipoEntidade.ROBO;
