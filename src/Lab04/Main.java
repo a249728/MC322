@@ -1,629 +1,516 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class Main {
+    private static Ambiente ambiente;
+    private static Scanner scanner;
+    private static CentralComunicacao central;
+    private static Robo roboSelecionado;
 
     public static void main(String[] args) {
-        // Cria um ambiente
-        Ambiente ilhaMecanimais = new Ambiente(500, 500, 500, "15:00");
-        imprimir("\n=== SIMULADOR DE ROBÔS ===");
-        imprimir("Ambiente criado: Ilha Mecanimais (500x500x500) - Horário: 15:00");
-        
-        // Cria e exibe robôs iniciais
-        imprimir("\n=== ROBÔS INICIAIS ===");
-        RoboGerador JeffRosen = new RoboGerador("JeffRosen", 0, 0, "Norte", 1, 499);
-        ilhaMecanimais.adicionarRobo(JeffRosen);
-        imprimir("- JeffRosen: Robô gerador em (0,0) - Pode criar outros robôs");
-        
-        Robo Sasquatch = JeffRosen.gerarRobo(ilhaMecanimais, "Sasquatch");
-        JeffRosen.mover(0, 1, 0, ilhaMecanimais);
-        imprimir("- Sasquatch: Robô básico em " + coordenadas(Sasquatch));
-        
-        RoboTerrestre Rex = JeffRosen.gerarRoboTerrestre(ilhaMecanimais, "Rex", 100);
-        JeffRosen.mover(0, 1, 0, ilhaMecanimais);
-        imprimir("- Rex: Robô terrestre em " + coordenadas(Rex) + " - Velocidade máxima: 100");
-        
-        RoboAereo Unicornio = JeffRosen.gerarRoboAereo(ilhaMecanimais, "Unicornio", 0, 99);
-        JeffRosen.mover(0, 1, 0, ilhaMecanimais);
-        imprimir("- Unicornio: Robô aéreo em " + coordenadas(Unicornio) + " - Altura máxima: 99");
-        
-        RoboSubterraneo Corujao = JeffRosen.gerarRoboSubterraneo(ilhaMecanimais, "Corujao", 0, -99);
-        JeffRosen.mover(0, 1, 0, ilhaMecanimais);
-        imprimir("- Corujao: Robô subterrâneo em " + coordenadas(Corujao) + " - Profundidade máxima: -99");
-        
-        RoboLaser Komodo = JeffRosen.gerarRoboLaser(ilhaMecanimais, "Komodo", 100, 10);
-        JeffRosen.mover(0, 1, 0, ilhaMecanimais);
-        imprimir("- Komodo: Robô laser em " + coordenadas(Komodo) + " - Alcance: 10 unidades");
-        
-        RoboCorredor Mouse = JeffRosen.gerarRoboCorredor(ilhaMecanimais, "Mouse", 200, 100);
-        imprimir("- Mouse: Robô corredor em " + coordenadas(Mouse) + " - Velocidade: 100-200");
-        
-        // Adiciona e exibe sensores iniciais
-        imprimir("\n=== SENSORES PRÉ-CONFIGURADOS ===");
-        Rex.adicionarSensorPressao(100, 100);
-        imprimir("- Rex: Sensor de Pressão (Raio: 100, Bateria: 100)");
-        
-        Unicornio.adicionarSensorIluminacao(100, 100);
-        imprimir("- Unicornio: Sensor de Iluminação (Raio: 100, Bateria: 100)");
-        
-        Sasquatch.adicionarSensorPressao(10, 10);
-        Sasquatch.adicionarSensorIluminacao(10, 10);
-        imprimir("- Sasquatch: Sensor de Pressão e Iluminação (Raio: 10, Bateria: 10 cada)");
-        
-        // Cria e exibe obstáculos iniciais
-        imprimir("\n=== OBSTÁCULOS INICIAIS ===");
-        ilhaMecanimais.criarObstaculo(TipoObstaculo.PEDRA, 3, 3);
-        imprimir("- PEDRA em (3,3) - Tamanho: 3x3 - Bloqueia robôs terrestres");
-        
-        ilhaMecanimais.criarObstaculo(TipoObstaculo.ARVORE, 20, 10);
-        imprimir("- ARVORE em (20,10) - Altura: 10 - Bloqueia robôs aéreos abaixo de 10 unidades");
-        
-        ilhaMecanimais.criarObstaculo(TipoObstaculo.BURACO, 10, 20);
-        imprimir("- BURACO em (10,20) - Profundidade: -5 - Perigoso para robôs terrestres");
-        
-        ilhaMecanimais.criarObstaculo(TipoObstaculo.LAGO, 50, 50);
-        imprimir("- LAGO em (50,50) - Tamanho: 21x21 - Área alagada");
+        // Inicialização do ambiente
+        ambiente = new Ambiente(20, 20, 500, "15:00");
+        central = new CentralComunicacao();
+        scanner = new Scanner(System.in);
 
-        imprimir("\nDigite 'help' para ver todos os comandos");
-        imprimir("Digite 'testesExemplos' para ver exemplos de uso");
-        imprimir("Digite 'sair' para encerrar\n");
-
-        Scanner scanner = new Scanner(System.in);
-        console(scanner, ilhaMecanimais);
-        scanner.close();
+        // Cria robôs iniciais
+        inicializarRobos(ambiente);
+        
+        // Menu principal
+        exibirMenuPrincipal();
     }
 
-    public static void console(Scanner scanner, Ambiente ambiente) {
-        // Menu interativo
-        // Checa cada comando e executa a ação correspondente
+    private static void inicializarRobos(Ambiente ambiente) {
+        try {
+            RoboGerador JeffRosen = new RoboGerador("JeffRosen", 0, 0, "Norte", 1, 10);
+            ambiente.adicionarRobo(JeffRosen);
+            
+            RoboTerrestre Rex = JeffRosen.gerarRoboTerrestre(ambiente, "Rex", 10);
+            JeffRosen.mover(1, 1, ambiente);
+            RoboAereo Unicornio = JeffRosen.gerarRoboAereo(ambiente, "Unicornio", 0, 10);
+            JeffRosen.mover(1, 1, ambiente);
+            RoboSubterraneo Corujao = JeffRosen.gerarRoboSubterraneo(ambiente, "Corujao", 0, -10);
+            JeffRosen.mover(1, 1, ambiente);
+            RoboLaser Komodo = JeffRosen.gerarRoboLaser(ambiente, "Komodo", 10, 5);
+            JeffRosen.mover(1, 1, ambiente);
+            RoboCorredor Mouse = JeffRosen.gerarRoboCorredor(ambiente, "Mouse", 15, 5);
+            
+
+            // Adicionar sensores
+            Rex.adicionarSensorPressao(100, 100);
+            Unicornio.adicionarSensorIluminacao(100, 100);
+            Komodo.adicionarSensorPressao(10, 10);
+            Komodo.adicionarSensorIluminacao(10, 10);
+            
+            // Criar obstáculos
+            ambiente.criarObstaculo(TipoObstaculo.PEDRA, 3, 3);
+            ambiente.criarObstaculo(TipoObstaculo.ARVORE, 20, 10);
+            ambiente.criarObstaculo(TipoObstaculo.BURACO, 10, 20);
+            ambiente.criarObstaculo(TipoObstaculo.LAGO, 50, 50);
+            
+        } catch (Exception e) {
+            System.err.println("Erro na inicialização: " + e.getMessage());
+        }
+    }
+
+    private static void exibirMenuPrincipal() {
         while (true) {
-            imprimir(">>> ");
-            String linha = ler(scanner);
-            if (linha.equalsIgnoreCase("sair")) break;
+            System.out.println("\n=== MENU PRINCIPAL ===");
+            System.out.println("1. Listar todos os robôs");
+            System.out.println("2. Listar robôs por tipo");
+            System.out.println("3. Listar robôs por estado");
+            System.out.println("4. Selecionar robô");
+            System.out.println("5. Visualizar mapa do ambiente");
+            System.out.println("6. Listar mensagens de comunicação");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
 
-            String[] partes = linha.split(" ");
-            if (partes.length < 1) continue;
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpar buffer
 
-            String comando = partes[0].toLowerCase();
-
-            try {
-                switch (comando) {
-                    case "adicionarsensor":
-                        if (partes.length < 5) {
-                            imprimir("Uso incorreto. Formato completo:");
-                            imprimir("adicionarSensor <nomeRobo> <tipoSensor> <raio> <bateria>");
-                            imprimir("Tipos de sensor: 'iluminacao' ou 'pressao'");
-                            imprimir("Exemplo: adicionarSensor Rex pressao 50 100");
-                            break;
-                        }
-                        String nomeRobo = partes[1];
-                        String tipoSensor = partes[2].toLowerCase();
-                        double raio = Double.parseDouble(partes[3]);
-                        int bateria = Integer.parseInt(partes[4]);
-                        
-                        Robo robo = buscarRobo(ambiente, nomeRobo);
-                        if (robo != null) {
-                            if (tipoSensor.equals("iluminacao")) {
-                                robo.adicionarSensorIluminacao(raio, bateria);
-                                imprimir("✔ Sensor de iluminação adicionado a " + nomeRobo);
-                                imprimir("  Raio: " + raio + " unidades | Bateria: " + bateria + " usos");
-                            } else if (tipoSensor.equals("pressao")) {
-                                robo.adicionarSensorPressao(raio, bateria);
-                                imprimir("✔ Sensor de pressão adicionado a " + nomeRobo);
-                                imprimir("  Raio: " + raio + " unidades | Bateria: " + bateria + " usos");
-                            } else {
-                                imprimir("Tipo de sensor inválido. Use 'iluminacao' ou 'pressao'");
-                            }
-                        } else {
-                            imprimir("Robô '" + nomeRobo + "' não encontrado. Use 'listarRobos' para ver os disponíveis");
-                        }
-                        break;
-
-                    case "gerarrobo":
-                        if (partes.length < 4) {
-                            imprimir("Uso incorreto. Formato completo:");
-                            imprimir("gerarRobo <nomeGerador> <tipo> <nomeNovo> [parametros]");
-                            imprimir("Tipos disponíveis e seus parâmetros:");
-                            imprimir("- base: nenhum parâmetro extra");
-                            imprimir("- terrestre: <velocidadeMaxima>");
-                            imprimir("- aereo: <alturaInicial> <alturaMaxima>");
-                            imprimir("- subterraneo: <profundidadeInicial> <profundidadeMinima>");
-                            imprimir("- laser: <velocidadeMaxima> <alcance>");
-                            imprimir("- corredor: <velocidadeMaxima> <velocidadeMinima>");
-                            imprimir("Exemplo: gerarRobo JeffRosen aereo NovoRobo 0 100");
-                            break;
-                        }
-                        String nomeGerador = partes[1];
-                        String tipo = partes[2].toLowerCase();
-                        String nomeNovo = partes[3];
-                        Robo gerador = buscarRobo(ambiente, nomeGerador);
-                        
-                        if (gerador instanceof RoboGerador) {
-                            Robo novo = null;
-                            switch (tipo) {
-                                case "base":
-                                    novo = ((RoboGerador) gerador).gerarRobo(ambiente, nomeNovo);
-                                    break;
-                                case "terrestre":
-                                    if (partes.length >= 5) {
-                                        int vmaxT = Integer.parseInt(partes[4]);
-                                        novo = ((RoboGerador) gerador).gerarRoboTerrestre(ambiente, nomeNovo, vmaxT);
-                                    } else {
-                                        imprimir("Faltam parâmetros. Uso: gerarRobo <nomeGerador> terrestre <nomeNovo> <velocidadeMaxima>");
-                                        break;
-                                    }
-                                    break;
-                                case "aereo":
-                                    if (partes.length >= 6) {
-                                        int z = Integer.parseInt(partes[4]);
-                                        int zmax = Integer.parseInt(partes[5]);
-                                        novo = ((RoboGerador) gerador).gerarRoboAereo(ambiente, nomeNovo, z, zmax);
-                                    } else {
-                                        imprimir("Faltam parâmetros. Uso: gerarRobo <nomeGerador> aereo <nomeNovo> <alturaInicial> <alturaMaxima>");
-                                        break;
-                                    }
-                                    break;
-                                case "subterraneo":
-                                    if (partes.length >= 6) {
-                                        int z = Integer.parseInt(partes[4]);
-                                        int zmin = Integer.parseInt(partes[5]);
-                                        novo = ((RoboGerador) gerador).gerarRoboSubterraneo(ambiente, nomeNovo, z, zmin);
-                                    } else {
-                                        imprimir("Faltam parâmetros. Uso: gerarRobo <nomeGerador> subterraneo <nomeNovo> <profundidadeInicial> <profundidadeMinima>");
-                                        break;
-                                    }
-                                    break;
-                                case "laser":
-                                    if (partes.length >= 6) {
-                                        int vmax = Integer.parseInt(partes[4]);
-                                        int alcance = Integer.parseInt(partes[5]);
-                                        novo = ((RoboGerador) gerador).gerarRoboLaser(ambiente, nomeNovo, vmax, alcance);
-                                    } else {
-                                        imprimir("Faltam parâmetros. Uso: gerarRobo <nomeGerador> laser <nomeNovo> <velocidadeMaxima> <alcance>");
-                                        break;
-                                    }
-                                    break;
-                                case "corredor":
-                                    if (partes.length >= 6) {
-                                        int vmax = Integer.parseInt(partes[4]);
-                                        int vmin = Integer.parseInt(partes[5]);
-                                        novo = ((RoboGerador) gerador).gerarRoboCorredor(ambiente, nomeNovo, vmax, vmin);
-                                    } else {
-                                        imprimir("Faltam parâmetros. Uso: gerarRobo <nomeGerador> corredor <nomeNovo> <velocidadeMaxima> <velocidadeMinima>");
-                                        break;
-                                    }
-                                    break;
-                                default:
-                                    imprimir("Tipo de robô inválido. Use 'help' para ver os tipos disponíveis");
-                                    break;
-                            }
-                            if (novo != null) {
-                                imprimir("✔ Robô " + nomeNovo + " do tipo " + tipo + " gerado por " + nomeGerador + " em " + coordenadas(novo));
-                            }
-                        } else {
-                            imprimir("Robô " + nomeGerador + " não é um gerador ou não foi encontrado");
-                        }
-                        break;
-
-                    case "mover":
-                        if (partes.length < 2) {
-                            imprimir("Uso incorreto. Formato completo:");
-                            imprimir("Para robôs terrestres: mover <nome> <deltaX> <deltaY>");
-                            imprimir("Para robôs aéreos/subterrâneos: mover <nome> <deltaX> <deltaY> <deltaZ>");
-                            imprimir("Para robôs corredores: mover <nome> <distancia>");
-                            imprimir("Use 'listarRobos' para ver os tipos de cada robô");
-                            break;
-                        }
-                        String nomeMov = partes[1];
-                        Robo robMov = buscarRobo(ambiente, nomeMov);
-                        
-                        if (robMov != null) {
-                            boolean sucesso = false;
-                            if (robMov instanceof RoboSubterraneo && partes.length == 5) {
-                                sucesso = ((RoboSubterraneo) robMov).mover(
-                                    Integer.parseInt(partes[2]),
-                                    Integer.parseInt(partes[3]),
-                                    Integer.parseInt(partes[4]),
-                                    ambiente
-                                );
-                            } else if (robMov instanceof RoboAereo && partes.length == 5) {
-                                sucesso = ((RoboAereo) robMov).mover(
-                                    Integer.parseInt(partes[2]),
-                                    Integer.parseInt(partes[3]),
-                                    Integer.parseInt(partes[4]),
-                                    ambiente
-                                );
-                            } else if (robMov instanceof RoboCorredor && partes.length == 3) {
-                                sucesso = ((RoboCorredor) robMov).correr(
-                                    Integer.parseInt(partes[2]),
-                                    ambiente
-                                );
-                            } else if (robMov instanceof RoboTerrestre && partes.length == 4) {
-                                sucesso = ((RoboTerrestre) robMov).mover(
-                                    Integer.parseInt(partes[2]),
-                                    Integer.parseInt(partes[3]),
-                                    ambiente
-                                );
-                            } else if (partes.length == 4) {
-                                sucesso = robMov.mover(
-                                    Integer.parseInt(partes[2]),
-                                    Integer.parseInt(partes[3]),
-                                    ambiente
-                                );
-                            } else {
-                                imprimir("Parâmetros incorretos para este tipo de robô");
-                                imprimir("Use 'help' para ver o formato correto");
-                                break;
-                            }
-                            
-                            if (sucesso) {
-                                imprimir("✔ " + nomeMov + " movido para " + coordenadas(robMov));
-                            } else {
-                                imprimir("Falha ao mover " + nomeMov + ". Verifique obstáculos ou limites");
-                            }
-                        } else {
-                            imprimir("Robô '" + nomeMov + "' não encontrado");
-                        }
-                        break;
-
-                    case "listarsensores":
-                        if (partes.length < 2) {
-                            imprimir("Uso incorreto. Formato completo:");
-                            imprimir("listarSensores <nomeRobo>");
-                            imprimir("Exemplo: listarSensores Sasquatch");
-                            break;
-                        }
-                        
-                        String nomeRoboSensores = partes[1];
-                        Robo roboSensores = buscarRobo(ambiente, nomeRoboSensores);
-                        
-                        if (roboSensores != null) {
-                            imprimir("\n🔍 SENSORES DO ROBÔ " + nomeRoboSensores.toUpperCase());
-                            
-                            SensorIluminacao sensorIluminacao = roboSensores.getSensorIluminacao();
-                            SensorPressao sensorPressao = roboSensores.getSensorPressao();
-                            
-                            if (sensorIluminacao == null && sensorPressao == null) {
-                                imprimir("Este robô não possui sensores instalados");
-                                imprimir("Use 'adicionarSensor' para instalar novos sensores");
-                            } else {
-                                if (sensorIluminacao != null) {
-                                    imprimir("🟡 Sensor de Iluminação:");
-                                    imprimir("   • Raio de alcance: " + sensorIluminacao.getRaioDeAlcance());
-                                    imprimir("   • Bateria restante: " + sensorIluminacao.getBateria() + " usos");
-                                }
-                                if (sensorPressao != null) {
-                                    imprimir("🔵 Sensor de Pressão:");
-                                    imprimir("   • Raio de alcance: " + sensorPressao.getRaioDeAlcance());
-                                    imprimir("   • Bateria restante: " + sensorPressao.getBateria() + " usos");
-                                }
-                            }
-                        } else {
-                            imprimir("Robô '" + nomeRoboSensores + "' não encontrado");
-                        }
-                        break;
-
-                    case "exibirposicao":
-                        if (partes.length < 2) {
-                            imprimir("Uso incorreto. Formato completo:");
-                            imprimir("exibirPosicao <nomeRobo>");
-                            imprimir("Exemplo: exibirPosicao Rex");
-                            break;
-                        }
-                        Robo robPos = buscarRobo(ambiente, partes[1]);
-                        if (robPos != null) {
-                            imprimir(robPos.retornarNome() + " está na posição " + coordenadas(robPos));
-                        } else {
-                            imprimir("Robô não encontrado");
-                        }
-                        break;
-
-                    case "checarlimites":
-                        if (partes.length < 2) {
-                            imprimir("Uso incorreto. Formato completo:");
-                            imprimir("checarLimites <nomeRobo>");
-                            imprimir("Exemplo: checarLimites Unicornio");
-                            break;
-                        }
-                        Robo robLim = buscarRobo(ambiente, partes[1]);
-                        if (robLim != null) {
-                            int[] xy = robLim.exibirPosicao();
-                            boolean dentro;
-                            if (robLim instanceof RoboAereo) {
-                                int z = ((RoboAereo) robLim).exibirAltura();
-                                dentro = ambiente.dentroDosLimitesAereo(xy[0], xy[1], z);
-                            } else {
-                                dentro = ambiente.dentroDosLimites(xy[0], xy[1]);
-                            }
-                            imprimir("O robô " + robLim.retornarNome() + (dentro ? " está " : " não está ") + "dentro dos limites");
-                        } else {
-                            imprimir("Robô não encontrado");
-                        }
-                        break;
-
-                    case "listarrobos":
-                        if (ambiente != null) {
-                            imprimir("\n=== ROBÔS ATIVOS ===");
-                            for (Robo r : ambiente.retornarRobosAtivos()) {
-                                imprimir("- " + r.retornarNome() + " em " + coordenadas(r) + 
-                                       " (" + r.getClass().getSimpleName() + ")");
-                            }
-                        }
-                        break;
-
-                    case "listarobstaculos":
-                        if (ambiente != null) {
-                            imprimir("\n=== OBSTÁCULOS ===");
-                            for (Obstaculo o : ambiente.retornarObstaculos()) {
-                                imprimir("- " + o.getObstaculo() + " em (" + 
-                                       o.getPosicaoX() + ", " + o.getPosicaoY() + ")");
-                            }
-                        }
-                        break;
-
-                    case "destruirrobo":
-                        if (partes.length < 2) {
-                            imprimir("Uso incorreto. Formato completo:");
-                            imprimir("destruirRobo <nomeRobo>");
-                            imprimir("Exemplo: destruirRobo Alvo1");
-                            break;
-                        }
-                        Robo r = buscarRobo(ambiente, partes[1]);
-                        if (r != null) {
-                            ambiente.destruirRobo(r);
-                            imprimir("Robô " + partes[1] + " destruído com sucesso");
-                        } else {
-                            imprimir("Robô não encontrado");
-                        }
-                        break;
-
-                    case "mudardirecao":
-                        if (partes.length < 3) {
-                            imprimir("Uso incorreto. Formato completo:");
-                            imprimir("mudarDirecao <nomeRobo> <direcao>");
-                            imprimir("Direções válidas: Norte, Sul, Leste, Oeste");
-                            imprimir("Exemplo: mudarDirecao Rex Norte");
-                            break;
-                        }
-                        Robo robDir = buscarRobo(ambiente, partes[1]);
-                        if (robDir != null) {
-                            robDir.mudarDirecao(partes[2]);
-                            imprimir(robDir.retornarNome() + " agora está virado para " + partes[2]);
-                        } else {
-                            imprimir("Robô não encontrado");
-                        }
-                        break;
-
-                    case "dispararlaser":
-                        if (partes.length < 2) {
-                            imprimir("Uso incorreto. Formato completo:");
-                            imprimir("dispararLaser <nomeRobo>");
-                            imprimir("Exemplo: dispararLaser Komodo");
-                            break;
-                        }
-                        Robo robLas = buscarRobo(ambiente, partes[1]);
-                        if (robLas instanceof RoboLaser) {
-                            int destruidos = ((RoboLaser) robLas).dispararLaser(ambiente);
-                            imprimir("Laser disparado! " + destruidos + " robô(s) destruído(s)");
-                        } else {
-                            imprimir("Este robô não possui um laser para disparar");
-                        }
-                        break;
-
-                    case "removerobstaculo":
-                        if (partes.length < 3) {
-                            imprimir("Uso incorreto. Formato completo:");
-                            imprimir("removerObstaculo <x> <y>");
-                            imprimir("Exemplo: removerObstaculo 3 3");
-                            break;
-                        }
-                        int x = Integer.parseInt(partes[1]);
-                        int y = Integer.parseInt(partes[2]);
-                        Obstaculo alvo = null;
-                        for (Obstaculo o : ambiente.retornarObstaculos()) {
-                            if (o.getPosicaoX() == x && o.getPosicaoY() == y) {
-                                alvo = o;
-                                break;
-                            }
-                        }
-                        if (alvo != null) {
-                            ambiente.destruirObstaculo(alvo);
-                            imprimir("Obstáculo removido em (" + x + ", " + y + ")");
-                        } else {
-                            imprimir("Nenhum obstáculo encontrado na posição (" + x + ", " + y + ")");
-                        }
-                        break;
-
-                    case "monitorar":
-                        if (partes.length < 6) {
-                            imprimir("Uso incorreto. Formato completo:");
-                            imprimir("monitorar <tipo> <nomeRobo> <x> <y> <z>");
-                            imprimir("Tipos: iluminacao, pressao");
-                            imprimir("Exemplo: monitorar iluminacao Sasquatch 30 40 0");
-                            break;
-                        }
-                        String tipoMon = partes[1];
-                        String nomeMon = partes[2];
-                        int xMon = Integer.parseInt(partes[3]);
-                        int yMon = Integer.parseInt(partes[4]);
-                        int zMon = Integer.parseInt(partes[5]);
-                        Robo robMon = buscarRobo(ambiente, nomeMon);
-                        if (robMon != null) {
-                            monitorarSensor(tipoMon, robMon, xMon, yMon, zMon, ambiente);
-                        } else {
-                            imprimir("Robô não encontrado");
-                        }
-                        break;
-
-                    case "criarobstaculo":
-                        if (partes.length < 4) {
-                            imprimir("Uso incorreto. Formato completo:");
-                            imprimir("criarObstaculo <tipo> <x> <y>");
-                            imprimir("Tipos: PEDRA, ARVORE, BURACO, LAGO");
-                            imprimir("Exemplo: criarObstaculo PEDRA 100 100");
-                            break;
-                        }
-                        try {
-                            String tipoObs = partes[1].toUpperCase();
-                            int xObs = Integer.parseInt(partes[2]);
-                            int yObs = Integer.parseInt(partes[3]);
-                            
-                            Obstaculo novoObs = ambiente.criarObstaculo(TipoObstaculo.valueOf(tipoObs), xObs, yObs);
-                            if (novoObs != null) {
-                                imprimir("✔ Obstáculo " + tipoObs + " criado em (" + xObs + ", " + yObs + ")");
-                            } else {
-                                imprimir("Falha ao criar obstáculo: posição ocupada ou inválida");
-                            }
-                        } catch (IllegalArgumentException e) {
-                            imprimir("Tipo de obstáculo inválido. Tipos disponíveis: PEDRA, ARVORE, BURACO, LAGO");
-                        }
-                        break;
-
-                    case "testesexemplos":
-                        imprimir("\n=== EXEMPLOS PRÁTICOS ===");
-                        imprimir("1. Movimentar o robô Rex 5 unidades para norte:");
-                        imprimir("   mover Rex 0 5");
-                        
-                        imprimir("\n2. Criar um novo robô aéreo chamado 'Fenix':");
-                        imprimir("   gerarRobo JeffRosen aereo Fenix 0 50");
-                        
-                        imprimir("\n3. Adicionar sensor de pressão ao Unicornio:");
-                        imprimir("   adicionarSensor Unicornio pressao 75 80");
-                        
-                        imprimir("\n4. Verificar posição do robô:");
-                        imprimir("   exibirPosicao Mouse");
-                        
-                        imprimir("\n5. Monitorar iluminação em uma posição:");
-                        imprimir("   monitorar iluminacao Sasquatch 30 40 0");
-                        
-                        imprimir("\n6. Criar uma nova árvore como obstáculo:");
-                        imprimir("   criarObstaculo ARVORE 30 40");
-                        
-                        imprimir("\n7. Listar sensores de um robô:");
-                        imprimir("   listarSensores Sasquatch");
-                        break;
-
-                    case "help":
-                        imprimir("\n🌟 COMANDOS - SIMULADOR DE ROBÔS 🌟");
-                        
-                        imprimir("\n📋 INFORMAÇÕES BÁSICAS");
-                        imprimir("- listarRobos - Mostra todos os robôs existentes");
-                        imprimir("   • Exibe nome, posição e tipo de cada robô");
-                        imprimir("- listarObstaculos - Lista todos os obstáculos do ambiente");
-                        imprimir("   • Mostra tipo e posição de cada obstáculo");
-                        imprimir("- listarSensores <nomeRobo> - Lista os sensores do robô especificado");
-                        imprimir("   • Mostra tipo, raio de alcance e bateria dos sensores");
-                        imprimir("- exibirPosicao <nomeRobo> - Mostra coordenadas exatas do robô");
-                        imprimir("   • Para robôs aéreos/subterrâneos, mostra também altura/profundidade");
-                        imprimir("- checarLimites <nomeRobo> - Verifica se o robô está dentro dos limites do ambiente");
-
-                        imprimir("\n🚀 MOVIMENTAÇÃO");
-                        imprimir("- mover <nomeRobo> <parametros> - Move o robô conforme seu tipo:");
-                        imprimir("   • Robôs terrestres básicos: mover <nome> <deltaX> <deltaY>");
-                        imprimir("     Exemplo: mover Rex 5 3 (move 5 para leste e 3 para norte)");
-                        imprimir("   • Robôs aéreos/subterrâneos: mover <nome> <deltaX> <deltaY> <deltaZ>");
-                        imprimir("     Exemplo: mover Unicornio 2 0 5 (move 2 leste e sobe 5 unidades)");
-                        imprimir("   • Robôs corredores: mover <nome> <distancia>");
-                        imprimir("     Exemplo: mover Mouse 10 (corre 10 unidades na direção atual)");
-                        imprimir("- mudarDirecao <nomeRobo> <direcao> - Altera a orientação do robô");
-                        imprimir("   • Direções válidas: Norte, Sul, Leste, Oeste");
-
-                        imprimir("\n🛠️  CRIAÇÃO E PERSONALIZAÇÃO");
-                        imprimir("- gerarRobo <nomeGerador> <tipo> <nomeNovo> [params] - Cria novo robô:");
-                        imprimir("*nomeGerador = robô que gera novos robôs (exemplo: JeffRosen)");
-                        imprimir("   • Tipos disponíveis e parâmetros extras necessários:");
-                        imprimir("     - base: nenhum parâmetro extra");
-                        imprimir("     - terrestre: <velocidadeMaxima>");
-                        imprimir("     - aereo: <alturaInicial> <alturaMaxima>");
-                        imprimir("     - subterraneo: <profundidadeInicial> <profundidadeMinima>");
-                        imprimir("     - laser: <velocidadeMaxima> <alcanceLaser>");
-                        imprimir("     - corredor: <velocidadeMaxima> <velocidadeMinima>");
-                        imprimir("- criarObstaculo <tipo> <x> <y> - Adiciona novo obstáculo:");
-                        imprimir("   • Tipos: PEDRA (3x3), ARVORE (1x1, altura 10), BURACO (5x5), LAGO (21x21)");
-                        imprimir("- adicionarSensor <nomeRobo> <tipo> <raio> <bateria> - Instala sensor:");
-                        imprimir("   • Tipos: iluminacao (detecta sombras), pressao (mede pressão atmosférica)");
-
-                        imprimir("\n📡 SENSORES E AÇÕES ESPECIAIS");
-                        imprimir("- monitorar <tipo> <nomeRobo> <x> <y> <z> - Usa sensor do robô:");
-                        imprimir("    • Exemplo: monitorar iluminacao Sasquatch 30 40 0");
-                        imprimir("    • Retorna: 'Iluminado' ou 'Sombra' (para sensor de iluminação)");
-                        imprimir("- dispararLaser <nomeRobo> - Aciona laser (apenas robôs laser)");
-                        imprimir("    • Destrói todos robôs no caminho na direção atual");
-
-                        imprimir("\n🗑️  GERENCIAMENTO");
-                        imprimir("- destruirRobo <nomeRobo> - Remove robô do ambiente");
-                        imprimir("- removerObstaculo <x> <y> - Elimina obstáculo na posição especificada");
-
-                        imprimir("\n❓ AJUDA E EXEMPLOS");
-                        imprimir("- testesExemplos - Mostra exemplos práticos de comandos");
-                        imprimir("- help - Exibe esta mensagem de ajuda");
-                        imprimir("- sair - Encerra o simulador");
-
-                        imprimir("\n💡 DICAS:");
-                        imprimir("- Digite qualquer comando sem parâmetros para ver ajuda específica");
-                        imprimir("- Sensores consomem bateria a cada uso");
-
-                        imprimir("\n⚙️  CONFIGURAÇÃO INICIAL PRÉ-DEFINIDA:");
-                        imprimir("- 7 robôs criados automaticamente (digite 'listarRobos' para ver)");
-                        imprimir("- 4 obstáculos posicionados (digite 'listarObstaculos' para ver)");
-                        imprimir("- 3 robôs com sensores pré-instalados");
-                        break;
-
-                    default:
-                        imprimir("Comando desconhecido: '" + comando + "'");
-                        imprimir("Digite 'help' para ver a lista de comandos disponíveis");
+            switch (opcao) {
+                case 1 -> listarTodosRobos();
+                case 2 -> listarRobosPorTipo();
+                case 3 -> listarRobosPorEstado();
+                case 4 -> selecionarRobo();
+                case 5 -> visualizarMapaAmbiente();
+                case 6 -> exibirMensagensComunicacao();
+                case 0 -> {
+                    System.out.println("Encerrando o sistema...");
+                    System.exit(0);
                 }
-            // checa por exceções
-            } catch (NumberFormatException e) {
-                imprimir("Erro: Parâmetro numérico inválido");
-                imprimir("Digite o comando sem parâmetros para ver a ajuda específica");
-            } catch (Exception e) {
-                imprimir("Erro ao executar comando: " + e.getMessage());
-                imprimir("Digite 'help' para ver a lista de comandos disponíveis");
+                default -> System.out.println("Opção inválida!");
             }
         }
-        imprimir("Simulação encerrada. Até logo!");
     }
 
-    private static void monitorarSensor(String tipo, Robo robo, int x, int y, int z, Ambiente ambiente) {
-        // Usa sensor do robô
-        if (tipo.equalsIgnoreCase("iluminacao")) {
-            imprimir(robo.usarSensorIluminacao(x, y, z, ambiente));
-        } else if (tipo.equalsIgnoreCase("pressao")) {
-            imprimir(robo.usarSensorPressao(x, y, z, ambiente));
-        } else {
-            imprimir("Tipo de sensor desconhecido. Use 'iluminacao' ou 'pressao'");
+    private static void listarTodosRobos() {
+        System.out.println("\n=== LISTA DE TODOS OS ROBÔS ===");
+        List<Robo> robos = ambiente.retornarRobosAtivos();
+        if (robos.isEmpty()) {
+            System.out.println("Nenhum robô cadastrado.");
+            return;
         }
+        for (int i = 0; i < robos.size(); i++) {
+            Robo robo = robos.get(i);
+            System.out.printf("%d. [%s] %s - Posição: (%d, %d) - Estado: %s%n",
+                    i + 1,
+                    robo.getRepresentacao(),
+                    robo.retornarNome(),
+                    robo.getX(),
+                    robo.getY(),
+                    robo.getEstado() ? "Ligado" : "Desligado");
+        }
+    }
+
+    private static void listarRobosPorTipo() {
+        System.out.println("\n=== LISTAR ROBÔS POR TIPO ===");
+        System.out.println("1. Robôs Terrestres");
+        System.out.println("2. Robôs Aéreos");
+        System.out.println("3. Robôs Subterrâneos");
+        System.out.println("4. Robôs Geradores");
+        System.out.println("5. Robôs com Laser");
+        System.out.println("6. Robôs Corredores");
+        System.out.print("Escolha um tipo: ");
+        
+        int tipo = scanner.nextInt();
+        scanner.nextLine();
+        
+        List<Robo> robos = ambiente.retornarRobosAtivos();
+        List<Robo> filtrados = new ArrayList<>();
+        String tipoNome = "";
+        
+        switch (tipo) {
+            case 1:
+                filtrados = robos.stream().filter(r -> r instanceof RoboTerrestre).toList();
+                tipoNome = "Robôs Terrestres";
+                break;
+            case 2:
+                filtrados = robos.stream().filter(r -> r instanceof RoboAereo).toList();
+                tipoNome = "Robôs Aéreos";
+                break;
+            case 3:
+                filtrados = robos.stream().filter(r -> r instanceof RoboSubterraneo).toList();
+                tipoNome = "Robôs Subterrâneos";
+                break;
+            case 4:
+                filtrados = robos.stream().filter(r -> r instanceof RoboGerador).toList();
+                tipoNome = "Robôs Geradores";
+                break;
+            case 5:
+                filtrados = robos.stream().filter(r -> r instanceof RoboLaser).toList();
+                tipoNome = "Robôs com Laser";
+                break;
+            case 6:
+                filtrados = robos.stream().filter(r -> r instanceof RoboCorredor).toList();
+                tipoNome = "Robôs Corredores";
+                break;
+            default:
+                System.out.println("Tipo inválido!");
+                return;
+        }
+        
+        System.out.println("\n=== " + tipoNome + " ===");
+        if (filtrados.isEmpty()) {
+            System.out.println("Nenhum robô deste tipo encontrado.");
+            return;
+        }
+        filtrados.forEach(r -> System.out.printf("- [%s] %s - Posição: (%d, %d)%n",
+                r.getRepresentacao(), r.retornarNome(), r.getX(), r.getY()));
+    }
+
+    private static void listarRobosPorEstado() {
+        System.out.println("\n=== LISTAR ROBÔS POR ESTADO ===");
+        System.out.println("1. Ligados");
+        System.out.println("2. Desligados");
+        System.out.print("Escolha um estado: ");
+        
+        int estadoOp = scanner.nextInt();
+        scanner.nextLine();
+        
+        boolean estado;
+        String estadoNome;
+        if (estadoOp == 1) {
+            estado = true;
+            estadoNome = "Ligados";
+        } else if (estadoOp == 2) {
+            estado = false;
+            estadoNome = "Desligados";
+        } else {
+            System.out.println("Opção inválida!");
+            return;
+        }
+        
+        List<Robo> robos = ambiente.retornarRobosAtivos();
+        List<Robo> filtrados = robos.stream()
+                .filter(r -> r.getEstado() == estado)
+                .toList();
+        
+        System.out.println("\n=== ROBÔS " + estadoNome.toUpperCase() + " ===");
+        if (filtrados.isEmpty()) {
+            System.out.println("Nenhum robô neste estado encontrado.");
+            return;
+        }
+        filtrados.forEach(r -> System.out.printf("- [%s] %s - Posição: (%d, %d)%n",
+                r.getRepresentacao(), r.retornarNome(), r.getX(), r.getY()));
+    }
+
+    private static void selecionarRobo() {
+        System.out.print("\nDigite o nome do robô: ");
+        String nome = scanner.nextLine();
+        
+        Optional<Robo> roboOpt = ambiente.retornarRobosAtivos().stream()
+                .filter(r -> r.retornarNome().equalsIgnoreCase(nome))
+                .findFirst();
+        
+        if (roboOpt.isPresent()) {
+            roboSelecionado = roboOpt.get();
+            System.out.println("Robô selecionado: " + roboSelecionado.retornarNome());
+            exibirMenuRobo();
+        } else {
+            System.out.println("Robô não encontrado!");
+        }
+    }
+
+    private static void exibirMenuRobo() {
+        while (roboSelecionado != null) {
+            System.out.println("\n=== MENU DO ROBÔ " + roboSelecionado.retornarNome().toUpperCase() + " ===");
+            System.out.println("1. Visualizar status");
+            System.out.println("2. Executar tarefa principal");
+            System.out.println("3. Controlar movimento");
+            System.out.println("4. Comunicar com outro robô");
+            System.out.println("5. Acionar sensores");
+            System.out.println("6. Ligar/Desligar");
+            System.out.println("7. Voltar ao menu principal");
+            System.out.print("Escolha uma opção: ");
+            
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch (opcao) {
+                case 1 -> visualizarStatusRobo();
+                case 2 -> executarTarefaPrincipal();
+                case 3 -> controlarMovimento();
+                case 4 -> iniciarComunicacao();
+                case 5 -> acionarSensores();
+                case 6 -> alternarEstadoRobo();
+                case 7 -> {
+                    roboSelecionado = null;
+                    return;
+                }
+                default -> System.out.println("Opção inválida!");
+            }
+        }
+    }
+
+    private static void visualizarStatusRobo() {
+        System.out.println("\n=== STATUS DO ROBÔ ===");
+        System.out.println("Nome: " + roboSelecionado.retornarNome());
+        System.out.println("Tipo: " + roboSelecionado.getClass().getSimpleName());
+        System.out.println("Estado: " + (roboSelecionado.getEstado() ? "Ligado" : "Desligado"));
+        System.out.printf("Posição: (%d, %d)%n", roboSelecionado.getX(), roboSelecionado.getY());
+        System.out.println("Direção: " + roboSelecionado.retornarDirecao());
+        
+        // Informações específicas
+        if (roboSelecionado instanceof RoboAereo) {
+            RoboAereo aereo = (RoboAereo) roboSelecionado;
+            System.out.println("Altitude: " + aereo.exibirAltura());
+            System.out.println("Altitude máxima: " + aereo.retornarAltitudeMaxima());
+        } else if (roboSelecionado instanceof RoboSubterraneo) {
+            RoboSubterraneo sub = (RoboSubterraneo) roboSelecionado;
+            System.out.println("Profundidade: " + sub.exibirAltura());
+            System.out.println("Profundidade máxima: " + sub.retornarAltitudeMinima());
+        } else if (roboSelecionado instanceof RoboTerrestre) {
+            RoboTerrestre terrestre = (RoboTerrestre) roboSelecionado;
+            System.out.println("Velocidade máxima: " + terrestre.retornarVelocidadeMaxima());
+        } else if (roboSelecionado instanceof RoboLaser) {
+            RoboLaser laser = (RoboLaser) roboSelecionado;
+            System.out.println("Alcance do laser: " + laser.retornarAlcanceLaser());
+        } else if (roboSelecionado instanceof RoboCorredor) {
+            RoboCorredor corredor = (RoboCorredor) roboSelecionado;
+            System.out.println("Velocidade mínima: " + corredor.retornarVelocidadeMinima());
+            System.out.println("Velocidade máxima: " + corredor.retornarVelocidadeMaxima());
+        } else if (roboSelecionado instanceof RoboGerador) {
+            RoboGerador gerador = (RoboGerador) roboSelecionado;
+            System.out.println("Número de filhos gerados: " + gerador.retornarFilhos());
+        }
+        
+        // Sensores
+        System.out.println("\nSensores:");
+        if (roboSelecionado.getSensorIluminacao() != null) {
+            System.out.println("- Sensor de Iluminação: raio=" + roboSelecionado.getSensorIluminacao().getRaioDeAlcance() +
+                    ", bateria=" + roboSelecionado.getSensorIluminacao().getBateria());
+        }
+        if (roboSelecionado.getSensorPressao() != null) {
+            System.out.println("- Sensor de Pressão: raio=" + roboSelecionado.getSensorPressao().getRaioDeAlcance() +
+                    ", bateria=" + roboSelecionado.getSensorPressao().getBateria());
+        }
+        if (roboSelecionado.getSensorIluminacao() == null && roboSelecionado.getSensorPressao() == null) {
+            System.out.println("Nenhum sensor instalado.");
+        }
+        
+        // Status do ambiente
+        System.out.println("\n=== STATUS DO AMBIENTE ===");
+        System.out.println("Horário: " + ambiente.retornarHorario());
+        System.out.println("Dimensões: " + ambiente.getComprimento() + "x" + ambiente.getLargura() + "x" + ambiente.getAltura());
+        System.out.println("Total de robôs: " + ambiente.retornarRobosAtivos().size());
+        System.out.println("Total de obstáculos: " + ambiente.retornarObstaculos().size());
+    }
+
+    private static void executarTarefaPrincipal() {
+        if (roboSelecionado instanceof RoboGerador) {
+            System.out.println("Robô gerador: use a opção 'Gerar robô' no menu principal");
+        } else if (roboSelecionado instanceof RoboLaser) {
+            try {
+                int destruidos = ((RoboLaser) roboSelecionado).dispararLaser(ambiente);
+                System.out.println("Laser disparado! " + destruidos + " robô(s) destruído(s)");
+            } catch (RoboDesligadoException | ColisaoException | ForaDosLimitesException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
+        } else if (roboSelecionado instanceof RoboCorredor) {
+            System.out.print("Digite a distância para correr: ");
+            int distancia = scanner.nextInt();
+            scanner.nextLine();
+            
+            try {
+                boolean sucesso = ((RoboCorredor) roboSelecionado).correr(distancia, ambiente);
+                if (sucesso) {
+                    System.out.println("Corrida realizada com sucesso!");
+                    System.out.println("Nova posição: (" + roboSelecionado.getX() + ", " + roboSelecionado.getY() + ")");
+                } else {
+                    System.out.println("Falha ao correr. Verifique obstáculos ou direção");
+                }
+            } catch (Exception e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Este robô não possui uma tarefa principal específica");
+        }
+    }
+
+    private static void controlarMovimento() {
+        System.out.println("\n=== CONTROLE DE MOVIMENTO ===");
+        System.out.println("1. Frente");
+        System.out.println("2. Trás");
+        System.out.println("3. Direita");
+        System.out.println("4. Esquerda");
+        System.out.println("5. Subir (aéreos/subterrâneos)");
+        System.out.println("6. Descer (aéreos/subterrâneos)");
+        System.out.print("Escolha uma direção: ");
+        
+        int direcao = scanner.nextInt();
+        scanner.nextLine();
+        
+        System.out.print("Distância (passos): ");
+        int passos = scanner.nextInt();
+        scanner.nextLine();
+        
+        int dx = 0, dy = 0, dz = 0;
+        
+        switch (direcao) {
+            case 1 -> dy = passos;   // Frente (norte)
+            case 2 -> dy = -passos;  // Trás (sul)
+            case 3 -> dx = passos;   // Direita (leste)
+            case 4 -> dx = -passos;  // Esquerda (oeste)
+            case 5 -> dz = passos;   // Subir
+            case 6 -> dz = -passos;  // Descer
+            default -> {
+                System.out.println("Direção inválida!");
+                return;
+            }
+        }
+        
+        try {
+            if (roboSelecionado instanceof RoboAereo) {
+                ((RoboAereo) roboSelecionado).mover(dx, dy, dz, ambiente);
+            } else if (roboSelecionado instanceof RoboSubterraneo) {
+                ((RoboSubterraneo) roboSelecionado).mover(dx, dy, dz, ambiente);
+            } else {
+                roboSelecionado.mover(dx, dy, ambiente);
+            }
+            System.out.println("Movimento realizado com sucesso!");
+            System.out.println("Nova posição: (" + roboSelecionado.getX() + ", " + roboSelecionado.getY() + ")");
+        } catch (RoboDesligadoException | ColisaoException | ForaDosLimitesException e) {
+            System.out.println("Erro ao mover: " + e.getMessage());
+        }
+    }
+
+    private static void iniciarComunicacao() {
+        if (!(roboSelecionado instanceof Comunicavel)) {
+            System.out.println("Este robô não pode se comunicar!");
+            return;
+        }
+        Comunicavel comunicador = (Comunicavel) roboSelecionado;
+        
+        System.out.print("Digite o nome do robô destinatário: ");
+        String nomeDest = scanner.nextLine();
+        
+        Optional<Robo> destOpt = ambiente.retornarRobosAtivos().stream()
+                .filter(r -> r.retornarNome().equalsIgnoreCase(nomeDest) && r instanceof Comunicavel)
+                .findFirst();
+        
+        if (destOpt.isEmpty()) {
+            System.out.println("Destinatário não encontrado ou não é comunicável!");
+            return;
+        }
+        Comunicavel destino = (Comunicavel) destOpt.get();
+        
+        System.out.print("Digite a mensagem: ");
+        String mensagem = scanner.nextLine();
+        
+        try {
+            comunicador.enviarMensagem(destino, mensagem);
+            System.out.println("Mensagem enviada com sucesso!");
+        } catch (RoboDesligadoException | ErroComunicacaoException e) {
+            System.out.println("Erro na comunicação: " + e.getMessage());
+        }
+    }
+
+    private static void acionarSensores() {
+        if (!(roboSelecionado instanceof Sensoreavel)) {
+            System.out.println("Este robô não possui sensores!");
+            return;
+        }
+        
+        System.out.print("Digite a coordenada X para monitorar: ");
+        int x = scanner.nextInt();
+        System.out.print("Digite a coordenada Y para monitorar: ");
+        int y = scanner.nextInt();
+        System.out.print("Digite a coordenada Z para monitorar: ");
+        int z = scanner.nextInt();
+        scanner.nextLine();
+        
+        try {
+            if (roboSelecionado.getSensorIluminacao() != null) {
+                String resultado = roboSelecionado.usarSensorIluminacao(x, y, z, ambiente);
+                System.out.println("Resultado do sensor de iluminação: " + resultado);
+            }
+            if (roboSelecionado.getSensorPressao() != null) {
+                String resultado = roboSelecionado.usarSensorPressao(x, y, z, ambiente);
+                System.out.println("Resultado do sensor de pressão: " + resultado);
+            }
+        } catch (RoboDesligadoException | BateriaSensorException e) {
+            System.out.println("Erro ao acionar sensores: " + e.getMessage());
+        }
+    }
+
+    private static void alternarEstadoRobo() {
+        if (roboSelecionado.getEstado()) {
+            roboSelecionado.desligar();
+            System.out.println("Robô desligado!");
+        } else {
+            roboSelecionado.ligar();
+            System.out.println("Robô ligado!");
+        }
+    }
+
+    private static void visualizarMapaAmbiente() {
+    System.out.println("\n=== MAPA DO AMBIENTE (VISTA SUPERIOR) ===");
+    char[][] mapa = ambiente.visualizarAmbiente();
+    
+    // Dimensões do mapa
+    int largura = ambiente.getLargura();
+    int comprimento = ambiente.getComprimento();
+    
+    // Imprimir coordenadas X (horizontal)
+    System.out.print("     ");
+    for (int x = 0; x < comprimento; x++) {
+        System.out.printf("%2d ", x);
+    }
+    System.out.println();
+    
+    // Imprimir linha separadora superior
+    System.out.print("   +");
+    for (int x = 0; x < comprimento; x++) {
+        System.out.print("---");
+    }
+    System.out.println("+");
+    
+    // Imprimir mapa
+    for (int y = 0; y < largura; y++) {
+        System.out.printf("%2d | ", y);
+        for (int x = 0; x < comprimento; x++) {
+            System.out.print(mapa[x][y] + "  ");
+        }
+        System.out.println("|");
     }
     
-    private static String ler(Scanner scanner) {
-        // Lê uma linha do console
-        return scanner.nextLine();
+    // Imprimir linha separadora inferior
+    System.out.print("   +");
+    for (int x = 0; x < comprimento; x++) {
+        System.out.print("---");
     }
+    System.out.println("+");
+    
+    // Legenda
+    System.out.println("\nLEGENDA:");
+    System.out.println("  .  - Espaço vazio");
+    System.out.println("  T  - Robô Terrestre");
+    System.out.println("  A  - Robô Aéreo");
+    System.out.println("  S  - Robô Subterrâneo");
+    System.out.println("  G  - Robô Gerador");
+    System.out.println("  L  - Robô Laser");
+    System.out.println("  C  - Robô Corredor");
+    System.out.println("  P  - Pedra");
+    System.out.println("  V  - Árvore");
+    System.out.println("  B  - Buraco");
+    System.out.println("  ~  - Lago");
+}
 
-    private static void imprimir(String str) {
-        // Imprime uma mensagem no console
-        System.out.println(str);
-    }
-
-    private static Robo buscarRobo(Ambiente ambiente, String nome) {
-        // Busca um robô pelo nome no ambiente
-        for (Robo r : ambiente.retornarRobosAtivos()) {
-            if (r.retornarNome().equalsIgnoreCase(nome)) {
-                return r;
-            }
+    private static void exibirMensagensComunicacao() {
+        System.out.println("\n=== MENSAGENS DE COMUNICAÇÃO ===");
+        List<String> mensagens = CentralComunicacao.getMensagens();
+        
+        if (mensagens.isEmpty()) {
+            System.out.println("Nenhuma mensagem registrada.");
+            return;
         }
-        return null;
-    }
-
-    private static String coordenadas(Robo r) {
-        // Retorna as coordenadas do robô em formato de string
-        if (r instanceof RoboAereo) {
-            int[] xy = r.exibirPosicao();
-            int z = ((RoboAereo) r).exibirAltura();
-            return String.format("(%d, %d, %d)", xy[0], xy[1], z);
-        } else {
-            int[] xy = r.exibirPosicao();
-            return String.format("(%d, %d)", xy[0], xy[1]);
+        
+        for (int i = 0; i < mensagens.size(); i++) {
+            System.out.printf("%d. %s%n", i + 1, mensagens.get(i));
         }
     }
+
 }

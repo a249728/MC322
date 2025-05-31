@@ -1,3 +1,3 @@
 public interface Corredor {
-    boolean correr(int delta, Ambiente amb) throws RoboDesligadoException, ColisaoException, VelocidadeMinimaException;
+    boolean correr(int delta, Ambiente amb) throws RoboDesligadoException, ColisaoException, VelocidadeMinimaException, ForaDosLimitesException;
 }

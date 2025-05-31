@@ -17,12 +17,12 @@ public class RoboTerrestre extends Robo {
         this.velocidadeMaxima = vmax;
     }
 
-    public boolean mover(int deltaX, int deltaY, Ambiente amb) throws RoboDesligadoException, ColisaoException {
+    public boolean mover(int deltaX, int deltaY, Ambiente amb) throws RoboDesligadoException, ColisaoException, ForaDosLimitesException {
         // Sobrescreve o mover de Robo e checa se o movimento nao ultrapassa a velocidade maxima e retorna true ou false dependendo se o movimento foi bem sucedido ou nao
         // Os robos fazem 1 acao por unidade de tempo, assim, a velocidade em bloco por unidade de tempo tem que ser maior que a distancia
         if (Math.abs(deltaX) + Math.abs(deltaY) <= this.velocidadeMaxima) {
             if (super.mover(deltaX, deltaY, amb)) {
-                amb.moverRoboMapa(this, deltaX, deltaY, 0);
+                amb.moverRoboMapa(this, deltaX, deltaY, 0); 
                 return true;
             }
             return false;

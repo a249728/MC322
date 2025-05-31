@@ -47,7 +47,13 @@ public class Obstaculo implements Entidade {
     @Override
     public char getRepresentacao() {
         // Retorna o caractere que representa a entidade visualmente
-        return 'O';
+        switch (this.obstaculo) {
+            case PEDRA: return 'P';
+            case ARVORE: return 'V';
+            case BURACO: return 'B';
+            case LAGO: return '~';
+            default: return '?';
+        }
     }
 }
 

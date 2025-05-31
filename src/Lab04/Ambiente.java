@@ -123,6 +123,21 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
         return null;
     }
 
+    public int getComprimento() {
+        // Retorna o comprimento do ambiente
+        return this.comprimento;
+    }
+
+    public int getLargura() {
+        // Retorna a largura do ambiente
+        return this.largura;
+    }
+
+    public int getAltura() {
+        // Retorna a altura do ambiente
+        return this.altura;
+    }
+
     public ArrayList<Robo> retornarRobosAtivos() {
         // Retorna o ArrayList de Robos ativos
         return this.robosAtivos;
@@ -184,17 +199,16 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
         char[][] mapaXY = new char[comprimento][largura];
         for(int x=0; x<comprimento; x++){
             for(int y=0; y<largura; y++){
+                mapaXY[x][y]='.';
                 for(int z=altura-1; z>=0; z--){
                     if(mapa[x][y][z]!=TipoEntidade.VAZIO){
-                        if(mapa[x][y][y]==TipoEntidade.OBSTACULO){
+                        if(mapa[x][y][z]==TipoEntidade.OBSTACULO){
                             mapaXY[x][y]=acharObstaculo(x, y, z).getRepresentacao();
                         }
-                        else if(mapa[x][y][y]==TipoEntidade.ROBO){
+                        else if(mapa[x][y][z]==TipoEntidade.ROBO){
                             mapaXY[x][y]=acharRobo(x, y, z).getRepresentacao();
                         }
-                        else{
-                            mapaXY[x][y]='V';
-                        }
+                        break;
                     }
                 }
             }

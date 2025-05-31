@@ -18,7 +18,7 @@ public class RoboLaser extends RoboTerrestre implements Laser{
         this.alcanceLaser = alc;
     }
 
-    public int dispararLaser(Ambiente amb) throws RoboDesligadoException, ColisaoException {
+    public int dispararLaser(Ambiente amb) throws RoboDesligadoException, ColisaoException, ForaDosLimitesException {
         if (!this.getEstado()){
             throw new RoboDesligadoException("O robo nao pode disparar o laser pois estava desligado");
         }

@@ -18,7 +18,7 @@ public abstract class Robo implements Entidade, Sensoreavel {
         this.sensorPressao = null; // Inicializa como null
     }
 
-    public boolean mover(int deltaX, int deltaY, Ambiente amb) throws RoboDesligadoException, ColisaoException {
+    public boolean mover(int deltaX, int deltaY, Ambiente amb) throws RoboDesligadoException, ColisaoException, ForaDosLimitesException {
         if (!this.estado) {
             throw new RoboDesligadoException("O robo nao pode se mover pois estava desligado"); // Se o robô estiver desligado, não pode se mover
         }

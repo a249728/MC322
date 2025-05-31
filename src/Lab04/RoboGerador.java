@@ -7,7 +7,7 @@ public class RoboGerador extends RoboAereo implements Gerador, Comunicavel {
         this.filhos=0;
     }
 
-    public RoboTerrestre gerarRoboTerrestre(Ambiente amb, String n, int vmax) throws RoboDesligadoException {
+    public RoboTerrestre gerarRoboTerrestre(Ambiente amb, String n, int vmax) throws RoboDesligadoException, ForaDosLimitesException {
         if (!this.getEstado()) throw new RoboDesligadoException("Robo desligado: não é possível gerar RoboTerrestre.");
         this.filhos++;
         RoboTerrestre robo = new RoboTerrestre(n, exibirPosicao()[0], exibirPosicao()[1], this.retornarDirecao(), vmax);
@@ -15,7 +15,7 @@ public class RoboGerador extends RoboAereo implements Gerador, Comunicavel {
         return robo;
     }
 
-    public RoboAereo gerarRoboAereo(Ambiente amb, String n, int z, int zmax) throws RoboDesligadoException {
+    public RoboAereo gerarRoboAereo(Ambiente amb, String n, int z, int zmax) throws RoboDesligadoException, ForaDosLimitesException {
         if (!this.getEstado()) throw new RoboDesligadoException("Robo desligado: não é possível gerar RoboAereo.");
         this.filhos++;
         RoboAereo robo = new RoboAereo(n, exibirPosicao()[0], exibirPosicao()[1], this.retornarDirecao(), z, zmax);
@@ -23,7 +23,7 @@ public class RoboGerador extends RoboAereo implements Gerador, Comunicavel {
         return robo;
     }
 
-    public RoboLaser gerarRoboLaser(Ambiente amb, String n, int vmax, int alc) throws RoboDesligadoException {
+    public RoboLaser gerarRoboLaser(Ambiente amb, String n, int vmax, int alc) throws RoboDesligadoException, ForaDosLimitesException {
         if (!this.getEstado()) throw new RoboDesligadoException("Robo desligado: não é possível gerar RoboLaser.");
         this.filhos++;
         RoboLaser robo = new RoboLaser(n, exibirPosicao()[0], exibirPosicao()[1], this.retornarDirecao(), vmax, alc);
@@ -31,7 +31,7 @@ public class RoboGerador extends RoboAereo implements Gerador, Comunicavel {
         return robo;
     }
 
-    public RoboSubterraneo gerarRoboSubterraneo(Ambiente amb, String n, int z, int zmin) throws RoboDesligadoException {
+    public RoboSubterraneo gerarRoboSubterraneo(Ambiente amb, String n, int z, int zmin) throws RoboDesligadoException, ForaDosLimitesException {
         if (!this.getEstado()) throw new RoboDesligadoException("Robo desligado: não é possível gerar RoboSubterraneo.");
         this.filhos++;
         RoboSubterraneo robo = new RoboSubterraneo(n, exibirPosicao()[0], exibirPosicao()[1], this.retornarDirecao(), z, zmin);
@@ -39,7 +39,7 @@ public class RoboGerador extends RoboAereo implements Gerador, Comunicavel {
         return robo;
     }
 
-    public RoboGerador gerarRoboGerador(Ambiente amb, String n, int z, int zmax) throws RoboDesligadoException {
+    public RoboGerador gerarRoboGerador(Ambiente amb, String n, int z, int zmax) throws RoboDesligadoException, ForaDosLimitesException {
         if (!this.getEstado()) throw new RoboDesligadoException("Robo desligado: não é possível gerar RoboGerador.");
         this.filhos++;
         RoboGerador robo = new RoboGerador(n, exibirPosicao()[0], exibirPosicao()[1], this.retornarDirecao(), z, zmax);
@@ -47,7 +47,7 @@ public class RoboGerador extends RoboAereo implements Gerador, Comunicavel {
         return robo;
     }
 
-    public RoboCorredor gerarRoboCorredor(Ambiente amb, String n, int vmax, int vmin) throws RoboDesligadoException {
+    public RoboCorredor gerarRoboCorredor(Ambiente amb, String n, int vmax, int vmin) throws RoboDesligadoException, ForaDosLimitesException {
         if (!this.getEstado()) throw new RoboDesligadoException("Robo desligado: não é possível gerar RoboCorredor.");
         this.filhos++;
         RoboCorredor robo = new RoboCorredor(n, exibirPosicao()[0], exibirPosicao()[1], this.retornarDirecao(), vmax, vmin);
