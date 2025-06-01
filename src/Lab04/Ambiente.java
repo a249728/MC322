@@ -25,7 +25,7 @@ public class Ambiente {
     private void inicializarMapa(){
         for(int x=0; x<comprimento; x++){
             for(int y=0; y<largura; y++){
-                for(int z=0; z<largura; z++){
+                for(int z=0; z<altura; z++){
                     mapa[x][y][z]=TipoEntidade.VAZIO;
                 }
             }
@@ -104,7 +104,7 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
     }
 
     public Robo acharRobo(int x, int y, int z) {
-        // Verifica se existe um robo na posicao (x,y) e retorna o robo
+        // Verifica se existe um robo na posicao (x,y,z) e retorna o robo
         for (Robo robo : robosAtivos) {
             if (robo.getX() == x && robo.getY() == y && robo.getZ() == z) {
                 return robo;
@@ -114,7 +114,7 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
     }
 
     public Obstaculo acharObstaculo(int x, int y, int z) {
-        // Verifica se existe um robo na posicao (x,y) e retorna o robo
+        // Verifica se existe um obstaculo na posicao (x,y,z) e retorna o obstaculo
         for (Obstaculo obs : obstaculos) {
             if (obs.getX() <= x && obs.getX() + obs.getObstaculo().getComprimento() > x && obs.getY() <= y && obs.getY() + obs.getObstaculo().getLargura() > y && obs.getZ() <= z && obs.getZ() + obs.getObstaculo().getAltura() > z) {
                 return obs;
@@ -182,10 +182,8 @@ public Obstaculo criarObstaculo(TipoObstaculo tipo, int x, int y) {
     }
 
     public void moverRoboMapa(Robo robo, int x, int y, int z) throws ForaDosLimitesException {
-        removerRoboMapa(robo);
-        if(dentroDosLimitesAereo(robo.getX()+x, robo.getY()+y, robo.getZ()+z)){
-            mapa[robo.getX()+x][robo.getY()+y][robo.getZ()+z] = TipoEntidade.ROBO;
-        }
+        adicionarRoboMapa(robo);
+        mapa[robo.getX()-x][robo.getY()-y][robo.getZ()-z] = TipoEntidade.VAZIO;
     }
 
     public boolean estaOcupado(int x, int y, int z){

@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Inicialização do ambiente
-        ambiente = new Ambiente(20, 20, 500, "15:00");
+        ambiente = new Ambiente(30, 30, 500, "15:00");
         central = new CentralComunicacao();
         scanner = new Scanner(System.in);
 
@@ -28,27 +28,28 @@ public class Main {
             ambiente.adicionarRobo(JeffRosen);
             
             RoboTerrestre Rex = JeffRosen.gerarRoboTerrestre(ambiente, "Rex", 10);
-            JeffRosen.mover(1, 1, ambiente);
+            JeffRosen.mover(1, 1, 0, ambiente);
             RoboAereo Unicornio = JeffRosen.gerarRoboAereo(ambiente, "Unicornio", 0, 10);
-            JeffRosen.mover(1, 1, ambiente);
+            JeffRosen.mover(1, 1, 0, ambiente);
             RoboSubterraneo Corujao = JeffRosen.gerarRoboSubterraneo(ambiente, "Corujao", 0, -10);
-            JeffRosen.mover(1, 1, ambiente);
+            JeffRosen.mover(1, 1, 0, ambiente);
             RoboLaser Komodo = JeffRosen.gerarRoboLaser(ambiente, "Komodo", 10, 5);
-            JeffRosen.mover(1, 1, ambiente);
+            JeffRosen.mover(1, 1, 0, ambiente);
             RoboCorredor Mouse = JeffRosen.gerarRoboCorredor(ambiente, "Mouse", 15, 5);
-            
+            JeffRosen.mover(1, 1, 0, ambiente);
+
 
             // Adicionar sensores
-            Rex.adicionarSensorPressao(100, 100);
-            Unicornio.adicionarSensorIluminacao(100, 100);
-            Komodo.adicionarSensorPressao(10, 10);
-            Komodo.adicionarSensorIluminacao(10, 10);
+            Rex.adicionarSensorPressao(20, 100);
+            Unicornio.adicionarSensorIluminacao(20, 100);
+            Komodo.adicionarSensorPressao(5, 10);
+            Komodo.adicionarSensorIluminacao(5, 10);
             
             // Criar obstáculos
-            ambiente.criarObstaculo(TipoObstaculo.PEDRA, 3, 3);
-            ambiente.criarObstaculo(TipoObstaculo.ARVORE, 20, 10);
-            ambiente.criarObstaculo(TipoObstaculo.BURACO, 10, 20);
-            ambiente.criarObstaculo(TipoObstaculo.LAGO, 50, 50);
+            ambiente.criarObstaculo(TipoObstaculo.PEDRA, 10, 3);
+            ambiente.criarObstaculo(TipoObstaculo.ARVORE, 18, 12);
+            ambiente.criarObstaculo(TipoObstaculo.BURACO, 10, 10);
+            //ambiente.criarObstaculo(TipoObstaculo.LAGO, 50, 50);
             
         } catch (Exception e) {
             System.err.println("Erro na inicialização: " + e.getMessage());
@@ -95,12 +96,13 @@ public class Main {
         }
         for (int i = 0; i < robos.size(); i++) {
             Robo robo = robos.get(i);
-            System.out.printf("%d. [%s] %s - Posição: (%d, %d) - Estado: %s%n",
+            System.out.printf("%d. [%s] %s - Posição: (%d, %d, %d) - Estado: %s%n",
                     i + 1,
                     robo.getRepresentacao(),
                     robo.retornarNome(),
                     robo.getX(),
                     robo.getY(),
+                    robo.getZ(),
                     robo.getEstado() ? "Ligado" : "Desligado");
         }
     }
@@ -157,8 +159,8 @@ public class Main {
             System.out.println("Nenhum robô deste tipo encontrado.");
             return;
         }
-        filtrados.forEach(r -> System.out.printf("- [%s] %s - Posição: (%d, %d)%n",
-                r.getRepresentacao(), r.retornarNome(), r.getX(), r.getY()));
+        filtrados.forEach(r -> System.out.printf("- [%s] %s - Posição: (%d, %d, %d)%n",
+                r.getRepresentacao(), r.retornarNome(), r.getX(), r.getY(), r.getZ()));
     }
 
     private static void listarRobosPorEstado() {
@@ -193,8 +195,8 @@ public class Main {
             System.out.println("Nenhum robô neste estado encontrado.");
             return;
         }
-        filtrados.forEach(r -> System.out.printf("- [%s] %s - Posição: (%d, %d)%n",
-                r.getRepresentacao(), r.retornarNome(), r.getX(), r.getY()));
+        filtrados.forEach(r -> System.out.printf("- [%s] %s - Posição: (%d, %d, %d)%n",
+                r.getRepresentacao(), r.retornarNome(), r.getX(), r.getY(), r.getZ()));
     }
 
     private static void selecionarRobo() {
@@ -250,7 +252,7 @@ public class Main {
         System.out.println("Nome: " + roboSelecionado.retornarNome());
         System.out.println("Tipo: " + roboSelecionado.getClass().getSimpleName());
         System.out.println("Estado: " + (roboSelecionado.getEstado() ? "Ligado" : "Desligado"));
-        System.out.printf("Posição: (%d, %d)%n", roboSelecionado.getX(), roboSelecionado.getY());
+        System.out.printf("Posição: (%d, %d, %d)%n", roboSelecionado.getX(), roboSelecionado.getY(), roboSelecionado.getZ());
         System.out.println("Direção: " + roboSelecionado.retornarDirecao());
         
         // Informações específicas
@@ -299,36 +301,122 @@ public class Main {
         System.out.println("Total de obstáculos: " + ambiente.retornarObstaculos().size());
     }
 
-    private static void executarTarefaPrincipal() {
-        if (roboSelecionado instanceof RoboGerador) {
-            System.out.println("Robô gerador: use a opção 'Gerar robô' no menu principal");
-        } else if (roboSelecionado instanceof RoboLaser) {
-            try {
-                int destruidos = ((RoboLaser) roboSelecionado).dispararLaser(ambiente);
-                System.out.println("Laser disparado! " + destruidos + " robô(s) destruído(s)");
-            } catch (RoboDesligadoException | ColisaoException | ForaDosLimitesException e) {
-                System.out.println("Erro: " + e.getMessage());
+    private static void gerarNovoRobo() {
+        System.out.println("\n=== GERAR NOVO ROBÔ ===");
+        System.out.println("1. Robô Terrestre");
+        System.out.println("2. Robô Aéreo");
+        System.out.println("3. Robô Subterrâneo");
+        System.out.println("4. Robô Laser");
+        System.out.println("5. Robô Corredor");
+        System.out.println("6. Robô Gerador");
+        System.out.print("Escolha o tipo de robô a ser gerado: ");
+        
+        int tipo = scanner.nextInt();
+        scanner.nextLine();
+        
+        System.out.print("Digite o nome do novo robô: ");
+        String nome = scanner.nextLine();
+        
+        RoboGerador gerador = (RoboGerador) roboSelecionado;
+        
+        try {
+            switch (tipo) {
+                case 1:
+                    System.out.print("Velocidade máxima: ");
+                    int vmax = scanner.nextInt();
+                    scanner.nextLine();
+                    RoboTerrestre roboT = gerador.gerarRoboTerrestre(ambiente, nome, vmax);
+                    ambiente.adicionarRobo(roboT);
+                    System.out.println("Robô terrestre gerado com sucesso!");
+                    break;
+                case 2:
+                    System.out.print("Altitude inicial: ");
+                    int zAereo = scanner.nextInt();
+                    System.out.print("Altitude máxima: ");
+                    int zmax = scanner.nextInt();
+                    scanner.nextLine();
+                    RoboAereo roboA = gerador.gerarRoboAereo(ambiente, nome, zAereo, zmax);
+                    ambiente.adicionarRobo(roboA);
+                    System.out.println("Robô aéreo gerado com sucesso!");
+                    break;
+                case 3:
+                    System.out.print("Profundidade inicial: ");
+                    int zSub = scanner.nextInt();
+                    System.out.print("Profundidade mínima: ");
+                    int zmin = scanner.nextInt();
+                    scanner.nextLine();
+                    RoboSubterraneo roboS = gerador.gerarRoboSubterraneo(ambiente, nome, zSub, zmin);
+                    ambiente.adicionarRobo(roboS);
+                    System.out.println("Robô subterrâneo gerado com sucesso!");
+                    break;
+                case 4:
+                    System.out.print("Velocidade máxima: ");
+                    int vmaxL = scanner.nextInt();
+                    System.out.print("Alcance do laser: ");
+                    int alc = scanner.nextInt();
+                    scanner.nextLine();
+                    RoboLaser roboL = gerador.gerarRoboLaser(ambiente, nome, vmaxL, alc);
+                    ambiente.adicionarRobo(roboL);
+                    System.out.println("Robô laser gerado com sucesso!");
+                    break;
+                case 5:
+                    System.out.print("Velocidade máxima: ");
+                    int vmaxC = scanner.nextInt();
+                    System.out.print("Velocidade mínima: ");
+                    int vminC = scanner.nextInt();
+                    scanner.nextLine();
+                    RoboCorredor roboC = gerador.gerarRoboCorredor(ambiente, nome, vmaxC, vminC);
+                    ambiente.adicionarRobo(roboC);
+                    System.out.println("Robô corredor gerado com sucesso!");
+                    break;
+                case 6:
+                    System.out.print("Altitude inicial: ");
+                    int zGer = scanner.nextInt();
+                    System.out.print("Altitude máxima: ");
+                    int zmaxGer = scanner.nextInt();
+                    scanner.nextLine();
+                    RoboGerador roboG = gerador.gerarRoboGerador(ambiente, nome, zGer, zmaxGer);
+                    ambiente.adicionarRobo(roboG);
+                    System.out.println("Robô gerador gerado com sucesso!");
+                    break;
+                default:
+                    System.out.println("Tipo inválido!");
             }
-        } else if (roboSelecionado instanceof RoboCorredor) {
-            System.out.print("Digite a distância para correr: ");
-            int distancia = scanner.nextInt();
-            scanner.nextLine();
-            
-            try {
-                boolean sucesso = ((RoboCorredor) roboSelecionado).correr(distancia, ambiente);
-                if (sucesso) {
-                    System.out.println("Corrida realizada com sucesso!");
-                    System.out.println("Nova posição: (" + roboSelecionado.getX() + ", " + roboSelecionado.getY() + ")");
-                } else {
-                    System.out.println("Falha ao correr. Verifique obstáculos ou direção");
-                }
-            } catch (Exception e) {
-                System.out.println("Erro: " + e.getMessage());
-            }
-        } else {
-            System.out.println("Este robô não possui uma tarefa principal específica");
+        } catch (RoboDesligadoException | ForaDosLimitesException e) {
+            System.out.println("Erro ao gerar robô: " + e.getMessage());
         }
     }
+
+private static void executarTarefaPrincipal() {
+    if (roboSelecionado instanceof RoboGerador) {
+        gerarNovoRobo(); // Chama o novo método de geração
+    } else if (roboSelecionado instanceof RoboLaser) {
+        try {
+            int destruidos = ((RoboLaser) roboSelecionado).dispararLaser(ambiente);
+            System.out.println("Laser disparado! " + destruidos + " robô(s) destruído(s)");
+        } catch (RoboDesligadoException | ColisaoException | ForaDosLimitesException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    } else if (roboSelecionado instanceof RoboCorredor) {
+        System.out.print("Digite a distância para correr: ");
+        int distancia = scanner.nextInt();
+        scanner.nextLine();
+        
+        try {
+            boolean sucesso = ((RoboCorredor) roboSelecionado).correr(distancia, ambiente);
+            if (sucesso) {
+                System.out.println("Corrida realizada com sucesso!");
+                System.out.println("Nova posição: (" + roboSelecionado.getX() + ", " + roboSelecionado.getY() + ")");
+            } else {
+                System.out.println("Falha ao correr. Verifique obstáculos ou direção");
+            }
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    } else {
+        System.out.println("Este robô não possui uma tarefa principal específica");
+    }
+}
 
     private static void controlarMovimento() {
         System.out.println("\n=== CONTROLE DE MOVIMENTO ===");
@@ -454,13 +542,6 @@ public class Main {
     int largura = ambiente.getLargura();
     int comprimento = ambiente.getComprimento();
     
-    // Imprimir coordenadas X (horizontal)
-    System.out.print("     ");
-    for (int x = 0; x < comprimento; x++) {
-        System.out.printf("%2d ", x);
-    }
-    System.out.println();
-    
     // Imprimir linha separadora superior
     System.out.print("   +");
     for (int x = 0; x < comprimento; x++) {
@@ -469,7 +550,7 @@ public class Main {
     System.out.println("+");
     
     // Imprimir mapa
-    for (int y = 0; y < largura; y++) {
+    for (int y = largura-1; y >= 0; y--) {
         System.out.printf("%2d | ", y);
         for (int x = 0; x < comprimento; x++) {
             System.out.print(mapa[x][y] + "  ");
@@ -483,6 +564,13 @@ public class Main {
         System.out.print("---");
     }
     System.out.println("+");
+        
+    // Imprimir coordenadas X (horizontal)
+    System.out.print("     ");
+    for (int x = 0; x < comprimento; x++) {
+        System.out.printf("%2d ", x);
+    }
+    System.out.println();
     
     // Legenda
     System.out.println("\nLEGENDA:");
