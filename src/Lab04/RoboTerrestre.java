@@ -24,7 +24,7 @@ public class RoboTerrestre extends Robo {
             if (super.mover(deltaX, deltaY, amb)) {
                 amb.moverRoboMapa(this, deltaX, deltaY, 0); 
                 return true;
-            }
+            }      
             return false;
         }
         return false;

@@ -27,15 +27,15 @@ public class Main {
             RoboGerador JeffRosen = new RoboGerador("JeffRosen", 0, 0, "Norte", 1, 10);
             ambiente.adicionarRobo(JeffRosen);
             
-            RoboTerrestre Rex = JeffRosen.gerarRoboTerrestre(ambiente, "Rex", 10);
+            RoboTerrestre Rex = JeffRosen.gerarRoboTerrestre(ambiente, "Rex", 100);
             JeffRosen.mover(1, 1, 0, ambiente);
             RoboAereo Unicornio = JeffRosen.gerarRoboAereo(ambiente, "Unicornio", 0, 10);
             JeffRosen.mover(1, 1, 0, ambiente);
             RoboSubterraneo Corujao = JeffRosen.gerarRoboSubterraneo(ambiente, "Corujao", 0, -10);
             JeffRosen.mover(1, 1, 0, ambiente);
-            RoboLaser Komodo = JeffRosen.gerarRoboLaser(ambiente, "Komodo", 10, 5);
+            RoboLaser Komodo = JeffRosen.gerarRoboLaser(ambiente, "Komodo", 100, 5);
             JeffRosen.mover(1, 1, 0, ambiente);
-            RoboCorredor Mouse = JeffRosen.gerarRoboCorredor(ambiente, "Mouse", 15, 5);
+            RoboCorredor Mouse = JeffRosen.gerarRoboCorredor(ambiente, "Mouse", 100, 15);
             JeffRosen.mover(1, 1, 0, ambiente);
 
 
@@ -456,10 +456,10 @@ private static void executarTarefaPrincipal() {
             } else if (roboSelecionado instanceof RoboSubterraneo) {
                 ((RoboSubterraneo) roboSelecionado).mover(dx, dy, dz, ambiente);
             } else {
-                roboSelecionado.mover(dx, dy, ambiente);
+                ((RoboTerrestre)roboSelecionado).mover(dx, dy, ambiente);
             }
             System.out.println("Movimento realizado com sucesso!");
-            System.out.println("Nova posição: (" + roboSelecionado.getX() + ", " + roboSelecionado.getY() + ")");
+            System.out.println("Nova posição: (" + roboSelecionado.getX() + ", " + roboSelecionado.getY() + ", " + roboSelecionado.getZ() + ")");
         } catch (RoboDesligadoException | ColisaoException | ForaDosLimitesException e) {
             System.out.println("Erro ao mover: " + e.getMessage());
         }
