@@ -437,20 +437,35 @@ private static void executarTarefaPrincipal() {
         
         int dx = 0, dy = 0, dz = 0;
         
-        switch (direcao) {
-            case 1 -> dy = passos;   // Frente (norte)
-            case 2 -> dy = -passos;  // Trás (sul)
-            case 3 -> dx = passos;   // Direita (leste)
-            case 4 -> dx = -passos;  // Esquerda (oeste)
-            case 5 -> dz = passos;   // Subir
-            case 6 -> dz = -passos;  // Descer
-            default -> {
-                System.out.println("Direção inválida!");
-                return;
+        try{    
+            switch (direcao) {
+                case 1: 
+                    dy = passos;   // Frente (norte)
+                    roboSelecionado.mudarDirecao("Norte");
+                    break;
+                case 2: 
+                    dy = -passos;  // Trás (sul)
+                    roboSelecionado.mudarDirecao("Sul");
+                    break;
+                case 3: 
+                    dx = passos;   // Direita (leste)
+                    roboSelecionado.mudarDirecao("Leste");
+                    break;
+                case 4: 
+                    dx = -passos;  // Esquerda (oeste)
+                    roboSelecionado.mudarDirecao("Oeste");
+                    break;
+                case 5: 
+                    dz = passos;   // Subir
+                    break;
+                case 6: 
+                    dz = -passos;  // Descer
+                    break;
+                default:
+                    System.out.println("Direção inválida!");
             }
-        }
         
-        try {
+        
             if (roboSelecionado instanceof RoboAereo) {
                 ((RoboAereo) roboSelecionado).mover(dx, dy, dz, ambiente);
             } else if (roboSelecionado instanceof RoboSubterraneo) {

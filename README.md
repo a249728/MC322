@@ -76,6 +76,68 @@ Aprimoramento do simulador com sensores e obstáculos, introduzindo novos relaci
 
 ---
 
+
+## Lab04 - Simulador Avançado de Robôs com Comunicação e Geração  
+
+Aprimoramento do simulador de robôs com funcionalidades avançadas de comunicação entre robôs, geração de novos robôs e tratamento de exceções personalizadas.  
+
+### Arquivos principais:  
+- **Ambiente.java** – Gerencia o ambiente 3D, os robôs, obstáculos e o mapa.  
+- **CentralComunicacao.java** – Central que gerencia o histórico de mensagens entre os robôs.  
+- **Main.java** – Classe principal com menu interativo e controle do simulador.  
+- **Obstaculo.java** – Representa obstáculos no ambiente.  
+- **Robo.java** – Classe base para todos os robôs, com movimentos básicos e sensores.  
+- **RoboAereo.java** – Robô aéreo com controle de altitude.  
+- **RoboCorredor.java** – Robô corredor com limites de velocidade mínima e máxima.  
+- **RoboGerador.java** – Robô gerador que cria outros robôs e se comunica.  
+- **RoboLaser.java** – Robô com capacidade de disparar laser.  
+- **RoboSubterraneo.java** – Robô subterrâneo com profundidade mínima.  
+- **RoboTerrestre.java** – Robô terrestre com limite de velocidade.  
+- **Sensor.java** – Classe base para sensores.  
+- **SensorIluminacao.java** – Sensor específico para monitorar iluminação.  
+- **SensorPressao.java** – Sensor específico para monitorar pressão.  
+
+### Interfaces:  
+- **Comunicavel.java** – Define métodos para comunicação entre robôs.  
+- **Corredor.java** – Define comportamento para robôs corredores.  
+- **Entidade.java** – Interface comum para todas as entidades no ambiente.  
+- **Gerador.java** – Define métodos para gerar diferentes tipos de robôs.  
+- **Laser.java** – Define comportamento para robôs com laser.  
+- **Sensoreavel.java** – Define métodos para uso de sensores.  
+
+### Exceções Personalizadas:  
+- **BateriaSensorException.java** – Bateria do sensor esgotada.  
+- **ColisaoException.java** – Detecção de colisão iminente.  
+- **ErroComunicacaoException.java** – Falha na comunicação entre robôs.  
+- **ForaDosLimitesException.java** – Movimento além dos limites do ambiente.  
+- **RoboDesligadoException.java** – Operação tentada com robô desligado.  
+- **VelocidadeMinimaException.java** – Velocidade abaixo do mínimo para robô corredor.  
+
+### Enums:  
+- **TipoEntidade.java** – Tipos de entidades no ambiente (`ROBO`, `OBSTACULO`, etc.).  
+- **TipoObstaculo.java** – Tipos de obstáculos (`PEDRA`, `ARVORE`, `BURACO`, etc.).  
+
+### Funcionalidades do Menu 
+1. **Menu Principal**:  
+   - Listar todos os robôs  
+   - Listar robôs por tipo (terrestres, aéreos, etc.)  
+   - Listar robôs por estado (ligados/desligados)  
+   - Selecionar robô para controle detalhado  
+   - Visualizar mapa do ambiente  
+   - Listar mensagens de comunicação  
+   - Sair do sistema  
+
+2. **Menu do Robô Selecionado**:  
+   - Visualizar status completo  
+   - Executar tarefa principal (gerar robôs, disparar laser, correr)  
+   - Controlar movimento (frente, trás, direita, esquerda, subir, descer)  
+   - Comunicar com outro robô  
+   - Acionar sensores  
+   - Ligar/Desligar robô  
+   - Voltar ao menu principal  
+
+---
+
 ## Estrutura do Projeto  
 
 ```plaintext
@@ -110,9 +172,39 @@ MC322/
 │   │   ├── Sensor.java
 │   │   ├── SensorIluminacao.java
 │   │   └── SensorPressao.java
+│   └── Lab04/
+│       ├── Ambiente.java
+│       ├── CentralComunicacao.java
+│       ├── Main.java
+│       ├── Obstaculo.java
+│       ├── Robo.java
+│       ├── RoboAereo.java
+│       ├── RoboCorredor.java
+│       ├── RoboGerador.java
+│       ├── RoboLaser.java
+│       ├── RoboSubterraneo.java
+│       ├── RoboTerrestre.java
+│       ├── Sensor.java
+│       ├── SensorIluminacao.java
+│       ├── SensorPressao.java
+│       ├── Comunicavel.java
+│       ├── Corredor.java
+│       ├── Entidade.java
+│       ├── Gerador.java
+│       ├── Laser.java
+│       ├── Sensoreavel.java
+│       ├── BateriaSensorException.java
+│       ├── ColisaoException.java
+│       ├── ErroComunicacaoException.java
+│       ├── ForaDosLimitesException.java
+│       ├── RoboDesligadoException.java
+│       ├── VelocidadeMinimaException.java
+│       ├── TipoEntidade.java
+│       └── TipoObstaculo.java
 ├── bin/
 └── README.md
 ```
+
 ## Como Executar 
 
 1. Chegue até a pasta

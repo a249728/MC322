@@ -22,7 +22,7 @@ public abstract class Robo implements Entidade, Sensoreavel {
         if (!this.estado) {
             throw new RoboDesligadoException("O robo nao pode se mover pois estava desligado"); // Se o robô estiver desligado, não pode se mover
         }
-        if (this.posicaoX + deltaX >= 0 && this.posicaoY + deltaY >= 0 && (!identificarObstaculo(deltaX, deltaY, amb) || this instanceof RoboAereo)) {
+        if (amb.dentroDosLimites(this.getX()+deltaX, this.getY()+deltaY) && (!identificarObstaculo(deltaX, deltaY, amb) || this instanceof RoboAereo)) {
             this.posicaoX += deltaX;
             this.posicaoY += deltaY;
             return true;
