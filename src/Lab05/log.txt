@@ -1,0 +1,5 @@
+Robo 'JeffRosen' moveu para (1,1,1)
+Robo 'JeffRosen' moveu para (2,2,1)
+Robo 'JeffRosen' moveu para (3,3,1)
+Robo 'JeffRosen' moveu para (4,4,1)
+Robo 'JeffRosen' moveu para (5,5,1)
