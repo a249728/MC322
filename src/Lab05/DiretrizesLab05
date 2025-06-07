@@ -1,0 +1,32 @@
+Diretrizes Lab 05
+
+Geral:
+
+- Organizar o projeto em pacotes lógicos
+/ src /
+| - - robo /
+| - - ambiente /
+| - - comunicacao /
+| - - sensores /
+| - - missao /
+\ __ main /
+- Registrar logs de execução em arquivos externos
+
+Missao.java (interface):
+- Criar esse arquivo
+- Criar um método void executar(Robo r, Ambiente a)
+
+MissaoMonitorarLugar.java (classe):
+- Criar esse arquivo
+- Implementar a interface Missao
+
+MissaoMonitorarIluminacao.java (classe):
+- Criar esse arquivo
+- Implementar a interface Missao
+
+AgenteInteligente.java (classe abstrata):
+- Criar esse arquivo
+- Tornar filho de Robo
+- Tornar os filhos de Robo filhos de AgenteInteligente
+- Criar um método abstrato void executarMissao(Ambiente a)
+- Criar os métodos: void definirMissao(Missao m), boolean temMissao()
