@@ -1,0 +1,7 @@
+{
+    "java.project.sourcePaths": [
+        "src/Lab05"
+    ],
+    "java.project.referencedLibraries": [],
+    "java.dependency.packagePresentation": "hierarchical"
+}
