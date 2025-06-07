@@ -64,7 +64,6 @@ public class SensorIluminacao extends Sensor {
         double horario=Double.parseDouble(horaMinuto[0])+(Double.parseDouble(horaMinuto[1])/60);
         double theta=((horario-6)/12)*((double)Math.PI); //encontra que o eixo x faz com o sol baseado no horario
         double[] reta = {x, (double)Math.cos((double)theta), y, 0, z, (double)Math.sin((double)theta)}; //parametrizacao da reta
-
         if (sombraPorObstaculo(reta, obstaculos)) {
             return "Sombra";
         }
