@@ -39,7 +39,7 @@ public class RoboLaser extends RoboTerrestre implements Laser{
         // Em cada local verifica quantos robos tem e destroi todos eles
         int robosDestruidos = 0;
         for(int i=0; i<alcanceLaser; i++){
-            if(identificarObstaculo(i*direcao[0], i*direcao[1], amb)){
+            if(amb.acharRobo(i*direcao[0], i*direcao[1], 0)!=null){
                 amb.destruirRobo(amb.acharRobo(i*direcao[0], i*direcao[1], 0));
                 robosDestruidos++;
             }

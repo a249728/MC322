@@ -34,7 +34,7 @@ public class RoboSubterraneo extends RoboAereo {
                 return false;
             }
         }
-        return false;
+        throw new ForaDosLimitesException("Nao foi possivel mover o robo subterrâneo pois ele não pode ir para a posição escolhida");
     }
 
     @Override

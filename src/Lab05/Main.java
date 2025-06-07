@@ -663,3 +663,4 @@ private static void executarTarefaPrincipal() {
     }
 
 }
+//"Nada é impossível para os Mecanimais" -Mecanimais, 2008
