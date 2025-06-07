@@ -8,6 +8,9 @@ public abstract class Robo implements Entidade, Sensoreavel {
     private SensorIluminacao sensorIluminacao; // Referência direta para o sensor de iluminação
     private SensorPressao sensorPressao; // Referência direta para o sensor de colisão
     private boolean estado = true; // Estado do robô (ativo ou inativo)
+    protected ControleMovimento controleMovimento;
+    protected GerenciadorSensores gerenciadorSensores;
+    protected ModuloComunicacao moduloComunicacao;
 
     public Robo(String n, int x, int y, String dir) {
         this.nome = n;
@@ -16,6 +19,9 @@ public abstract class Robo implements Entidade, Sensoreavel {
         this.direcao = dir;
         this.sensorIluminacao = null; // Inicializa como null
         this.sensorPressao = null; // Inicializa como null
+        this.controleMovimento = new ControleMovimento(this);
+        this.gerenciadorSensores = new GerenciadorSensores(this);
+        this.moduloComunicacao = new ModuloComunicacao(this);
     }
 
     public boolean mover(int deltaX, int deltaY, Ambiente amb) throws RoboDesligadoException, ColisaoException, ForaDosLimitesException, VelocidadeMaximaException {
