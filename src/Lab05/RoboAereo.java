@@ -96,4 +96,13 @@ public class RoboAereo extends AgenteInteligente {
         // Retorna o caractere que representa a entidade visualmente
         return 'A';
     }
+
+    @Override
+    public void executarMissao(Ambiente a)  throws RoboDesligadoException {
+        if (temMissao()) {
+            this.missao.executar(this, a);
+        } else {
+            System.out.println("Nenhuma missão definida para este robô.");
+        }
+    }
 }
