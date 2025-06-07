@@ -13,5 +13,5 @@ public abstract class AgenteInteligente extends Robo {
         return this.missao != null;
     }
 
-    public abstract void executarMissao(Ambiente a) throws RoboDesligadoException;
+    public abstract void executarMissao(Ambiente a) throws RoboDesligadoException, ForaDosLimitesException, BateriaSensorException;
 }

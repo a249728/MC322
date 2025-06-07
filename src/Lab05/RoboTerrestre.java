@@ -43,7 +43,7 @@ public class RoboTerrestre extends AgenteInteligente {
     }
 
     @Override
-    public void executarMissao(Ambiente a)  throws RoboDesligadoException {
+    public void executarMissao(Ambiente a)  throws RoboDesligadoException, ForaDosLimitesException, BateriaSensorException {
         if (temMissao()) {
             this.missao.executar(this, a);
         } else {
