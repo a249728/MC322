@@ -1,0 +1,12 @@
+{
+    "ana": {
+        "wins": 6,
+        "losses": 4,
+        "draws": 6
+    },
+    "laura": {
+        "wins": 1,
+        "losses": 3,
+        "draws": 3
+    }
+}
