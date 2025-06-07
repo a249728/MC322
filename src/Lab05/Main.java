@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Inicialização do ambiente
-        ambiente = new Ambiente(30, 30, 500, "15:00");
+        ambiente = new Ambiente(30, 30, 50, "15:00");
         central = new CentralComunicacao();
         scanner = new Scanner(System.in);
 
@@ -27,15 +27,15 @@ public class Main {
             RoboGerador JeffRosen = new RoboGerador("JeffRosen", 0, 0, "Norte", 1, 10);
             ambiente.adicionarRobo(JeffRosen);
             
-            RoboTerrestre Rex = JeffRosen.gerarRoboTerrestre(ambiente, "Rex", 100);
+            RoboTerrestre Rex = JeffRosen.gerarRoboTerrestre(ambiente, "Rex", 15);
             JeffRosen.mover(1, 1, 0, ambiente);
-            RoboAereo Unicornio = JeffRosen.gerarRoboAereo(ambiente, "Unicornio", 0, 10);
+            RoboAereo Unicornio = JeffRosen.gerarRoboAereo(ambiente, "Unicornio", 0, 20);
             JeffRosen.mover(1, 1, 0, ambiente);
             RoboSubterraneo Corujao = JeffRosen.gerarRoboSubterraneo(ambiente, "Corujao", 0, -10);
             JeffRosen.mover(1, 1, 0, ambiente);
-            RoboLaser Komodo = JeffRosen.gerarRoboLaser(ambiente, "Komodo", 100, 5);
+            RoboLaser Komodo = JeffRosen.gerarRoboLaser(ambiente, "Komodo", 15, 5);
             JeffRosen.mover(1, 1, 0, ambiente);
-            RoboCorredor Mouse = JeffRosen.gerarRoboCorredor(ambiente, "Mouse", 100, 15);
+            RoboCorredor Mouse = JeffRosen.gerarRoboCorredor(ambiente, "Mouse", 25, 15);
             JeffRosen.mover(1, 1, 0, ambiente);
 
 
@@ -225,7 +225,9 @@ public class Main {
             System.out.println("4. Comunicar com outro robô");
             System.out.println("5. Acionar sensores");
             System.out.println("6. Ligar/Desligar");
-            System.out.println("7. Voltar ao menu principal");
+            System.out.println("7. Definir missão");
+            System.out.println("8. Executar missão");
+            System.out.println("9. Voltar ao menu principal");
             System.out.print("Escolha uma opção: ");
             
             int opcao = scanner.nextInt();
@@ -238,7 +240,9 @@ public class Main {
                 case 4 -> iniciarComunicacao();
                 case 5 -> acionarSensores();
                 case 6 -> alternarEstadoRobo();
-                case 7 -> {
+                case 7 -> definirMissao();
+                case 8 -> executarMissao();
+                case 9 -> {
                     roboSelecionado = null;
                     return;
                 }
@@ -512,7 +516,7 @@ private static void executarTarefaPrincipal() {
     }
 
     private static void acionarSensores() {
-        if (!(roboSelecionado instanceof Sensoreavel)) {
+        if (!(roboSelecionado instanceof Sensoreavel) || (roboSelecionado.getSensorIluminacao()==null && roboSelecionado.getSensorPressao()==null)) {
             System.out.println("Este robô não possui sensores!");
             return;
         }
@@ -546,6 +550,48 @@ private static void executarTarefaPrincipal() {
         } else {
             roboSelecionado.ligar();
             System.out.println("Robô ligado!");
+        }
+    }
+
+    private static void definirMissao() {
+        System.out.println("\n=== DEFINIR MISSÃO ===");
+        System.out.println("1. Monitorar iluminação em coordenada");
+        System.out.println("2. Monitorar lugar em coordenada");
+        System.out.print("Escolha o tipo de missão: ");
+        
+        int tipo = scanner.nextInt();
+        scanner.nextLine();
+        
+        System.out.print("Digite a coordenada X: ");
+        int x = scanner.nextInt();
+        System.out.print("Digite a coordenada Y: ");
+        int y = scanner.nextInt();
+        System.out.print("Digite a coordenada Z: ");
+        int z = scanner.nextInt();
+        scanner.nextLine();
+        
+        Missao missao = null;
+        switch (tipo) {
+            case 1:
+                missao = new MissaoMonitorarIluminacao(x, y, z);
+                break;
+            case 2:
+                missao = new MissaoMonitorarLugar(x, y, z);
+                break;
+            default:
+                System.out.println("Tipo de missão inválido!");
+                return;
+        }
+        
+        ((AgenteInteligente)roboSelecionado).definirMissao(missao);
+        System.out.println("Missão definida com sucesso!");
+    }
+
+    private static void executarMissao() {
+        try {
+            ((AgenteInteligente)roboSelecionado).executarMissao(ambiente);
+        } catch (RoboDesligadoException | ForaDosLimitesException | BateriaSensorException e) {
+            System.out.println("Erro ao executar missão: " + e.getMessage());
         }
     }
 
