@@ -15,9 +15,11 @@ public class MissaoMonitorarIluminacao implements Missao {
         if (r.getEstado()) {
             if(r.getSensorIluminacao()!=null){
                 if(r.getSensorIluminacao().monitorarIluminacao(x, y, z, a)=="Iluminado"){
+                    Logger.log("Robo '" + r.getNome() + "' monitorou a iluminacao positiva em (" + x + "," + y + "," + z + ")");
                     return x + ", " + y + ", " + z + " está iluminado";
                 }
                 if(r.getSensorIluminacao().monitorarIluminacao(x, y, z, a)=="Sombra"){
+                    Logger.log("Robo '" + r.getNome() + "' monitorou a iluminacao negativa em (" + x + "," + y + "," + z + ")");
                     return x + ", " + y + ", " + z + " não está iluminado";
                 }
                 return "O robô não consegue monitorar a posição " + x + ", " + y + ", " + z;

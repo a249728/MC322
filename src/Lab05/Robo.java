@@ -100,7 +100,7 @@ public abstract class Robo implements Entidade, Sensoreavel {
         ArrayList<Obstaculo> obstaculos = amb.retornarObstaculos();
         for (Robo robo : robos) {
             if (robo.posicaoX == this.posicaoX + deltaX && robo.posicaoY == this.posicaoY + deltaY && robo != this) {
-                Logger.log("Robo '" + getNome() + "' detectou possivel colisao com robo '" + robo.getNome() + "'");
+                Logger.log("Robo '" + getNome() + "' detectou possivel colisão com robo '" + robo.getNome() + "'");
                 throw new ColisaoException("Nao foi possivel se mover por conta de possivel colisao");
             }
         }
@@ -108,7 +108,7 @@ public abstract class Robo implements Entidade, Sensoreavel {
             boolean dentroX = posicaoX + deltaX >= obstaculo.getX() && posicaoX + deltaX < obstaculo.getX() + obstaculo.getObstaculo().getComprimento();
             boolean dentroY = posicaoY + deltaY >= obstaculo.getY() && posicaoY + deltaY < obstaculo.getY() + obstaculo.getObstaculo().getLargura();
             if (dentroX && dentroY) {
-                Logger.log("Robo '" + getNome() + "' detectou possivel colisao com obstaculo em (" + obstaculo.getX() + "," + obstaculo.getY() + ")");
+                Logger.log("Robo '" + getNome() + "' detectou possivel colisão com obstaculo em (" + obstaculo.getX() + "," + obstaculo.getY() + ")");
                 throw new ColisaoException("Nao foi possivel se mover por conta de possivel colisao"); // Colisão detectada com um obstáculo
             }
         }
