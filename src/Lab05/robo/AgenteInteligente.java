@@ -1,4 +1,7 @@
 package robo;
+import missao.*;
+import ambiente.*;
+import exception.*;
 public abstract class AgenteInteligente extends Robo {
     protected Missao missao;
     

@@ -1,4 +1,8 @@
 package missao;
+import robo.*;
+import ambiente.*;
+import exception.*;
+import arquivos.*;
 public class MissaoMonitorarIluminacao implements Missao {
     private int x;
     private int y;

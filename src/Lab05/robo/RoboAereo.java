@@ -1,4 +1,6 @@
 package robo;
+import ambiente.*;
+import exception.*;
 import java.util.ArrayList;
 
 public class RoboAereo extends AgenteInteligente {

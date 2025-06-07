@@ -1,4 +1,7 @@
 package sensores;
+import robo.*;
+import ambiente.*;
+import exception.*;
 public class GerenciadorSensores {
     private final Robo robo;
 

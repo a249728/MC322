@@ -1,4 +1,6 @@
 package robo;
+import ambiente.*;
+import exception.*;
 public interface Gerador {
     RoboTerrestre gerarRoboTerrestre(Ambiente amb, String n, int vmax) throws RoboDesligadoException, ForaDosLimitesException;
     RoboAereo gerarRoboAereo(Ambiente amb, String n, int z, int zmax) throws RoboDesligadoException, ForaDosLimitesException;

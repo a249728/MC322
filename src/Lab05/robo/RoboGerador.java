@@ -1,4 +1,7 @@
 package robo;
+import comunicacao.*;
+import exception.*;
+import ambiente.*;
 public class RoboGerador extends RoboAereo implements Gerador, Comunicavel {
     
     private int filhos;

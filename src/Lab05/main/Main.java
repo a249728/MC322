@@ -4,6 +4,7 @@ import robo.*;
 import exception.*;
 import comunicacao.*;
 import sensores.*;
+import missao.*;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;

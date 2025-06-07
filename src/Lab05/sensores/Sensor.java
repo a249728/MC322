@@ -1,4 +1,6 @@
 package sensores;
+import exception.*;
+import robo.*;
 public class Sensor {
     private double raioDeAlcance;
     private int bateria;

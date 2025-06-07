@@ -1,4 +1,6 @@
 package robo;
+import exception.*;
+import ambiente.*;
 public class RoboCorredor extends RoboTerrestre implements Corredor {
     
     private int velocidadeMinima;

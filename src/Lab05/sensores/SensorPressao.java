@@ -1,4 +1,8 @@
 package sensores;
+import robo.*;
+import ambiente.*;
+import exception.BateriaSensorException;
+
 public class SensorPressao extends Sensor {
     public SensorPressao(double raio, int bat, Robo robo) {
         super(raio, bat, robo);

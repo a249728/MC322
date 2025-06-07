@@ -1,4 +1,9 @@
 package robo;
+import sensores.*;
+import ambiente.*;
+import exception.*;
+import comunicacao.*;
+import arquivos.*;
 
 import java.util.ArrayList;
 

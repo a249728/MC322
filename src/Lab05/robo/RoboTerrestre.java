@@ -1,4 +1,6 @@
 package robo;
+import ambiente.*;
+import exception.*;
 public class RoboTerrestre extends AgenteInteligente {
     private int velocidadeMaxima;
 

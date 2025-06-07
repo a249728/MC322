@@ -1,4 +1,6 @@
 package robo;
+import ambiente.*;
+import exception.*;
 public class RoboLaser extends RoboTerrestre implements Laser{
 
     private int alcanceLaser;

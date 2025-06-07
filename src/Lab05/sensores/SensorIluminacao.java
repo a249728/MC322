@@ -1,5 +1,8 @@
 package sensores;
 import java.util.ArrayList;
+import robo.*;
+import ambiente.*;
+import exception.*;
 
 public class SensorIluminacao extends Sensor {
     public SensorIluminacao(double raio, int bat, Robo robo) {
