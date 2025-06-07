@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class RoboAereo extends Robo {
+public class RoboAereo extends AgenteInteligente {
     // Declara as propriedades da classe RoboAereo
     private int altitude;
     private int altitudeMaxima;

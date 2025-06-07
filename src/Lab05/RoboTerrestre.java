@@ -1,4 +1,4 @@
-public class RoboTerrestre extends Robo {
+public class RoboTerrestre extends AgenteInteligente {
     private int velocidadeMaxima;
 
     public RoboTerrestre(String n, int x, int y, String dir, int vmax) {
