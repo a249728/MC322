@@ -41,6 +41,10 @@ public abstract class Robo implements Entidade, Sensoreavel {
         return this.direcao;
     }
 
+    public String getNome(){
+        return this.nome;
+    }
+
     @Override
     public int getX() {
         return this.posicaoX;

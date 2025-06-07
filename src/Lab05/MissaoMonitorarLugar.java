@@ -10,10 +10,16 @@ public class MissaoMonitorarLugar implements Missao {
     }
 
     @Override
-    public void executar(Robo r, Ambiente a) throws RoboDesligadoException {
+    public String executar(Robo r, Ambiente a) throws RoboDesligadoException, ForaDosLimitesException {
+        a.dentroDosLimitesAereo(x, y, z);
         if (r.getEstado()) {
-            System.out.println("Monitorando o lugar: " + x + ", " + y + ", " + z);
-
+            if(a.acharRobo(x, y, z)!=null){
+                return a.acharRobo(x, y, z).getNome() + " encontrado na posição " + x + ", " + y + ", " + z;
+            }
+            if(a.acharObstaculo(x, y, z)!=null){
+                return (a.acharObstaculo(x, y, z).getTipo()).toString() + " encontrado na posição " + x + ", " + y + ", " + z;
+            }
+            return "Nada encontrado na posição " + x + ", " + y + ", " + z;
             
         } else {
             throw new RoboDesligadoException("O robô está desligado e não pode monitorar o lugar.");

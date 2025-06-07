@@ -1,3 +1,3 @@
 public interface Missao {
-    void executar(Robo r, Ambiente a) throws RoboDesligadoException;
+    String executar(Robo r, Ambiente a) throws RoboDesligadoException, ForaDosLimitesException, BateriaSensorException;
 }
