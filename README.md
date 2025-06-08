@@ -1,6 +1,6 @@
 # Projetos e Entregas – MC322  
 
-Este repositório contém as entregas da disciplina **MC322**, documentando o desenvolvimento dos projetos e registrando as implementações realizadas.  
+Este repositório contém as entregas da disciplina **MC322**, documentando o desenvolvimento dos projetos e registrando as implementações realizadas ao longo dos cinco laboratórios.  
 
 ---
 
@@ -24,7 +24,7 @@ Expansão do simulador de robôs, com novos tipos e funcionalidades avançadas.
 - **RoboAereo.java** – Especialização de `Robo` para robôs aéreos, com controle de altitude.  
 - **RoboSubterraneo.java** – Especialização de `RoboAereo` para robôs subterrâneos, com altitude mínima.  
 - **RoboLaser.java** – Especialização de `RoboTerrestre` com capacidade de disparar lasers.  
-- **RoboCriador.java** – Robô que cria outros robôs no ambiente.  
+- **RoboGerador.java** – Robô que cria outros robôs no ambiente.  
 - **RoboCorredor.java** – Especialização de `RoboTerrestre` com restrições de velocidade mínima e máxima.  
 - **Ambiente.java** – Define o ambiente tridimensional e gerencia os robôs ativos.  
 - **Main.java** – Executa a simulação, criando robôs, movimentando-os e verificando interações.  
@@ -48,9 +48,8 @@ Aprimoramento do simulador com sensores e obstáculos, introduzindo novos relaci
 - **RoboAereo.java** – Especialização de `Robo` para robôs aéreos.  
 - **RoboSubterraneo.java** – Especialização de `RoboAereo` para robôs subterrâneos.  
 - **RoboLaser.java** – Robô terrestre com capacidade de disparar lasers.  
-- **RoboCriador.java** – Robô que cria outros robôs no ambiente.  
+- **RoboGerador.java** – Robô que cria outros robôs no ambiente.  
 - **RoboCorredor.java** – Robô terrestre com restrições de velocidade mínima e máxima.  
-- **Diagrama.png** – Diagrama de classes.  
 
 ### Funcionalidades Implementadas:  
 1. **Obstáculos no Ambiente**:  
@@ -75,7 +74,6 @@ Aprimoramento do simulador com sensores e obstáculos, introduzindo novos relaci
    - Relacionamentos entre classes implementados (agregação, composição).  
 
 ---
-
 
 ## Lab04 - Simulador Avançado de Robôs com Comunicação e Geração  
 
@@ -138,72 +136,159 @@ Aprimoramento do simulador de robôs com funcionalidades avançadas de comunica�
 
 ---
 
-## Estrutura do Projeto  
+## Lab05 - Simulador de Robôs com Missões e Componentes Modulares
+
+Aprimoramento do simulador com sistema de missões, componentes modulares e agentes inteligentes.
+
+### Novos Arquivos:
+- **AgenteInteligente.java** - Classe abstrata para robôs com capacidade de executar missões
+- **Missao.java** - Interface para definição de missões
+- **MissaoMonitorarIluminacao.java** - Missão para monitorar níveis de iluminação
+- **MissaoMonitorarLugar.java** - Missão para investigar locais específicos
+- **ModuloComunicacao.java** - Componente para gerenciar comunicação entre robôs
+- **GerenciadorSensores.java** - Componente para gerenciar operações com sensores
+- **ControleMovimento.java** - Componente para gerenciar movimentos dos robôs
+- **Logger.java** - Sistema de registro de eventos e ações
+
+### Atualizações Significativas:
+1. **Sistema de Missões**:
+   - Robôs podem receber e executar missões específicas
+   - Missões de monitoramento ambiental e investigação
+   - Agentes inteligentes especializados em execução de missões
+
+2. **Arquitetura Modular**:
+   - ControleMovimento: encapsula toda lógica de movimento
+   - GerenciadorSensores: gerencia operações com sensores
+   - ModuloComunicacao: trata comunicação entre robôs
+   - Logger: registra todas as ações importantes no sistema
+
+3. **Novas Funcionalidades no Menu**:
+   - Definir missões para robôs específicos
+   - Executar missões atribuídas
+   - Visualizar histórico de ações (log)
+   - Controle mais granular dos componentes
+
+4. **Melhorias Gerais**:
+   - Tratamento refinado de exceções
+   - Sistema de colisões aprimorado
+   - Visualização 3D do ambiente
+   - Geração de relatórios de missões
+
+### Diagrama de Classes Atualizado:
+![Diagrama UML do Sistema](diagrama_uml.png)
+
+---
+
+## Estrutura Completa do Projeto  
 
 ```plaintext
 MC322/
 ├── src/
 │   ├── Lab01/
-│   │   ├── Main.java
-│   │   ├── Robo.java
-│   │   └── Ambiente.java
-│   ├── Lab02/
-│   │   ├── Main.java
-│   │   ├── Robo.java
-│   │   ├── RoboTerrestre.java
-│   │   ├── RoboAereo.java
-│   │   ├── RoboSubterraneo.java
-│   │   ├── RoboLaser.java
-│   │   ├── RoboCriador.java
-│   │   ├── RoboCorredor.java
-│   │   └── Ambiente.java
-│   ├── Lab03/
-│   │   ├── Main.java
-│   │   ├── Robo.java
-│   │   ├── RoboTerrestre.java
-│   │   ├── RoboAereo.java
-│   │   ├── RoboSubterraneo.java
-│   │   ├── RoboLaser.java
-│   │   ├── RoboCriador.java
-│   │   ├── RoboCorredor.java
 │   │   ├── Ambiente.java
+│   │   ├── Main.java
+│   │   └── Robo.java
+│   ├── Lab02/
+│   │   ├── Ambiente.java
+│   │   ├── Main.java
+│   │   ├── Robo.java
+│   │   ├── RoboAereo.java
+│   │   ├── RoboCorredor.java
+│   │   ├── RoboGerador.java
+│   │   ├── RoboLaser.java
+│   │   ├── RoboSubterraneo.java
+│   │   ├── RoboTerrestre.java
+│   │   └── (outros arquivos do lab02)
+│   ├── Lab03/
+│   │   ├── Ambiente.java
+│   │   ├── Main.java
 │   │   ├── Obstaculo.java
-│   │   ├── TipoObstaculo.java
+│   │   ├── Robo.java
+│   │   ├── RoboAereo.java
+│   │   ├── RoboCorredor.java
+│   │   ├── RoboGerador.java
+│   │   ├── RoboLaser.java
+│   │   ├── RoboSubterraneo.java
+│   │   ├── RoboTerrestre.java
 │   │   ├── Sensor.java
 │   │   ├── SensorIluminacao.java
-│   │   └── SensorPressao.java
-│   └── Lab04/
-│       ├── Ambiente.java
-│       ├── CentralComunicacao.java
-│       ├── Main.java
-│       ├── Obstaculo.java
-│       ├── Robo.java
-│       ├── RoboAereo.java
-│       ├── RoboCorredor.java
-│       ├── RoboGerador.java
-│       ├── RoboLaser.java
-│       ├── RoboSubterraneo.java
-│       ├── RoboTerrestre.java
-│       ├── Sensor.java
-│       ├── SensorIluminacao.java
-│       ├── SensorPressao.java
-│       ├── Comunicavel.java
-│       ├── Corredor.java
-│       ├── Entidade.java
-│       ├── Gerador.java
-│       ├── Laser.java
-│       ├── Sensoreavel.java
-│       ├── BateriaSensorException.java
-│       ├── ColisaoException.java
-│       ├── ErroComunicacaoException.java
-│       ├── ForaDosLimitesException.java
-│       ├── RoboDesligadoException.java
-│       ├── VelocidadeMinimaException.java
-│       ├── TipoEntidade.java
-│       └── TipoObstaculo.java
+│   │   ├── SensorPressao.java
+│   │   ├── TipoObstaculo.java
+│   │   └── (outros arquivos do lab03)
+│   ├── Lab04/
+│   │   ├── Ambiente.java
+│   │   ├── BateriaSensorException.java
+│   │   ├── CentralComunicacao.java
+│   │   ├── ColisaoException.java
+│   │   ├── Comunicavel.java
+│   │   ├── Corredor.java
+│   │   ├── Entidade.java
+│   │   ├── ErroComunicacaoException.java
+│   │   ├── ForaDosLimitesException.java
+│   │   ├── Gerador.java
+│   │   ├── Laser.java
+│   │   ├── Main.java
+│   │   ├── Obstaculo.java
+│   │   ├── Robo.java
+│   │   ├── RoboAereo.java
+│   │   ├── RoboCorredor.java
+│   │   ├── RoboGerador.java
+│   │   ├── RoboLaser.java
+│   │   ├── RoboSubterraneo.java
+│   │   ├── RoboTerrestre.java
+│   │   ├── Sensor.java
+│   │   ├── SensorIluminacao.java
+│   │   ├── SensorPressao.java
+│   │   ├── Sensoreavel.java
+│   │   ├── TipoEntidade.java
+│   │   ├── TipoObstaculo.java
+│   │   ├── VelocidadeMinimaException.java
+│   │   └── RoboDesligadoException.java
+│   └── Lab05/
+│       ├── ambiente/
+│       │   └── Ambiente.java
+│       ├── arquivos/
+│       │   └── Logger.java
+│       ├── comunicacao/
+│       │   ├── CentralComunicacao.java
+│       │   ├── Comunicavel.java
+│       │   └── ModuloComunicacao.java
+│       ├── exception/
+│       │   ├── BateriaSensorException.java
+│       │   ├── ColisaoException.java
+│       │   ├── ErroComunicacaoException.java
+│       │   ├── ForaDosLimitesException.java
+│       │   ├── RoboDesligadoException.java
+│       │   └── VelocidadeMinimaException.java
+│       ├── main/
+│       │   └── Main.java
+│       ├── missao/
+│       │   ├── Missao.java
+│       │   ├── MissaoMonitorarIluminacao.java
+│       │   └── MissaoMonitorarLugar.java
+│       ├── robo/
+│       │   ├── AgenteInteligente.java
+│       │   ├── ControleMovimento.java
+│       │   ├── Corredor.java
+│       │   ├── Gerador.java
+│       │   ├── Laser.java
+│       │   ├── Robo.java
+│       │   ├── RoboAereo.java
+│       │   ├── RoboCorredor.java
+│       │   ├── RoboGerador.java
+│       │   ├── RoboLaser.java
+│       │   ├── RoboSubterraneo.java
+│       │   ├── RoboTerrestre.java
+│       │   └── Sensoreavel.java
+│       ├── sensores/
+│       │   ├── GerenciadorSensores.java
+│       │   ├── Sensor.java
+│       │   ├── SensorIluminacao.java
+│       │   └── SensorPressao.java
+│       └── (outros arquivos do Lab05)
 ├── bin/
+├── diagrama_uml.png
 └── README.md
-```
 
 ## Como Executar 
 
