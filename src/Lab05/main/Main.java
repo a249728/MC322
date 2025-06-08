@@ -400,7 +400,7 @@ public class Main {
 
 private static void executarTarefaPrincipal() {
     if (roboSelecionado instanceof RoboGerador) {
-        gerarNovoRobo(); // Chama o novo método de geração
+        gerarNovoRobo();
     } else if (roboSelecionado instanceof RoboLaser) {
         try {
             int destruidos = ((RoboLaser) roboSelecionado).dispararLaser(ambiente);

@@ -16,6 +16,7 @@ public class MissaoMonitorarLugar implements Missao {
 
     @Override
     public String executar(Robo r, Ambiente a) throws RoboDesligadoException, ForaDosLimitesException {
+        //executa a missao que monitora o lugar
         a.dentroDosLimitesAereo(x, y, z);
         if (r.getEstado()) {
             if(a.acharRobo(x, y, z)!=null){

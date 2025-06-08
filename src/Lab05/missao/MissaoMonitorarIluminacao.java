@@ -16,6 +16,7 @@ public class MissaoMonitorarIluminacao implements Missao {
 
     @Override
     public String executar(Robo r, Ambiente a) throws RoboDesligadoException, ForaDosLimitesException, BateriaSensorException {
+        //executa a missao que monitora a iluminacao de um lugar
         a.dentroDosLimitesAereo(x, y, z);
         if (r.getEstado()) {
             if(r.getSensorIluminacao()!=null){
