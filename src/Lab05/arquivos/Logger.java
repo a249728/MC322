@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Logger {
-    private static final String LOG_FILE = "Lab05/arquivos/log.txt";
+    private static final String LOG_FILE = "arquivos/log.txt";
 
     static {
         // Limpa o arquivo ao iniciar a aplicação

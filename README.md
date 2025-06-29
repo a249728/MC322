@@ -182,128 +182,82 @@ Aprimoramento do simulador com sistema de missões, componentes modulares e agen
 ## Estrutura Completa do Projeto  
 
 ```plaintext
-MC322/
-├── src/
-│   ├── Lab01/
-│   │   ├── Ambiente.java
-│   │   ├── Main.java
-│   │   └── Robo.java
-│   ├── Lab02/
-│   │   ├── Ambiente.java
-│   │   ├── Main.java
-│   │   ├── Robo.java
-│   │   ├── RoboAereo.java
-│   │   ├── RoboCorredor.java
-│   │   ├── RoboGerador.java
-│   │   ├── RoboLaser.java
-│   │   ├── RoboSubterraneo.java
-│   │   ├── RoboTerrestre.java
-│   │   └── (outros arquivos do lab02)
-│   ├── Lab03/
-│   │   ├── Ambiente.java
-│   │   ├── Main.java
-│   │   ├── Obstaculo.java
-│   │   ├── Robo.java
-│   │   ├── RoboAereo.java
-│   │   ├── RoboCorredor.java
-│   │   ├── RoboGerador.java
-│   │   ├── RoboLaser.java
-│   │   ├── RoboSubterraneo.java
-│   │   ├── RoboTerrestre.java
-│   │   ├── Sensor.java
-│   │   ├── SensorIluminacao.java
-│   │   ├── SensorPressao.java
-│   │   ├── TipoObstaculo.java
-│   │   └── (outros arquivos do lab03)
-│   ├── Lab04/
-│   │   ├── Ambiente.java
-│   │   ├── BateriaSensorException.java
-│   │   ├── CentralComunicacao.java
-│   │   ├── ColisaoException.java
-│   │   ├── Comunicavel.java
-│   │   ├── Corredor.java
-│   │   ├── Entidade.java
-│   │   ├── ErroComunicacaoException.java
-│   │   ├── ForaDosLimitesException.java
-│   │   ├── Gerador.java
-│   │   ├── Laser.java
-│   │   ├── Main.java
-│   │   ├── Obstaculo.java
-│   │   ├── Robo.java
-│   │   ├── RoboAereo.java
-│   │   ├── RoboCorredor.java
-│   │   ├── RoboGerador.java
-│   │   ├── RoboLaser.java
-│   │   ├── RoboSubterraneo.java
-│   │   ├── RoboTerrestre.java
-│   │   ├── Sensor.java
-│   │   ├── SensorIluminacao.java
-│   │   ├── SensorPressao.java
-│   │   ├── Sensoreavel.java
-│   │   ├── TipoEntidade.java
-│   │   ├── TipoObstaculo.java
-│   │   ├── VelocidadeMinimaException.java
-│   │   └── RoboDesligadoException.java
-│   └── Lab05/
-│       ├── ambiente/
-│       │   └── Ambiente.java
-│       ├── arquivos/
-│       │   └── Logger.java
-│       ├── comunicacao/
-│       │   ├── CentralComunicacao.java
-│       │   ├── Comunicavel.java
-│       │   └── ModuloComunicacao.java
-│       ├── exception/
-│       │   ├── BateriaSensorException.java
-│       │   ├── ColisaoException.java
-│       │   ├── ErroComunicacaoException.java
-│       │   ├── ForaDosLimitesException.java
-│       │   ├── RoboDesligadoException.java
-│       │   └── VelocidadeMinimaException.java
-│       ├── main/
-│       │   └── Main.java
-│       ├── missao/
-│       │   ├── Missao.java
-│       │   ├── MissaoMonitorarIluminacao.java
-│       │   └── MissaoMonitorarLugar.java
-│       ├── robo/
-│       │   ├── AgenteInteligente.java
-│       │   ├── ControleMovimento.java
-│       │   ├── Corredor.java
-│       │   ├── Gerador.java
-│       │   ├── Laser.java
-│       │   ├── Robo.java
-│       │   ├── RoboAereo.java
-│       │   ├── RoboCorredor.java
-│       │   ├── RoboGerador.java
-│       │   ├── RoboLaser.java
-│       │   ├── RoboSubterraneo.java
-│       │   ├── RoboTerrestre.java
-│       │   └── Sensoreavel.java
-│       ├── sensores/
-│       │   ├── GerenciadorSensores.java
-│       │   ├── Sensor.java
-│       │   ├── SensorIluminacao.java
-│       │   └── SensorPressao.java
-│       └── (outros arquivos do Lab05)
-├── bin/
-├── diagrama_uml.png
-└── README.md
+MC322
+└── src
+    ├── Lab01
+    ├── Lab02
+    ├── Lab03
+    ├── Lab04
+    └── Lab05
+        ├── ambiente
+        │   ├── Ambiente.java
+        │   ├── Entidade.java
+        │   ├── Obstaculo.java
+        │   ├── TipoEntidade.java
+        │   └── TipoObstaculo.java
+        │
+        ├── arquivos
+        │   ├── DiretrizesLab05
+        │   ├── log.txt
+        │   └── Logger.java
+        │
+        ├── comunicacao
+        │   ├── CentralComunicacao.java
+        │   ├── Comunicavel.java
+        │   └── ModuloComunicacao.java
+        │
+        ├── exception
+        │   ├── BateriaSensorException.java
+        │   ├── ColisaoException.java
+        │   ├── ErroComunicacaoException.java
+        │   ├── ForaDosLimitesException.java
+        │   ├── RoboDesligadoException.java
+        │   ├── VelocidadeMaximaException.java
+        │   └── VelocidadeMinimaException.java
+        │
+        ├── main
+        │   └── Main.java
+        │
+        ├── missao
+        │   ├── Missao.java
+        │   ├── MissaoMonitorarIluminacao.java
+        │   └── MissaoMonitorarLugar.java
+        │
+        ├── robo
+        │   ├── AgenteInteligente.java
+        │   ├── ControleMovimento.java
+        │   ├── Corredor.java
+        │   ├── Gerador.java
+        │   ├── Laser.java
+        │   ├── Robo.java
+        │   ├── RoboAereo.java
+        │   ├── RoboCorredor.java
+        │   ├── RoboGerador.java
+        │   ├── RoboLaser.java
+        │   ├── RoboSubterraneo.java
+        │   └── RoboTerrestre.java
+        │
+        └── sensores
+            ├── GerenciadorSensores.java
+            ├── Sensor.java
+            ├── Sensoravel.java
+            ├── SensorIluminacao.java
+            └── SensorPressao.java
 ```
 
 ## Como Executar 
 
 1. Chegue até a pasta
    ```bash
-   cd src/LabXX
+   cd src/Lab05
    ```
 
 2. Compile:  
    ```bash
-   javac *.java
+   javac -d bin $(find . -name "*.java")
    ```
 
 3. Execute:  
    ```bash
-   java Main
+   java -cp bin main.Main
    ```

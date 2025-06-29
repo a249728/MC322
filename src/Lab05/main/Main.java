@@ -19,8 +19,8 @@ public class Main {
     public static void main(String[] args) {
         // Inicialização do ambiente
         ambiente = new Ambiente(30, 30, 50, "15:00");
-        central = new CentralComunicacao();
         scanner = new Scanner(System.in);
+        central = new CentralComunicacao();
 
         // Cria robôs iniciais
         inicializarRobos(ambiente);
@@ -75,7 +75,14 @@ public class Main {
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
 
-            int opcao = scanner.nextInt();
+            int opcao;
+            try {
+                opcao = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Opção inválida! Tente novamente.");
+                scanner.nextLine(); // Limpa o buffer
+                continue;
+            }
             scanner.nextLine(); // Limpar buffer
 
             switch (opcao) {
