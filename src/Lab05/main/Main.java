@@ -344,7 +344,6 @@ public class Main {
                     int vmax = scanner.nextInt();
                     scanner.nextLine();
                     RoboTerrestre roboT = gerador.gerarRoboTerrestre(ambiente, nome, vmax);
-                    ambiente.adicionarRobo(roboT);
                     System.out.println("Robô terrestre gerado com sucesso!");
                     break;
                 case 2:
@@ -354,7 +353,6 @@ public class Main {
                     int zmax = scanner.nextInt();
                     scanner.nextLine();
                     RoboAereo roboA = gerador.gerarRoboAereo(ambiente, nome, zAereo, zmax);
-                    ambiente.adicionarRobo(roboA);
                     System.out.println("Robô aéreo gerado com sucesso!");
                     break;
                 case 3:
@@ -364,7 +362,6 @@ public class Main {
                     int zmin = scanner.nextInt();
                     scanner.nextLine();
                     RoboSubterraneo roboS = gerador.gerarRoboSubterraneo(ambiente, nome, zSub, zmin);
-                    ambiente.adicionarRobo(roboS);
                     System.out.println("Robô subterrâneo gerado com sucesso!");
                     break;
                 case 4:
@@ -374,7 +371,6 @@ public class Main {
                     int alc = scanner.nextInt();
                     scanner.nextLine();
                     RoboLaser roboL = gerador.gerarRoboLaser(ambiente, nome, vmaxL, alc);
-                    ambiente.adicionarRobo(roboL);
                     System.out.println("Robô laser gerado com sucesso!");
                     break;
                 case 5:
@@ -384,7 +380,6 @@ public class Main {
                     int vminC = scanner.nextInt();
                     scanner.nextLine();
                     RoboCorredor roboC = gerador.gerarRoboCorredor(ambiente, nome, vmaxC, vminC);
-                    ambiente.adicionarRobo(roboC);
                     System.out.println("Robô corredor gerado com sucesso!");
                     break;
                 case 6:
@@ -394,7 +389,6 @@ public class Main {
                     int zmaxGer = scanner.nextInt();
                     scanner.nextLine();
                     RoboGerador roboG = gerador.gerarRoboGerador(ambiente, nome, zGer, zmaxGer);
-                    ambiente.adicionarRobo(roboG);
                     System.out.println("Robô gerador gerado com sucesso!");
                     break;
                 default:
