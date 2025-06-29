@@ -170,8 +170,7 @@ Aprimoramento do simulador com sistema de missões, componentes modulares e agen
 
 4. **Melhorias Gerais**:
    - Tratamento refinado de exceções
-   - Sistema de colisões aprimorado
-   - Visualização 3D do ambiente
+   - Sistema de missões
    - Geração de relatórios de missões
 
 ### Diagrama de Classes Atualizado:
